@@ -1,0 +1,342 @@
+/* Location Picker Overlay */
+.location-picker-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+/* Location Picker Modal */
+.location-picker-modal {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+}
+
+/* Modal Header */
+.location-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  color: white;
+}
+
+.location-picker-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.location-picker-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.location-picker-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Modal Content */
+.location-picker-content {
+  padding: 0;
+}
+
+/* Search Container */
+.location-search-container {
+  padding: 20px 30px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.location-search-input {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.location-search-input:focus {
+  outline: none;
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.current-location-btn {
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  border: none;
+  border-radius: 12px;
+  padding: 15px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  min-width: 60px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.current-location-btn .white-styled-icon {
+  color: #ffffff !important;
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.current-location-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+}
+
+.current-location-btn:active {
+  transform: translateY(0);
+}
+
+/* Map Container */
+.map-container {
+  height: 400px;
+  position: relative;
+}
+
+.google-map {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.map-loading-message {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: #f4f4f4;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Location Info */
+.location-info {
+  padding: 20px 30px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.selected-location {
+  margin-bottom: 15px;
+}
+
+.selected-location h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.selected-location p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 5px 0;
+  line-height: 1.4;
+}
+
+.coordinates {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #ff6b35;
+  font-weight: 600;
+}
+
+.location-instructions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.location-instructions p {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.instruction-icon {
+  color: #ff6b35 !important;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+/* Actions */
+.location-picker-actions {
+  display: flex;
+  gap: 15px;
+  padding: 20px 30px;
+  background-color: white;
+}
+
+.location-cancel-btn,
+.location-confirm-btn {
+  flex: 1;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.location-cancel-btn {
+  background-color: #f8f9fa;
+  color: #666;
+  border: 2px solid #e0e0e0;
+}
+
+.location-cancel-btn:hover {
+  background-color: #e9ecef;
+  border-color: #d0d0d0;
+}
+
+.location-confirm-btn {
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  color: white;
+}
+
+.location-confirm-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+}
+
+.location-confirm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .location-picker-overlay {
+    padding: 10px;
+  }
+  
+  .location-picker-modal {
+    max-height: 95vh;
+  }
+  
+  .location-picker-header {
+    padding: 20px 20px 15px;
+  }
+  
+  .location-picker-title {
+    font-size: 20px;
+  }
+  
+  .location-search-container,
+  .location-info,
+  .location-picker-actions {
+    padding: 15px 20px;
+  }
+  
+  .location-search-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .current-location-btn {
+    width: 100%;
+    min-width: auto;
+    height: 50px;
+  }
+  
+  .map-container {
+    height: 300px;
+  }
+  
+  .location-instructions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .location-picker-actions {
+    flex-direction: column;
+  }
+  
+  .location-cancel-btn,
+  .location-confirm-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .location-picker-header {
+    padding: 15px 15px 10px;
+  }
+  
+  .location-picker-title {
+    font-size: 18px;
+  }
+  
+  .location-search-container,
+  .location-info,
+  .location-picker-actions {
+    padding: 15px;
+  }
+  
+  .map-container {
+    height: 250px;
+  }
+  
+  .location-search-input {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  .current-location-btn {
+    height: 45px;
+    font-size: 16px;
+  }
+}
