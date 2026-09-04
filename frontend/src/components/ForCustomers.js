@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "./ForCustomers.css";
+import "./ModalCustomer.css";
+
 
 import Header from "./Header";
 import Footer from "./Footer";
-import Modal from "./Modal";
+import ModalCustomer from "./ModalCustomer";
 
 const features = [
   {
@@ -281,7 +283,7 @@ const ForCustomers = () => {
       </section>
 
 
-      <Modal
+      <ModalCustomer
         isOpen={isCustomerRegistrationOpen}
         onClose={() => setIsCustomerRegistrationOpen(false)}
         type="customer"

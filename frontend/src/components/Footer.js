@@ -126,6 +126,10 @@ const Footer = () => {
           name: "Contact Us",
           path: "/ContactSection",
         },
+        {
+          name: "modal",
+          path: "/ModalCustomer",
+        },
       ],
     },
 
