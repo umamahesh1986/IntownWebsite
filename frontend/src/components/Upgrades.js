@@ -59,11 +59,15 @@ const FAQ_DATA = [
 ];
 
 export default function Upgrades() {
+<<<<<<< HEAD
   const [faqs] = useState(FAQ_DATA);
+=======
+>>>>>>> 8590915 (intown)
   const [open, setOpen] = useState(false);
 
   return (
     <>
+<<<<<<< HEAD
       {/* HEADER */}
       <Header />
 
@@ -148,11 +152,55 @@ export default function Upgrades() {
                         opacity: 1,
                         y: 0,
                       }}
+=======
+      <Header />
+
+      <main className="upgrades">
+
+        {/* ================= FAQ SECTION ================= */}
+
+        <section className="upgrade-section upgrade-section-two">
+          <div className="faq-wrapper">
+
+            <motion.button
+              type="button"
+              className="faq-main"
+              onClick={() => setOpen((prev) => !prev)}
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7 }}
+              aria-expanded={open}
+            >
+              <span className="faq-title">FAQs</span>
+
+              <span className={open ? "arrow rotate" : "arrow"}>
+                ▼
+              </span>
+            </motion.button>
+
+            <AnimatePresence initial={false}>
+              {open && (
+                <motion.div
+                  className="faq-container"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                >
+                  {FAQ_DATA.map((item, index) => (
+                    <motion.article
+                      className="faq-item"
+                      key={item.id}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+>>>>>>> 8590915 (intown)
                       transition={{
                         duration: 0.3,
                         delay: index * 0.04,
                       }}
                     >
+<<<<<<< HEAD
 
                       <h3 className="faq-q">
                         {item.q}
@@ -218,10 +266,58 @@ export default function Upgrades() {
 
               <div className="scanner-text">
 
+=======
+                      <h3 className="faq-q">{item.q}</h3>
+
+                      <p className="faq-a">{item.a}</p>
+                    </motion.article>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+          </div>
+        </section>
+
+        {/* ================= DOWNLOAD SECTION ================= */}
+
+        <section className="upgrade-section upgrade-section-one">
+          <motion.div
+            className="scanner-content"
+            initial={{ opacity: 0, y: 45 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8 }}
+          >
+
+            {/* QR CARD */}
+
+            <motion.div
+              className="scanner-box"
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <motion.div
+                className="scanner-image-wrap"
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.25 }}
+              >
+                <img
+                  className="scanner-image"
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://play.google.com/store/search?q=intown&c=apps&hl=en"
+                  alt="Scan to download INtown"
+                />
+              </motion.div>
+
+              <div className="scanner-text">
+>>>>>>> 8590915 (intown)
                 <span className="scanner-small">
                   SCAN TO
                 </span>
 
+<<<<<<< HEAD
                 <h3>
                   DOWNLOAD
                   <br />
@@ -289,6 +385,58 @@ export default function Upgrades() {
       </main>
 
       {/* FOOTER */}
+=======
+                <h3 className="download-heading">
+                  <span className="download-word">
+                    DOWNLOAD
+                  </span>
+
+                  <span className="intown-word">
+                    INtown
+                  </span>
+                </h3>
+              </div>
+            </motion.div>
+
+            {/* CREDIBILITY CONTENT */}
+
+            <div className="credibility-content">
+
+              <motion.h1
+                className="credHeading"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.15,
+                }}
+              >
+                not everyone gets it
+              </motion.h1>
+
+              <motion.p
+                className="credDesc"
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.3,
+                }}
+              >
+                like all good things in life, earning membership is not easy;
+                but unlocking a greater future makes the effort worthwhile.
+              </motion.p>
+
+            </div>
+
+          </motion.div>
+        </section>
+
+      </main>
+
+>>>>>>> 8590915 (intown)
       <Footer />
     </>
   );

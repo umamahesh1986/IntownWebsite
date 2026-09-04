@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .legal-container {
   max-width: 900px;
   margin: 0 auto;
@@ -50,3 +51,433 @@
     padding: 70px 15px;
   }
 }
+=======
+
+.legal-container {
+  width: 100%;
+  max-width: 1000px;
+  min-height: 100vh;
+  margin: 50px auto;
+  padding: 135px 32px 90px;
+  box-sizing: border-box;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  color: #4a4a4a;
+  line-height: 1.7;
+  background: transparent;
+}
+
+.legal-container::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 90% 5%,
+      rgba(245, 130, 32, 0.11),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 5% 55%,
+      rgba(245, 130, 32, 0.055),
+      transparent 28%
+    ),
+    linear-gradient(
+      180deg,
+      #fff7ef 0%,
+      #ffffff 35%,
+      #ffffff 68%,
+      #fff9f4 100%
+    );
+}
+
+.legal-container h1 {
+  width: 100%;
+  margin: 0 auto 45px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  font-weight: 800;
+  color: #1f1f1f;
+  position: relative;
+}
+
+.legal-container h1::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 4px;
+  border-radius: 20px;
+  background: #f58220;
+  box-shadow: 0 3px 10px rgba(245, 130, 32, 0.18);
+}
+
+.legal-container h2 {
+  width: 100%;
+  margin: 42px auto 15px;
+  padding-left: 16px;
+  box-sizing: border-box;
+  font-size: 1.35rem;
+  line-height: 1.4;
+  font-weight: 750;
+  color: #e96f12;
+  position: relative;
+}
+
+.legal-container h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 4px;
+  height: calc(100% - 8px);
+  background: #f58220;
+  border-radius: 10px;
+  box-shadow: 0 2px 7px rgba(245, 130, 32, 0.18);
+}
+
+.legal-container p {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto 18px;
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: #555555;
+  text-align: left;
+}
+
+.legal-container ul {
+  width: 100%;
+  max-width: 850px;
+  margin: 10px auto 25px;
+  padding-left: 25px;
+  box-sizing: border-box;
+}
+
+.legal-container li {
+  margin-bottom: 9px;
+  padding-left: 5px;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: #555555;
+}
+
+.legal-container li::marker {
+  color: #f58220;
+  font-size: 0.9em;
+}
+
+.contact-box {
+  width: 100%;
+  max-width: 880px;
+  margin: 25px auto 0;
+  padding: 22px 24px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: 1px solid rgba(245, 130, 32, 0.20);
+  background:
+    linear-gradient(
+      135deg,
+      #fff0e2 0%,
+      #fff8f2 50%,
+      #ffffff 100%
+    );
+  box-shadow:
+    0 10px 30px rgba(245, 130, 32, 0.07);
+  color: #4b4b4b;
+  line-height: 1.7;
+}
+
+.contact-box p {
+  margin-bottom: 8px;
+  color: #555555;
+}
+
+.legal-note {
+  width: 100%;
+  max-width: 880px;
+  margin: 30px auto 0;
+  padding: 18px 0 0;
+  border-top: 1px solid #f2ded0;
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: #777777;
+  text-align: left;
+}
+
+.legal-container a {
+  color: #f58220;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.legal-container a:hover {
+  color: #d96c0b;
+  text-decoration: underline;
+}
+
+.legal-container strong {
+  color: #333333;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .legal-container {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    padding: 125px 28px 80px;
+  }
+
+  .legal-container h1 {
+    font-size: clamp(2rem, 5vw, 2.7rem);
+    margin-bottom: 40px;
+  }
+
+  .legal-container h2 {
+    font-size: 1.28rem;
+    margin-top: 38px;
+  }
+
+  .legal-container p {
+    font-size: 0.96rem;
+    line-height: 1.75;
+  }
+
+  .legal-container li {
+    font-size: 0.94rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .legal-container {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 115px 18px 65px;
+  }
+
+  .legal-container::before {
+    background:
+      radial-gradient(
+        circle at 100% 0%,
+        rgba(245, 130, 32, 0.10),
+        transparent 38%
+      ),
+      radial-gradient(
+        circle at 0% 45%,
+        rgba(245, 130, 32, 0.045),
+        transparent 35%
+      ),
+      linear-gradient(
+        180deg,
+        #fff8f1 0%,
+        #ffffff 48%,
+        #fffaf6 100%
+      );
+  }
+
+  .legal-container h1 {
+    width: 100%;
+    margin: 0 auto 35px;
+    padding: 0 5px 17px;
+    font-size: clamp(1.8rem, 8vw, 2.35rem);
+    line-height: 1.18;
+    letter-spacing: -0.5px;
+    text-align: center;
+  }
+
+  .legal-container h1::after {
+    width: 55px;
+    height: 3px;
+  }
+
+  .legal-container h2 {
+    width: 100%;
+    margin: 34px auto 13px;
+    padding-left: 12px;
+    font-size: 1.15rem;
+    line-height: 1.45;
+    text-align: left;
+  }
+
+  .legal-container h2::before {
+    width: 3px;
+    top: 4px;
+    height: calc(100% - 8px);
+  }
+
+  .legal-container p {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto 17px;
+    font-size: 0.92rem;
+    line-height: 1.75;
+    text-align: left;
+    overflow-wrap: break-word;
+  }
+
+  .legal-container ul {
+    width: 100%;
+    max-width: 650px;
+    margin: 8px auto 22px;
+    padding-left: 22px;
+    box-sizing: border-box;
+  }
+
+  .legal-container li {
+    width: 100%;
+    margin-bottom: 8px;
+    padding-left: 3px;
+    font-size: 0.91rem;
+    line-height: 1.7;
+    text-align: left;
+    overflow-wrap: break-word;
+  }
+
+  .contact-box {
+    width: 100%;
+    max-width: 650px;
+    margin: 22px auto 0;
+    padding: 18px;
+    border-radius: 13px;
+    border: 1px solid rgba(245, 130, 32, 0.18);
+    background:
+      linear-gradient(
+        135deg,
+        #fff0e2 0%,
+        #fff7f0 55%,
+        #ffffff 100%
+      );
+    box-shadow:
+      0 7px 22px rgba(245, 130, 32, 0.06);
+    text-align: left;
+  }
+
+  .contact-box p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .legal-note {
+    width: 100%;
+    max-width: 650px;
+    margin: 25px auto 0;
+    padding-top: 15px;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    text-align: center;
+  }
+
+  .legal-container a {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-container {
+    padding: 108px 15px 55px;
+  }
+
+  .legal-container h1 {
+    font-size: 1.85rem;
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+
+  .legal-container h1::after {
+    width: 50px;
+    height: 3px;
+  }
+
+  .legal-container h2 {
+    font-size: 1.08rem;
+    margin-top: 30px;
+    margin-bottom: 12px;
+  }
+
+  .legal-container p {
+    font-size: 0.89rem;
+    line-height: 1.72;
+  }
+
+  .legal-container ul {
+    padding-left: 20px;
+  }
+
+  .legal-container li {
+    font-size: 0.88rem;
+    line-height: 1.68;
+  }
+
+  .contact-box {
+    padding: 15px;
+    border-radius: 11px;
+  }
+
+  .contact-box p {
+    font-size: 0.87rem;
+    line-height: 1.65;
+  }
+
+  .legal-note {
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 360px) {
+  .legal-container {
+    padding: 105px 13px 50px;
+  }
+
+  .legal-container h1 {
+    font-size: 1.65rem;
+    letter-spacing: -0.3px;
+  }
+
+  .legal-container h1::after {
+    width: 45px;
+    height: 2.5px;
+  }
+
+  .legal-container h2 {
+    font-size: 1rem;
+  }
+
+  .legal-container p {
+    font-size: 0.86rem;
+  }
+
+  .legal-container li {
+    font-size: 0.85rem;
+  }
+
+  .contact-box {
+    padding: 14px;
+  }
+
+  .contact-box p {
+    font-size: 0.85rem;
+  }
+}
+
+>>>>>>> 8590915 (intown)

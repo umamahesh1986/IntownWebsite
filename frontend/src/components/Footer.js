@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8590915 (intown)
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
+<<<<<<< HEAD
 /* =========================================================
    FOOTER SECTION
 ========================================================= */
+=======
+/* FOOTER SECTION */
+>>>>>>> 8590915 (intown)
 
 const FooterSection = ({ title, links }) => {
   const [open, setOpen] = useState(false);
@@ -48,9 +55,13 @@ const FooterSection = ({ title, links }) => {
 };
 
 
+<<<<<<< HEAD
 /* =========================================================
    FOOTER
 ========================================================= */
+=======
+/* FOOTER */
+>>>>>>> 8590915 (intown)
 
 const Footer = () => {
   const sections = [
@@ -130,7 +141,11 @@ const Footer = () => {
           path: "/terms",
         },
         {
+<<<<<<< HEAD
           name: "MerchantTerms",
+=======
+          name: "Merchant Terms",
+>>>>>>> 8590915 (intown)
           path: "/MerchantTerms",
         },
         {
@@ -146,11 +161,15 @@ const Footer = () => {
   ];
 
 
+<<<<<<< HEAD
   /* =========================================================
      COMMON LINK CLICK
      ---------------------------------------------------------
      Every footer link goes to the top of the page.
   ========================================================= */
+=======
+ 
+>>>>>>> 8590915 (intown)
 
   const handleFooterLinkClick = () => {
     window.scrollTo({
@@ -165,6 +184,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
 
+<<<<<<< HEAD
         {/* =================================================
             TOP
         ================================================= */}
@@ -174,6 +194,13 @@ const Footer = () => {
           {/* =================================================
               LEFT
           ================================================= */}
+=======
+       
+
+        <div className="footer-top">
+
+        
+>>>>>>> 8590915 (intown)
 
           <div className="footer-left">
 
@@ -189,9 +216,12 @@ const Footer = () => {
           </div>
 
 
+<<<<<<< HEAD
           {/* =================================================
               RIGHT
           ================================================= */}
+=======
+>>>>>>> 8590915 (intown)
 
           <div className="footer-right">
 
@@ -208,9 +238,13 @@ const Footer = () => {
         </div>
 
 
+<<<<<<< HEAD
         {/* =================================================
             BOTTOM
         ================================================= */}
+=======
+     
+>>>>>>> 8590915 (intown)
 
         <div className="footer-bottom">
 

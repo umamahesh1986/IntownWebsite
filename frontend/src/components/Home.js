@@ -66,9 +66,13 @@ const Home = () => {
 
       <Header />
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 1 - HERO
       ===================================================== */}
+=======
+      {/* SECTION 1 - HERO */}
+>>>>>>> 8590915 (intown)
 
       <section className="home-hero-section">
 
@@ -103,6 +107,7 @@ const Home = () => {
 
           <div className="home-hero-inner">
 
+<<<<<<< HEAD
             {/* =================================================
                 HERO EYEBROW
                 Desktop  : Single line
@@ -110,6 +115,8 @@ const Home = () => {
                 Mobile   : 3 lines
             ================================================= */}
 
+=======
+>>>>>>> 8590915 (intown)
             <motion.span
               className="home-hero-eyebrow"
               variants={{
@@ -127,25 +134,41 @@ const Home = () => {
               }}
             >
 
+<<<<<<< HEAD
               <span className="hero-line">
                 Of the{" "}
                 <span className="hero-local-highlight">
                   Local
                 </span>,
+=======
+              <span className="hero-line">"
+                Of the{" "}
+                <span className="hero-local-highlight">
+                  Local
+                </span>
+>>>>>>> 8590915 (intown)
               </span>{" "}
 
               <span className="hero-line">
                 By the{" "}
                 <span className="hero-local-highlight">
                   Local
+<<<<<<< HEAD
                 </span>,
+=======
+                </span>
+>>>>>>> 8590915 (intown)
               </span>{" "}
 
               <span className="hero-line">
                 For the{" "}
                 <span className="hero-local-highlight">
                   Local
+<<<<<<< HEAD
                 </span>,
+=======
+                </span> "
+>>>>>>> 8590915 (intown)
               </span>
 
             </motion.span>
@@ -167,9 +190,15 @@ const Home = () => {
                 },
               }}
             >
+<<<<<<< HEAD
               Your Local World.
               <span>
                 Now More Discoverable.
+=======
+              Your Local World
+              <span>
+                Now More Discoverable
+>>>>>>> 8590915 (intown)
               </span>
             </motion.h1>
 
@@ -260,9 +289,13 @@ const Home = () => {
       </section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 2 - BRAND POSITIONING
       ===================================================== */}
+=======
+      {/* SECTION 2 - BRAND POSITIONING */}
+>>>>>>> 8590915 (intown)
 
       <section className="eco-positioning">
 
@@ -292,9 +325,15 @@ const Home = () => {
             </span>
 
             <h2>
+<<<<<<< HEAD
               Built for local commerce.
               <br />
               <span>Designed for everyone.</span>
+=======
+              Built for local commerce
+              <br/>
+              <span>Designed for everyone</span>
+>>>>>>> 8590915 (intown)
             </h2>
 
           </motion.div>
@@ -394,9 +433,13 @@ const Home = () => {
       </section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 3 - DISCOVER LOCAL COMMERCE
       ===================================================== */}
+=======
+      {/* SECTION 3 - DISCOVER LOCAL COMMERCE */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         ref={containerRef}
@@ -555,9 +598,13 @@ const Home = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 4 - PROBLEM
       ===================================================== */}
+=======
+      {/* SECTION 4 - PROBLEM */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="home-problem-section"
@@ -577,9 +624,15 @@ const Home = () => {
           </div>
 
           <h2 className="home-problem-heading">
+<<<<<<< HEAD
             A lot happens locally.
             <span>
               Very little gets discovered.
+=======
+            A lot happens locally
+            <span>
+              Very little gets discovered
+>>>>>>> 8590915 (intown)
             </span>
           </h2>
 
@@ -686,9 +739,13 @@ const Home = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 5 - ONE LOCAL COMMERCE ECOSYSTEM
       ===================================================== */}
+=======
+      {/* SECTION 5 - ONE LOCAL COMMERCE ECOSYSTEM */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="home-ecosystem-section"
@@ -710,9 +767,15 @@ const Home = () => {
             </div>
 
             <h2 className="home-ecosystem-heading">
+<<<<<<< HEAD
               One ecosystem.
               <span>
                 Multiple possibilities.
+=======
+              One ecosystem
+              <span>
+                Multiple possibilities
+>>>>>>> 8590915 (intown)
               </span>
             </h2>
 
@@ -848,9 +911,13 @@ const Home = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 6 - HOW INTOWN WORKS
       ===================================================== */}
+=======
+      {/*  SECTION 6 - HOW INTOWN WORKS */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="home-how-section"
@@ -1054,9 +1121,13 @@ const Home = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 7 - LOCAL
       ===================================================== */}
+=======
+      {/* SECTION 7 - LOCAL */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="home-local-section"
@@ -1080,7 +1151,11 @@ const Home = () => {
             <h2 className="home-local-heading">
               Your neighborhood
               <span>
+<<<<<<< HEAD
                 has more to offer.
+=======
+                has more to offer
+>>>>>>> 8590915 (intown)
               </span>
             </h2>
 
@@ -1229,9 +1304,13 @@ const Home = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 8 - HELP LOCAL BUSINESSES GROW
       ===================================================== */}
+=======
+      {/* SECTION 8 - HELP LOCAL BUSINESSES GROW */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="home-merchant-section"
@@ -1255,7 +1334,11 @@ const Home = () => {
             <h2 className="home-merchant-heading">
               Your next customer
               <span>
+<<<<<<< HEAD
                 could already be nearby.
+=======
+                could already be nearby
+>>>>>>> 8590915 (intown)
               </span>
             </h2>
 
@@ -1403,9 +1486,13 @@ const Home = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 9 - D2C BRANDS
       ===================================================== */}
+=======
+      {/* SECTION 9 - D2C BRANDS */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="home-brands-section"
@@ -1429,7 +1516,11 @@ const Home = () => {
             <h2 className="home-brands-heading">
               From online discovery
               <span>
+<<<<<<< HEAD
                 to offline presence.
+=======
+                to offline presence
+>>>>>>> 8590915 (intown)
               </span>
             </h2>
 
@@ -1536,9 +1627,13 @@ const Home = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 10 - TECHNOLOGY
       ===================================================== */}
+=======
+      {/* SECTION 10 - TECHNOLOGY */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="home-technology-section"
@@ -1562,7 +1657,11 @@ const Home = () => {
             <h2 className="home-technology-heading">
               Technology that brings
               <span>
+<<<<<<< HEAD
                 local commerce closer.
+=======
+                local commerce closer
+>>>>>>> 8590915 (intown)
               </span>
             </h2>
 
@@ -1702,9 +1801,13 @@ const Home = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 11 - FUTURE
       ===================================================== */}
+=======
+      {/*SECTION 11 - FUTURE */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="home-future-section"
@@ -1757,9 +1860,13 @@ const Home = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           SECTION 12 - FINAL CTA
       ===================================================== */}
+=======
+      {/* SECTION 12 - FINAL CTA */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="home-final-section"
@@ -1812,7 +1919,11 @@ const Home = () => {
           <h2 className="home-final-heading">
             Your local world
             <span>
+<<<<<<< HEAD
               is waiting.
+=======
+              is waiting
+>>>>>>> 8590915 (intown)
             </span>
           </h2>
 

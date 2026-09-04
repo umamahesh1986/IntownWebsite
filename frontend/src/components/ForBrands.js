@@ -35,9 +35,13 @@ const D2CBrands = () => {
 
       <main>
 
+<<<<<<< HEAD
         {/* =====================================================
             HERO
         ===================================================== */}
+=======
+        {/*HERO */}
+>>>>>>> 8590915 (intown)
 
         <section
           className="d2c-hero"
@@ -73,7 +77,11 @@ const D2CBrands = () => {
             </span>
 
             <h1>
+<<<<<<< HEAD
               From online discovery to offline presence.
+=======
+              From online discovery to offline presence
+>>>>>>> 8590915 (intown)
             </h1>
 
             <p>
@@ -100,9 +108,13 @@ const D2CBrands = () => {
         </section>
 
 
+<<<<<<< HEAD
         {/* =====================================================
             OPPORTUNITY
         ===================================================== */}
+=======
+        {/*OPPORTUNITY */}
+>>>>>>> 8590915 (intown)
 
         <section className="d2c-opportunity">
 
@@ -131,7 +143,11 @@ const D2CBrands = () => {
             <h2>
               Bring D2C brands
               <br />
+<<<<<<< HEAD
               into local retail.
+=======
+              into local retail
+>>>>>>> 8590915 (intown)
             </h2>
 
             <p>
@@ -185,9 +201,13 @@ const D2CBrands = () => {
         </section>
 
 
+<<<<<<< HEAD
         {/* =====================================================
             CTA
         ===================================================== */}
+=======
+        {/* CTA */}
+>>>>>>> 8590915 (intown)
 
         <section className="d2c-cta">
 
@@ -216,7 +236,11 @@ const D2CBrands = () => {
             <h2>
               Take your brand from online
               <br />
+<<<<<<< HEAD
               discovery to local retail.
+=======
+              discovery to local retail
+>>>>>>> 8590915 (intown)
             </h2>
 
             <p>

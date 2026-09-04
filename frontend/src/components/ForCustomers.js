@@ -42,9 +42,13 @@ const ForCustomers = () => {
 
       <Header />
 
+<<<<<<< HEAD
       {/* =====================================================
           HERO SECTION
       ===================================================== */}
+=======
+      {/* HERO SECTION */}
+>>>>>>> 8590915 (intown)
 
       <motion.section
         className="customers-hero"
@@ -82,9 +86,15 @@ const ForCustomers = () => {
             </div>
 
             <h1>
+<<<<<<< HEAD
               Discover more.
               <br />
               <span>Spend smarter.</span>
+=======
+              Discover more
+              <br />
+              <span>Spend smarter</span>
+>>>>>>> 8590915 (intown)
             </h1>
 
             <p className="customers-hero-description">
@@ -108,9 +118,13 @@ const ForCustomers = () => {
       </motion.section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           WHAT YOU GET
       ===================================================== */}
+=======
+      {/* WHAT YOU GET */}
+>>>>>>> 8590915 (intown)
 
       <section className="customers-benefits">
 
@@ -200,9 +214,13 @@ const ForCustomers = () => {
       </section>
 
 
+<<<<<<< HEAD
       {/* =====================================================
           FINAL CTA
       ===================================================== */}
+=======
+      {/* FINAL CTA */}
+>>>>>>> 8590915 (intown)
 
       <section className="customers-final-cta">
 
@@ -231,11 +249,19 @@ const ForCustomers = () => {
             </span>
 
             <h2>
+<<<<<<< HEAD
               Start discovering your local world.
             </h2>
 
             <p>
               Download INtown and see what's around you.
+=======
+              Start discovering your local world
+            </h2>
+
+            <p>
+              Download INtown and see what's around you
+>>>>>>> 8590915 (intown)
             </p>
 
             <a

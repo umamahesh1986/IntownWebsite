@@ -40,6 +40,7 @@ const MerchantTerms = () => {
 
           <div className="merchant-terms-list">
 
+<<<<<<< HEAD
             {/* 01 */}
 
             <article className="merchant-term-item">
@@ -47,6 +48,13 @@ const MerchantTerms = () => {
               <span className="merchant-term-number">
                 01
               </span>
+=======
+            
+
+            <article className="merchant-term-item">
+
+              
+>>>>>>> 8590915 (intown)
 
               <div className="merchant-term-text">
 
@@ -66,6 +74,7 @@ const MerchantTerms = () => {
 
             </article>
 
+<<<<<<< HEAD
             {/* 02 */}
 
             <article className="merchant-term-item">
@@ -73,6 +82,13 @@ const MerchantTerms = () => {
               <span className="merchant-term-number">
                 02
               </span>
+=======
+           
+
+            <article className="merchant-term-item">
+
+              
+>>>>>>> 8590915 (intown)
 
               <div className="merchant-term-text">
 
@@ -96,6 +112,7 @@ const MerchantTerms = () => {
 
             </article>
 
+<<<<<<< HEAD
             {/* 03 */}
 
             <article className="merchant-term-item">
@@ -103,6 +120,13 @@ const MerchantTerms = () => {
               <span className="merchant-term-number">
                 03
               </span>
+=======
+            
+
+            <article className="merchant-term-item">
+
+             
+>>>>>>> 8590915 (intown)
 
               <div className="merchant-term-text">
 
@@ -122,6 +146,7 @@ const MerchantTerms = () => {
 
             </article>
 
+<<<<<<< HEAD
             {/* 04 */}
 
             <article className="merchant-term-item">
@@ -129,6 +154,13 @@ const MerchantTerms = () => {
               <span className="merchant-term-number">
                 04
               </span>
+=======
+          
+
+            <article className="merchant-term-item">
+
+           
+>>>>>>> 8590915 (intown)
 
               <div className="merchant-term-text">
 
@@ -148,6 +180,7 @@ const MerchantTerms = () => {
 
             </article>
 
+<<<<<<< HEAD
             {/* 05 */}
 
             <article className="merchant-term-item">
@@ -155,6 +188,13 @@ const MerchantTerms = () => {
               <span className="merchant-term-number">
                 05
               </span>
+=======
+         
+
+            <article className="merchant-term-item">
+
+              
+>>>>>>> 8590915 (intown)
 
               <div className="merchant-term-text">
 
@@ -173,6 +213,7 @@ const MerchantTerms = () => {
 
             </article>
 
+<<<<<<< HEAD
             {/* 06 */}
 
             <article className="merchant-term-item">
@@ -180,6 +221,13 @@ const MerchantTerms = () => {
               <span className="merchant-term-number">
                 06
               </span>
+=======
+          
+
+            <article className="merchant-term-item">
+
+             
+>>>>>>> 8590915 (intown)
 
               <div className="merchant-term-text">
 
@@ -199,6 +247,7 @@ const MerchantTerms = () => {
 
             </article>
 
+<<<<<<< HEAD
             {/* 07 */}
 
             <article className="merchant-term-item">
@@ -206,6 +255,13 @@ const MerchantTerms = () => {
               <span className="merchant-term-number">
                 07
               </span>
+=======
+          
+
+            <article className="merchant-term-item">
+
+             
+>>>>>>> 8590915 (intown)
 
               <div className="merchant-term-text">
 
@@ -223,6 +279,7 @@ const MerchantTerms = () => {
 
             </article>
 
+<<<<<<< HEAD
             {/* 08 */}
 
             <article className="merchant-term-item">
@@ -230,6 +287,13 @@ const MerchantTerms = () => {
               <span className="merchant-term-number">
                 08
               </span>
+=======
+           
+
+            <article className="merchant-term-item">
+
+             
+>>>>>>> 8590915 (intown)
 
               <div className="merchant-term-text">
 

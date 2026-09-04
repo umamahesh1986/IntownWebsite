@@ -164,9 +164,13 @@ const Download = () => {
 
             <article className="download-feature-card">
 
+<<<<<<< HEAD
               <span className="download-feature-number">
                 01
               </span>
+=======
+             
+>>>>>>> 8590915 (intown)
 
               <div className="download-feature-icon">
                 <span>⌖</span>
@@ -185,9 +189,13 @@ const Download = () => {
 
             <article className="download-feature-card">
 
+<<<<<<< HEAD
               <span className="download-feature-number">
                 02
               </span>
+=======
+             
+>>>>>>> 8590915 (intown)
 
               <div className="download-feature-icon">
                 <span>₹</span>
@@ -205,9 +213,13 @@ const Download = () => {
 
             <article className="download-feature-card">
 
+<<<<<<< HEAD
               <span className="download-feature-number">
                 03
               </span>
+=======
+            
+>>>>>>> 8590915 (intown)
 
               <div className="download-feature-icon">
                 <span>✦</span>
@@ -226,9 +238,13 @@ const Download = () => {
 
             <article className="download-feature-card">
 
+<<<<<<< HEAD
               <span className="download-feature-number">
                 04
               </span>
+=======
+             
+>>>>>>> 8590915 (intown)
 
               <div className="download-feature-icon">
                 <span>↗</span>

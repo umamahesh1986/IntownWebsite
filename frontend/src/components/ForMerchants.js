@@ -66,9 +66,13 @@ const ForMerchants = () => {
 
       <main>
 
+<<<<<<< HEAD
         {/* =====================================================
             HERO
         ===================================================== */}
+=======
+        {/* HERO */}
+>>>>>>> 8590915 (intown)
 
         <section
           className="merchant-hero"
@@ -107,7 +111,11 @@ const ForMerchants = () => {
               </span>
 
               <h1>
+<<<<<<< HEAD
                 Get discovered by the customers around you.
+=======
+                Get discovered by the customers around you
+>>>>>>> 8590915 (intown)
               </h1>
 
               <p>
@@ -136,9 +144,13 @@ const ForMerchants = () => {
         </section>
 
 
+<<<<<<< HEAD
         {/* =====================================================
             GROWTH FUNNEL
         ===================================================== */}
+=======
+        {/* GROWTH FUNNEL */}
+>>>>>>> 8590915 (intown)
 
         <section className="merchant-funnel">
 
@@ -168,7 +180,11 @@ const ForMerchants = () => {
             <h2>
               Turn local discovery into
               <br />
+<<<<<<< HEAD
               lasting growth.
+=======
+              lasting growth
+>>>>>>> 8590915 (intown)
             </h2>
 
             <div className="merchant-heading-line" />
@@ -185,7 +201,11 @@ const ForMerchants = () => {
 
             {funnelSteps.map((step, index) => (
               <motion.div
+<<<<<<< HEAD
                 key={step.number}
+=======
+               
+>>>>>>> 8590915 (intown)
                 className="merchant-funnel-item"
                 initial={{
                   opacity: 0,
@@ -208,9 +228,13 @@ const ForMerchants = () => {
                 }}
               >
 
+<<<<<<< HEAD
                 <div className="merchant-funnel-number">
                   {step.number}
                 </div>
+=======
+                
+>>>>>>> 8590915 (intown)
 
                 <div className="merchant-funnel-text">
 
@@ -238,9 +262,13 @@ const ForMerchants = () => {
         </section>
 
 
+<<<<<<< HEAD
         {/* =====================================================
             FEATURES
         ===================================================== */}
+=======
+        {/* FEATURES */}
+>>>>>>> 8590915 (intown)
 
         <section className="merchant-features">
 
@@ -270,7 +298,11 @@ const ForMerchants = () => {
             <h2>
               Everything you need
               <br />
+<<<<<<< HEAD
               to grow locally.
+=======
+              to grow locally
+>>>>>>> 8590915 (intown)
             </h2>
 
             <div className="merchant-heading-line" />
@@ -325,9 +357,13 @@ const ForMerchants = () => {
         </section>
 
 
+<<<<<<< HEAD
         {/* =====================================================
             FINAL CTA
         ===================================================== */}
+=======
+        {/* FINAL CTA*/}
+>>>>>>> 8590915 (intown)
 
         <section
           className="merchant-final"
@@ -360,9 +396,15 @@ const ForMerchants = () => {
               </span>
 
               <h2>
+<<<<<<< HEAD
                 Your business is local.
                 <br />
                 Your growth should be too.
+=======
+                Your business is local
+                <br />
+                Your growth should be too
+>>>>>>> 8590915 (intown)
               </h2>
 
               <div className="merchant-heading-line" />

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import React, { useEffect, useState } from "react";
 // import { AnimatePresence, motion } from "framer-motion";
 // import "./Header.css";
@@ -851,6 +852,8 @@
 // }
 
 
+=======
+>>>>>>> 8590915 (intown)
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import "./Header.css";
