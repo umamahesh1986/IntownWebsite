@@ -126,11 +126,7 @@
   flex-wrap: wrap;
   gap: 8px;
   color: #ffffff;
-<<<<<<< HEAD
   font-size: 21px;
-=======
-  font-size: 20px;
->>>>>>> 8590915 (intown)
   line-height: 1.45;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -1534,11 +1530,7 @@
   .home-hero-eyebrow {
     max-width: 420px;
     line-height: 1.45;
-<<<<<<< HEAD
     font-size: 18px;
-=======
-    font-size: 20px;
->>>>>>> 8590915 (intown)
   }
 
   .home-hero-inner h1 {
@@ -1690,11 +1682,7 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-<<<<<<< HEAD
     font-size: 16px;
-=======
-    font-size: 20px;
->>>>>>> 8590915 (intown)
     line-height: 1.4;
   }
 
@@ -1787,13 +1775,7 @@
     margin-top: 17px;
     font-size: 36px;
     line-height: 1.07;
-<<<<<<< HEAD
   }
-=======
-   
-  }
-  
->>>>>>> 8590915 (intown)
 
   .eco-positioning-layout {
     gap: 17px;

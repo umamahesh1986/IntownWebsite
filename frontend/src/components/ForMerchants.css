@@ -16,11 +16,8 @@
   box-sizing: border-box;
 }
 
-<<<<<<< HEAD
 /* HERO */
 
-=======
->>>>>>> 8590915 (intown)
 .merchant-hero {
   position: relative;
   width: 100%;
@@ -61,11 +58,8 @@
   max-width: 760px;
 }
 
-<<<<<<< HEAD
 /* LABELS */
 
-=======
->>>>>>> 8590915 (intown)
 .merchant-label,
 .merchant-section-label {
   position: relative;
@@ -99,11 +93,8 @@
   box-shadow: 0 0 0 5px rgba(245, 130, 32, 0.14);
 }
 
-<<<<<<< HEAD
 /* HERO LABEL */
 
-=======
->>>>>>> 8590915 (intown)
 .merchant-hero .merchant-label {
   border-color: rgba(255, 255, 255, 0.32);
   background: rgba(255, 255, 255, 0.12);
@@ -114,11 +105,8 @@
   background: #f58220;
 }
 
-<<<<<<< HEAD
 /* HERO TITLE */
 
-=======
->>>>>>> 8590915 (intown)
 .merchant-hero h1 {
   max-width: 820px;
   margin: 0;
@@ -133,11 +121,8 @@
   color: #f58220;
 }
 
-<<<<<<< HEAD
 /* HERO DESCRIPTION */
 
-=======
->>>>>>> 8590915 (intown)
 .merchant-hero-content > p {
   max-width: 640px;
   margin: 30px 0 36px;
@@ -147,11 +132,8 @@
   font-weight: 400;
 }
 
-<<<<<<< HEAD
 /* BUTTON */
 
-=======
->>>>>>> 8590915 (intown)
 .merchant-primary-btn {
   display: inline-flex;
   align-items: center;
@@ -163,8 +145,6 @@
   border-radius: 14px;
   background: #f58220;
   color: #ffffff;
-  cursor: pointer;
-  font-family: inherit;
   text-decoration: none;
   font-size: 15px;
   font-weight: 800;
@@ -191,11 +171,8 @@
   transform: translateX(4px);
 }
 
-<<<<<<< HEAD
 /* SECTION HEADING */
 
-=======
->>>>>>> 8590915 (intown)
 .merchant-section-heading {
   max-width: 850px;
   margin: 0 auto 68px;
@@ -231,17 +208,11 @@
   line-height: 1.75;
 }
 
-<<<<<<< HEAD
 /* FUNNEL */
 
 .merchant-funnel {
   width: 100%;
   padding: 125px clamp(24px, 6vw, 100px);
-=======
-.merchant-funnel {
-  width: 100%;
-  padding: 105px clamp(20px, 5vw, 70px);
->>>>>>> 8590915 (intown)
   background:
     linear-gradient(
       135deg,
@@ -253,59 +224,27 @@
 
 .merchant-funnel-list {
   width: 100%;
-<<<<<<< HEAD
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 18px;
-=======
-  max-width: 1220px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 15px;
-  align-items: stretch;
->>>>>>> 8590915 (intown)
 }
 
 .merchant-funnel-item {
   position: relative;
-<<<<<<< HEAD
   min-height: 255px;
   padding: 30px;
   border: 1px solid #eee4dc;
   border-radius: 24px;
   background: #ffffff;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.035);
-=======
-  width: 100%;
-  min-height: 205px;
-  padding: 24px 17px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border: 1px solid rgba(245, 130, 32, 0.16);
-  border-radius: 19px;
-  background:
-    linear-gradient(
-      145deg,
-      #ffffff 0%,
-      #fffaf6 58%,
-      #fff2e7 100%
-    );
-  box-shadow:
-    0 8px 25px rgba(245, 130, 32, 0.07),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
->>>>>>> 8590915 (intown)
   transition:
     transform 0.35s ease,
     border-color 0.35s ease,
     box-shadow 0.35s ease;
 }
 
-<<<<<<< HEAD
 .merchant-funnel-item:hover {
   transform: translateY(-5px);
   border-color: rgba(245, 130, 32, 0.35);
@@ -333,74 +272,17 @@
   font-size: 20px;
   line-height: 1.3;
   font-weight: 800;
-=======
-.merchant-funnel-item:nth-child(even) {
-  background:
-    linear-gradient(
-      145deg,
-      #fffaf6 0%,
-      #fff4eb 55%,
-      #ffffff 100%
-    );
-}
-
-.merchant-funnel-item::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 48px;
-  height: 4px;
-  transform: translateX(-50%);
-  border-radius: 0 0 8px 8px;
-  background: #f58220;
-}
-
-.merchant-funnel-item:hover {
-  transform: translateY(-5px);
-  border-color: rgba(245, 130, 32, 0.32);
-  box-shadow:
-    0 18px 40px rgba(245, 130, 32, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95);
-}
-
-.merchant-funnel-text {
-  width: 100%;
-  max-width: 175px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.merchant-funnel-text h3 {
-  margin: 0 0 9px;
-  color: #191919;
-  font-size: 18px;
-  line-height: 1.3;
-  font-weight: 800;
-  text-align: center;
->>>>>>> 8590915 (intown)
 }
 
 .merchant-funnel-text p {
   margin: 0;
   color: #777777;
-<<<<<<< HEAD
   font-size: 14px;
   line-height: 1.75;
-=======
-  font-size: 13px;
-  line-height: 1.65;
-  text-align: center;
->>>>>>> 8590915 (intown)
 }
 
 .merchant-funnel-arrow {
   position: absolute;
-<<<<<<< HEAD
   top: 48px;
   right: -16px;
   z-index: 5;
@@ -418,24 +300,6 @@
 
 /* FEATURES */
 
-=======
-  top: 50%;
-  right: -13px;
-  z-index: 5;
-  width: 27px;
-  height: 27px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: #f58220;
-  color: #ffffff;
-  font-size: 13px;
-  box-shadow: 0 7px 16px rgba(245, 130, 32, 0.22);
-}
-
->>>>>>> 8590915 (intown)
 .merchant-features {
   width: 100%;
   padding: 125px clamp(24px, 6vw, 100px);
@@ -528,11 +392,8 @@
   line-height: 1.75;
 }
 
-<<<<<<< HEAD
 /* FINAL CTA */
 
-=======
->>>>>>> 8590915 (intown)
 .merchant-final {
   width: 100%;
   padding: 125px clamp(24px, 6vw, 100px);
@@ -617,11 +478,8 @@
   line-height: 1.75;
 }
 
-<<<<<<< HEAD
 /* TABLET — 1100px */
 
-=======
->>>>>>> 8590915 (intown)
 @media (max-width: 1100px) {
   .merchant-hero {
     min-height: 720px;
@@ -635,23 +493,8 @@
     font-size: clamp(48px, 6.5vw, 72px);
   }
 
-<<<<<<< HEAD
   .merchant-funnel-list {
     grid-template-columns: repeat(3, 1fr);
-=======
-  .merchant-funnel {
-    padding: 95px 35px;
-  }
-
-  .merchant-funnel-list {
-    max-width: 850px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  .merchant-funnel-item {
-    min-height: 195px;
->>>>>>> 8590915 (intown)
   }
 
   .merchant-funnel-arrow {
@@ -663,11 +506,8 @@
   }
 }
 
-<<<<<<< HEAD
 /* TABLET — 900px */
 
-=======
->>>>>>> 8590915 (intown)
 @media (max-width: 900px) {
   .merchant-hero {
     min-height: 700px;
@@ -691,27 +531,9 @@
   .merchant-section-heading {
     margin-bottom: 55px;
   }
-<<<<<<< HEAD
 }
 
 /* MOBILE — 700px */
-=======
-
-  .merchant-funnel-list {
-    max-width: 650px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 15px;
-  }
-
-  .merchant-funnel-item {
-    min-height: 185px;
-  }
-
-  .merchant-funnel-arrow {
-    display: none;
-  }
-}
->>>>>>> 8590915 (intown)
 
 @media (max-width: 700px) {
   .for-merchants {
@@ -847,63 +669,29 @@
   }
 
   .merchant-funnel {
-<<<<<<< HEAD
     padding: 75px 20px;
-=======
-    padding: 70px 18px;
->>>>>>> 8590915 (intown)
     text-align: center;
   }
 
   .merchant-funnel-list {
     width: 100%;
-<<<<<<< HEAD
     max-width: 500px;
     margin: 0 auto;
     grid-template-columns: 1fr;
     gap: 15px;
-=======
-    max-width: 390px;
-    margin: 0 auto;
-    grid-template-columns: 1fr;
-    gap: 13px;
->>>>>>> 8590915 (intown)
   }
 
   .merchant-funnel-item {
     width: 100%;
-<<<<<<< HEAD
     min-height: 215px;
     padding: 27px 22px;
     display: flex;
     flex-direction: column;
-=======
-    min-height: 150px;
-    padding: 22px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-radius: 17px;
-  }
-
-  .merchant-funnel-item::before {
-    width: 42px;
-    height: 3px;
-  }
-
-  .merchant-funnel-text {
-    width: 100%;
-    max-width: 280px;
-    margin: auto;
-    display: flex;
->>>>>>> 8590915 (intown)
     align-items: center;
     justify-content: center;
     text-align: center;
   }
 
-<<<<<<< HEAD
   .merchant-funnel-number {
     width: 50px;
     height: 50px;
@@ -918,28 +706,15 @@
   .merchant-funnel-text h3 {
     margin: 0 auto 12px;
     font-size: 19px;
-=======
-  .merchant-funnel-text h3 {
-    margin: 0 auto 8px;
-    font-size: 17px;
-    line-height: 1.3;
->>>>>>> 8590915 (intown)
     text-align: center;
   }
 
   .merchant-funnel-text p {
     width: 100%;
-<<<<<<< HEAD
     max-width: 400px;
     margin: 0 auto;
     font-size: 14px;
     line-height: 1.7;
-=======
-    max-width: 280px;
-    margin: 0 auto;
-    font-size: 13px;
-    line-height: 1.55;
->>>>>>> 8590915 (intown)
     text-align: center;
   }
 
@@ -1049,11 +824,8 @@
   }
 }
 
-<<<<<<< HEAD
 /* SMALL MOBILE — 380px */
 
-=======
->>>>>>> 8590915 (intown)
 @media (max-width: 380px) {
   .merchant-hero {
     min-height: 680px;
@@ -1104,11 +876,7 @@
   }
 
   .merchant-funnel {
-<<<<<<< HEAD
     padding: 65px 16px;
-=======
-    padding: 60px 15px;
->>>>>>> 8590915 (intown)
   }
 
   .merchant-funnel-list,
@@ -1117,24 +885,7 @@
   }
 
   .merchant-funnel-item {
-<<<<<<< HEAD
     padding: 24px 18px;
-=======
-    min-height: 140px;
-    padding: 21px 16px;
-  }
-
-  .merchant-funnel-text {
-    max-width: 260px;
-  }
-
-  .merchant-funnel-text h3 {
-    font-size: 16.5px;
-  }
-
-  .merchant-funnel-text p {
-    font-size: 12.5px;
->>>>>>> 8590915 (intown)
   }
 
   .merchant-feature-card {
@@ -1161,11 +912,8 @@
   }
 }
 
-<<<<<<< HEAD
 /* EXTRA SMALL — 340px */
 
-=======
->>>>>>> 8590915 (intown)
 @media (max-width: 340px) {
   .merchant-hero {
     min-height: 650px;
@@ -1195,23 +943,7 @@
 
   .merchant-funnel-item,
   .merchant-feature-card {
-<<<<<<< HEAD
     padding: 22px 16px;
-=======
-    padding: 20px 15px;
-  }
-
-  .merchant-funnel-item {
-    min-height: 135px;
-  }
-
-  .merchant-funnel-text h3 {
-    font-size: 16px;
-  }
-
-  .merchant-funnel-text p {
-    font-size: 12px;
->>>>>>> 8590915 (intown)
   }
 
   .merchant-final-card {
@@ -1223,11 +955,8 @@
   }
 }
 
-<<<<<<< HEAD
 /* EXTRA SMALL — 320px */
 
-=======
->>>>>>> 8590915 (intown)
 @media (max-width: 320px) {
   .merchant-hero-inner {
     padding-left: 12px;
@@ -1255,27 +984,7 @@
 
   .merchant-funnel-item,
   .merchant-feature-card {
-<<<<<<< HEAD
     padding: 21px 14px;
-=======
-    padding: 19px 13px;
-  }
-
-  .merchant-funnel-item {
-    min-height: 130px;
-  }
-
-  .merchant-funnel-text {
-    max-width: 230px;
-  }
-
-  .merchant-funnel-text h3 {
-    font-size: 15.5px;
-  }
-
-  .merchant-funnel-text p {
-    font-size: 11.5px;
->>>>>>> 8590915 (intown)
   }
 
   .merchant-final {
@@ -1302,11 +1011,8 @@
   }
 }
 
-<<<<<<< HEAD
 /* LARGE DESKTOP */
 
-=======
->>>>>>> 8590915 (intown)
 @media (min-width: 1600px) {
   .merchant-hero {
     min-height: 850px;
@@ -1321,11 +1027,7 @@
   }
 
   .merchant-funnel-list {
-<<<<<<< HEAD
     max-width: 1500px;
-=======
-    max-width: 1350px;
->>>>>>> 8590915 (intown)
   }
 
   .merchant-feature-grid {
@@ -1333,11 +1035,8 @@
   }
 }
 
-<<<<<<< HEAD
 /* BACKGROUND */
 
-=======
->>>>>>> 8590915 (intown)
 .merchant-hero,
 .merchant-funnel,
 .merchant-features,
@@ -1345,11 +1044,8 @@
   background-attachment: scroll;
 }
 
-<<<<<<< HEAD
 /* TOUCH DEVICES */
 
-=======
->>>>>>> 8590915 (intown)
 @media (hover: none) {
   .merchant-primary-btn:hover,
   .merchant-funnel-item:hover,
@@ -1367,15 +1063,8 @@
   }
 
   .merchant-funnel-item:hover {
-<<<<<<< HEAD
     border-color: #eee4dc;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.035);
-=======
-    border-color: rgba(245, 130, 32, 0.16);
-    box-shadow:
-      0 8px 25px rgba(245, 130, 32, 0.07),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
->>>>>>> 8590915 (intown)
   }
 
   .merchant-feature-card:hover {
@@ -1388,11 +1077,8 @@
   }
 }
 
-<<<<<<< HEAD
 /* ACCESSIBILITY */
 
-=======
->>>>>>> 8590915 (intown)
 @media (prefers-reduced-motion: reduce) {
   .merchant-primary-btn,
   .merchant-primary-btn span,
@@ -1401,8 +1087,4 @@
   .merchant-feature-card::before {
     transition: none;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8590915 (intown)

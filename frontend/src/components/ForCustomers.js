@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "./ForCustomers.css";
-
 import Header from "./Header";
 import Footer from "./Footer";
 import Modal from "./Modal";
@@ -35,21 +34,14 @@ const features = [
 ];
 
 const ForCustomers = () => {
-  const [isCustomerRegistrationOpen, setIsCustomerRegistrationOpen] = useState(false);
+  const [isCustomerRegistrationOpen, setIsCustomerRegistrationOpen] =
+    useState(false);
 
   return (
     <div className="for-customers">
-
       <Header />
 
-<<<<<<< HEAD
-      {/* =====================================================
-          HERO SECTION
-      ===================================================== */}
-=======
       {/* HERO SECTION */}
->>>>>>> 8590915 (intown)
-
       <motion.section
         className="customers-hero"
         style={{
@@ -60,11 +52,8 @@ const ForCustomers = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.7 }}
       >
-
         <div className="customers-hero-inner">
-
           {/* LEFT CONTENT */}
-
           <motion.div
             className="customers-hero-content"
             initial={{
@@ -80,21 +69,14 @@ const ForCustomers = () => {
               ease: "easeOut",
             }}
           >
-
             <div className="customers-eyebrow">
               For Customers
             </div>
 
             <h1>
-<<<<<<< HEAD
-              Discover more.
+              Discover <em>more.</em>
               <br />
               <span>Spend smarter.</span>
-=======
-              Discover more
-              <br />
-              <span>Spend smarter</span>
->>>>>>> 8590915 (intown)
             </h1>
 
             <p className="customers-hero-description">
@@ -110,26 +92,13 @@ const ForCustomers = () => {
               Register as Customer
               <span>↗</span>
             </button>
-
           </motion.div>
-
         </div>
-
       </motion.section>
 
-
-<<<<<<< HEAD
-      {/* =====================================================
-          WHAT YOU GET
-      ===================================================== */}
-=======
       {/* WHAT YOU GET */}
->>>>>>> 8590915 (intown)
-
       <section className="customers-benefits">
-
         <div className="customers-benefits-inner">
-
           <motion.div
             className="customers-section-heading"
             initial={{
@@ -147,7 +116,6 @@ const ForCustomers = () => {
               duration: 0.6,
             }}
           >
-
             <span className="customers-section-label">
               What you get
             </span>
@@ -160,14 +128,10 @@ const ForCustomers = () => {
               From everyday essentials to new discoveries, INtown
               surfaces what is relevant and nearby.
             </p>
-
           </motion.div>
 
-
           <div className="customers-benefits-grid">
-
             {features.map((feature, index) => (
-
               <motion.div
                 className="customer-benefit-card"
                 key={feature.title}
@@ -190,40 +154,21 @@ const ForCustomers = () => {
                   y: -8,
                 }}
               >
-
                 <div className="customer-benefit-icon">
                   {feature.icon}
                 </div>
 
-                <h3>
-                  {feature.title}
-                </h3>
+                <h3>{feature.title}</h3>
 
-                <p>
-                  {feature.desc}
-                </p>
-
+                <p>{feature.desc}</p>
               </motion.div>
-
             ))}
-
           </div>
-
         </div>
-
       </section>
 
-
-<<<<<<< HEAD
-      {/* =====================================================
-          FINAL CTA
-      ===================================================== */}
-=======
       {/* FINAL CTA */}
->>>>>>> 8590915 (intown)
-
       <section className="customers-final-cta">
-
         <motion.div
           className="customers-final-cta-inner"
           initial={{
@@ -241,27 +186,17 @@ const ForCustomers = () => {
             duration: 0.7,
           }}
         >
-
           <div className="customers-final-cta-content">
-
             <span className="customers-section-label">
               Start discovering
             </span>
 
             <h2>
-<<<<<<< HEAD
-              Start discovering your local world.
+              Start discovering your local <em>world.</em>
             </h2>
 
             <p>
               Download INtown and see what's around you.
-=======
-              Start discovering your local world
-            </h2>
-
-            <p>
-              Download INtown and see what's around you
->>>>>>> 8590915 (intown)
             </p>
 
             <a
@@ -273,23 +208,18 @@ const ForCustomers = () => {
               Download the INtown App
               <span>↗</span>
             </a>
-
           </div>
-
         </motion.div>
-
       </section>
 
-
+      {/* CUSTOMER REGISTRATION MODAL */}
       <Modal
         isOpen={isCustomerRegistrationOpen}
         onClose={() => setIsCustomerRegistrationOpen(false)}
         type="customer"
       />
 
-
       <Footer />
-
     </div>
   );
 };

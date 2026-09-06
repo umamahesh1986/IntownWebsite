@@ -1,19 +1,8 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 8590915 (intown)
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
-<<<<<<< HEAD
-/* =========================================================
-   FOOTER SECTION
-========================================================= */
-=======
 /* FOOTER SECTION */
->>>>>>> 8590915 (intown)
-
 const FooterSection = ({ title, links }) => {
   const [open, setOpen] = useState(false);
 
@@ -54,15 +43,7 @@ const FooterSection = ({ title, links }) => {
   );
 };
 
-
-<<<<<<< HEAD
-/* =========================================================
-   FOOTER
-========================================================= */
-=======
 /* FOOTER */
->>>>>>> 8590915 (intown)
-
 const Footer = () => {
   const sections = [
     {
@@ -109,7 +90,7 @@ const Footer = () => {
           path: "/ForMerchants",
         },
         {
-          name: "For DC2 Brands",
+          name: "For D2C Brands",
           path: "/ForBrands",
         },
       ],
@@ -127,7 +108,7 @@ const Footer = () => {
           path: "/ContactSection",
         },
         {
-          name: "modal",
+          name: "Modal",
           path: "/ModalCustomer",
         },
       ],
@@ -145,11 +126,7 @@ const Footer = () => {
           path: "/terms",
         },
         {
-<<<<<<< HEAD
-          name: "MerchantTerms",
-=======
           name: "Merchant Terms",
->>>>>>> 8590915 (intown)
           path: "/MerchantTerms",
         },
         {
@@ -164,17 +141,7 @@ const Footer = () => {
     },
   ];
 
-
-<<<<<<< HEAD
-  /* =========================================================
-     COMMON LINK CLICK
-     ---------------------------------------------------------
-     Every footer link goes to the top of the page.
-  ========================================================= */
-=======
- 
->>>>>>> 8590915 (intown)
-
+  /* COMMON LINK CLICK */
   const handleFooterLinkClick = () => {
     window.scrollTo({
       top: 0,
@@ -183,31 +150,15 @@ const Footer = () => {
     });
   };
 
-
   return (
     <footer className="footer">
       <div className="footer-container">
 
-<<<<<<< HEAD
-        {/* =================================================
-            TOP
-        ================================================= */}
-
+        {/* TOP */}
         <div className="footer-top">
 
-          {/* =================================================
-              LEFT
-          ================================================= */}
-=======
-       
-
-        <div className="footer-top">
-
-        
->>>>>>> 8590915 (intown)
-
+          {/* LEFT */}
           <div className="footer-left">
-
             <p className="footer-tagline">
               Shop Local, Save Instantly! Connecting Communities
               Through Personal Bond.
@@ -219,16 +170,8 @@ const Footer = () => {
             </p>
           </div>
 
-
-<<<<<<< HEAD
-          {/* =================================================
-              RIGHT
-          ================================================= */}
-=======
->>>>>>> 8590915 (intown)
-
+          {/* RIGHT */}
           <div className="footer-right">
-
             {sections.map((sec, i) => (
               <FooterSection
                 key={i}
@@ -236,33 +179,19 @@ const Footer = () => {
                 links={sec.links}
               />
             ))}
-
           </div>
-
         </div>
 
-
-<<<<<<< HEAD
-        {/* =================================================
-            BOTTOM
-        ================================================= */}
-=======
-     
->>>>>>> 8590915 (intown)
-
+        {/* BOTTOM */}
         <div className="footer-bottom">
 
           {/* COPYRIGHT */}
-
           <p className="copyright">
             © 2026 Yagnavihar Lifestyle Pvt. Ltd.
           </p>
 
-
           {/* BADGES */}
-
           <div className="footer-badges">
-
             <img
               src="/images/t-hub.png"
               alt="T-Hub"
@@ -272,14 +201,10 @@ const Footer = () => {
               src="/images/StartupIndia.png"
               alt="Startup India"
             />
-
           </div>
 
-
           {/* LEGAL LINKS */}
-
           <div className="footer-legal">
-
             <Link
               to="/privacy"
               onClick={handleFooterLinkClick}
@@ -307,11 +232,9 @@ const Footer = () => {
             >
               Delete
             </Link>
-
           </div>
 
         </div>
-
       </div>
     </footer>
   );

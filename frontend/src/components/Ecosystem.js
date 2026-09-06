@@ -64,13 +64,7 @@ const Ecosystem = () => {
 
       <main>
 
-<<<<<<< HEAD
-        {/* =========================
-            HERO
-        ========================= */}
-=======
-        {/*  HERO */}
->>>>>>> 8590915 (intown)
+        {/* HERO */}
 
         <section className="eco-hero">
           <motion.div
@@ -93,15 +87,9 @@ const Ecosystem = () => {
             </span>
 
             <h1>
-<<<<<<< HEAD
-              Everything local.
-              <br />
-              <span>Connected.</span>
-=======
               Everything local
               <br />
               <span>Connected</span>
->>>>>>> 8590915 (intown)
             </h1>
 
             <p>
@@ -127,13 +115,7 @@ const Ecosystem = () => {
         </section>
 
 
-<<<<<<< HEAD
-        {/* =====================================================
-            BRAND POSITIONING
-        ===================================================== */}
-=======
-        {/* BRAND POSITIONING */}
->>>>>>> 8590915 (intown)
+        {/*BRAND POSITIONING*/}
 
         <section className="eco-positioning">
 
@@ -162,15 +144,9 @@ const Ecosystem = () => {
               </span>
 
               <h2>
-<<<<<<< HEAD
-                Built for local commerce.
-                <br />
-                <span>Designed for everyone.</span>
-=======
                 Built for local commerce
                 <br />
                 <span>Designed for everyone</span>
->>>>>>> 8590915 (intown)
               </h2>
             </motion.div>
 
@@ -273,13 +249,7 @@ const Ecosystem = () => {
         </section>
 
 
-<<<<<<< HEAD
-        {/* =========================
-            NETWORK
-        ========================= */}
-=======
         {/* NETWORK */}
->>>>>>> 8590915 (intown)
 
         <section className="eco-network">
 
@@ -306,15 +276,9 @@ const Ecosystem = () => {
             </span>
 
             <h2>
-<<<<<<< HEAD
-              One ecosystem.
-              <br />
-              Multiple possibilities.
-=======
               One ecosystem
               <br />
               Multiple possibilities
->>>>>>> 8590915 (intown)
             </h2>
           </motion.div>
 
@@ -350,13 +314,7 @@ const Ecosystem = () => {
                     }}
                   >
 
-<<<<<<< HEAD
-                    <span className="eco-node-number">
-                      0{index + 1}
-                    </span>
-=======
                    
->>>>>>> 8590915 (intown)
 
                     <div>
                       <h3>{item.title}</h3>
@@ -397,11 +355,7 @@ const Ecosystem = () => {
                   IN
                 </div>
 
-<<<<<<< HEAD
-                <span>INtown</span>
-=======
-               
->>>>>>> 8590915 (intown)
+                
 
               </div>
 
@@ -437,13 +391,7 @@ const Ecosystem = () => {
                     }}
                   >
 
-<<<<<<< HEAD
-                    <span className="eco-node-number">
-                      0{index + 4}
-                    </span>
-=======
                     
->>>>>>> 8590915 (intown)
 
                     <div>
                       <h3>{item.title}</h3>
@@ -462,13 +410,7 @@ const Ecosystem = () => {
         </section>
 
 
-<<<<<<< HEAD
-        {/* =========================
-            COMPONENTS
-        ========================= */}
-=======
-        {/*COMPONENTS*/}
->>>>>>> 8590915 (intown)
+        {/* COMPONENTS */}
 
         <section className="eco-components">
 

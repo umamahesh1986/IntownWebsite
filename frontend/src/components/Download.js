@@ -9,14 +9,11 @@ const PLAY_STORE_URL =
 const Download = () => {
   return (
     <div className="download-page">
-
-   <Header />
+      <Header />
 
       <section className="download-hero">
         <div className="download-container">
-
           <div className="download-hero-content">
-
             <span className="download-label">
               Download
             </span>
@@ -34,7 +31,6 @@ const Download = () => {
             </p>
 
             <div className="download-buttons">
-
               <a
                 href="/Home"
                 className="download-store-btn"
@@ -66,21 +62,16 @@ const Download = () => {
                   <strong>Google Play</strong>
                 </span>
               </a>
-
             </div>
-
           </div>
 
           <div className="download-phone-area">
-
             <div className="download-orange-glow"></div>
 
             <div className="download-phone">
-
               <div className="download-phone-notch"></div>
 
               <div className="download-phone-screen">
-
                 <div className="download-app-header">
                   <span>INtown</span>
 
@@ -98,6 +89,7 @@ const Download = () => {
 
                   <div>
                     <strong>Nearby stores</strong>
+
                     <small>
                       Discover around you
                     </small>
@@ -109,6 +101,7 @@ const Download = () => {
 
                   <div>
                     <strong>Local savings</strong>
+
                     <small>
                       Save while you shop
                     </small>
@@ -120,27 +113,21 @@ const Download = () => {
 
                   <div>
                     <strong>New brands</strong>
+
                     <small>
                       Explore local businesses
                     </small>
                   </div>
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
       </section>
 
       <section className="download-inside">
-
         <div className="download-container">
-
           <div className="download-section-heading">
-
             <span className="download-small-label">
               Inside the app
             </span>
@@ -152,25 +139,18 @@ const Download = () => {
             </h2>
 
             <p>
-              INtown brings nearby stores, offers, brands, services
-              and experiences into one calm, connected place — so
-              the best option around you is also the easiest one
-              to find.
+              INtown brings nearby stores, offers, brands,
+              services and experiences into one calm, connected
+              place — so the best option around you is also the
+              easiest one to find.
             </p>
-
           </div>
 
           <div className="download-feature-grid">
-
             <article className="download-feature-card">
-
-<<<<<<< HEAD
               <span className="download-feature-number">
                 01
               </span>
-=======
-             
->>>>>>> 8590915 (intown)
 
               <div className="download-feature-icon">
                 <span>⌖</span>
@@ -184,18 +164,12 @@ const Download = () => {
                 A live view of the businesses and offers closest
                 to you.
               </p>
-
             </article>
 
             <article className="download-feature-card">
-
-<<<<<<< HEAD
               <span className="download-feature-number">
                 02
               </span>
-=======
-             
->>>>>>> 8590915 (intown)
 
               <div className="download-feature-icon">
                 <span>₹</span>
@@ -206,20 +180,15 @@ const Download = () => {
               </h3>
 
               <p>
-                Show the app at checkout and enjoy eligible savings.
+                Show the app at checkout and enjoy eligible
+                savings.
               </p>
-
             </article>
 
             <article className="download-feature-card">
-
-<<<<<<< HEAD
               <span className="download-feature-number">
                 03
               </span>
-=======
-            
->>>>>>> 8590915 (intown)
 
               <div className="download-feature-icon">
                 <span>✦</span>
@@ -233,18 +202,12 @@ const Download = () => {
                 Find services, experiences and new brands around
                 your neighborhood.
               </p>
-
             </article>
 
             <article className="download-feature-card">
-
-<<<<<<< HEAD
               <span className="download-feature-number">
                 04
               </span>
-=======
-             
->>>>>>> 8590915 (intown)
 
               <div className="download-feature-icon">
                 <span>↗</span>
@@ -258,23 +221,15 @@ const Download = () => {
                 Explore your local world and keep finding better
                 places to visit.
               </p>
-
             </article>
-
           </div>
-
         </div>
-
       </section>
 
       <section className="download-cta">
-
         <div className="download-container">
-
           <div className="download-cta-box">
-
             <div>
-
               <span className="download-small-label">
                 Start exploring
               </span>
@@ -284,11 +239,9 @@ const Download = () => {
                 <br />
                 has more to offer.
               </h2>
-
             </div>
 
             <div className="download-cta-buttons">
-
               <a
                 href={PLAY_STORE_URL}
                 target="_blank"
@@ -301,17 +254,12 @@ const Download = () => {
                   ↗
                 </span>
               </a>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       <Footer />
-
     </div>
   );
 };

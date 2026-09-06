@@ -41,11 +41,7 @@ const HowItWorks = () => {
             }}
           >
             A smarter way to
-<<<<<<< HEAD
-            <span>discover local commerce.</span>
-=======
             <span>discover local commerce</span>
->>>>>>> 8590915 (intown)
           </motion.h1>
 
 
@@ -110,11 +106,7 @@ const HowItWorks = () => {
 
             <h2>
               Discover what is
-<<<<<<< HEAD
-              <span>already around you.</span>
-=======
               <span>already around you</span>
->>>>>>> 8590915 (intown)
             </h2>
 
           </motion.div>
@@ -131,15 +123,6 @@ const HowItWorks = () => {
             }}
           >
 
-<<<<<<< HEAD
-            <FlowItem number="01" title="Discover" />
-            <FlowArrow />
-            <FlowItem number="02" title="Choose" />
-            <FlowArrow />
-            <FlowItem number="03" title="Visit" />
-            <FlowArrow />
-            <FlowItem number="04" title="Save" />
-=======
             <FlowItem  title="Discover" />
             <FlowArrow />
             <FlowItem  title="Choose" />
@@ -147,7 +130,6 @@ const HowItWorks = () => {
             <FlowItem  title="Visit" />
             <FlowArrow />
             <FlowItem  title="Save" />
->>>>>>> 8590915 (intown)
 
           </motion.div>
 
@@ -175,11 +157,7 @@ const HowItWorks = () => {
 
             <h2>
               Turn nearby visibility
-<<<<<<< HEAD
-              <span>into real footfall.</span>
-=======
               <span>into real footfall</span>
->>>>>>> 8590915 (intown)
             </h2>
 
           </motion.div>
@@ -196,15 +174,6 @@ const HowItWorks = () => {
             }}
           >
 
-<<<<<<< HEAD
-            <FlowItem number="01" title="List" />
-            <FlowArrow />
-            <FlowItem number="02" title="Get Discovered" />
-            <FlowArrow />
-            <FlowItem number="03" title="Attract Customers" />
-            <FlowArrow />
-            <FlowItem number="04" title="Grow" />
-=======
             <FlowItem  title="List" />
             <FlowArrow />
             <FlowItem  title="Get Discovered" />
@@ -212,7 +181,6 @@ const HowItWorks = () => {
             <FlowItem  title="Attract Customers" />
             <FlowArrow />
             <FlowItem  title="Grow" />
->>>>>>> 8590915 (intown)
 
           </motion.div>
 
@@ -240,11 +208,7 @@ const HowItWorks = () => {
 
             <h2>
               Move from online discovery
-<<<<<<< HEAD
-              <span>to local shelves.</span>
-=======
               <span>to local shelves</span>
->>>>>>> 8590915 (intown)
             </h2>
 
           </motion.div>
@@ -261,15 +225,6 @@ const HowItWorks = () => {
             }}
           >
 
-<<<<<<< HEAD
-            <FlowItem number="01" title="Partner" />
-            <FlowArrow />
-            <FlowItem number="02" title="Reach Local Customers" />
-            <FlowArrow />
-            <FlowItem number="03" title="Test" />
-            <FlowArrow />
-            <FlowItem number="04" title="Grow Offline" />
-=======
             <FlowItem  title="Partner" />
             <FlowArrow />
             <FlowItem  title="Reach Local Customers" />
@@ -277,7 +232,6 @@ const HowItWorks = () => {
             <FlowItem  title="Test" />
             <FlowArrow />
             <FlowItem  title="Grow Offline" />
->>>>>>> 8590915 (intown)
 
           </motion.div>
 
@@ -474,13 +428,9 @@ const HowItWorks = () => {
 };
 
 
-<<<<<<< HEAD
 /* =========================================================
    FLOW ITEM
 ========================================================= */
-=======
-/* FLOW ITEM */
->>>>>>> 8590915 (intown)
 
 const FlowItem = ({ number, title }) => {
   return (
@@ -500,13 +450,9 @@ const FlowItem = ({ number, title }) => {
 };
 
 
-<<<<<<< HEAD
 /* =========================================================
    FLOW ARROW
 ========================================================= */
-=======
-/* FLOW ARROW */
->>>>>>> 8590915 (intown)
 
 const FlowArrow = () => {
   return (

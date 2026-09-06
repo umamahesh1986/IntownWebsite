@@ -59,100 +59,10 @@ const FAQ_DATA = [
 ];
 
 export default function Upgrades() {
-<<<<<<< HEAD
-  const [faqs] = useState(FAQ_DATA);
-=======
->>>>>>> 8590915 (intown)
   const [open, setOpen] = useState(false);
 
   return (
     <>
-<<<<<<< HEAD
-      {/* HEADER */}
-      <Header />
-
-      {/* MAIN */}
-      <main className="upgrades">
-
-
-         {/* =====================================================
-            SECTION 1 - FAQ
-        ===================================================== */}
-
-        <section className="upgrade-section upgrade-section-two">
-
-          <div className="faq-wrapper">
-
-            <motion.div
-              className="faq-main"
-              onClick={() => setOpen((prev) => !prev)}
-              initial={{
-                opacity: 0,
-                y: 40,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.3,
-              }}
-              transition={{
-                duration: 0.7,
-              }}
-            >
-
-              <h1>
-                FAQs
-              </h1>
-
-              <span
-                className={open ? "arrow rotate" : "arrow"}
-              >
-                ▼
-              </span>
-
-            </motion.div>
-
-
-            <AnimatePresence>
-
-              {open && (
-
-                <motion.div
-                  className="faq-container"
-                  initial={{
-                    height: 0,
-                    opacity: 0,
-                  }}
-                  animate={{
-                    height: "auto",
-                    opacity: 1,
-                  }}
-                  exit={{
-                    height: 0,
-                    opacity: 0,
-                  }}
-                  transition={{
-                    duration: 0.4,
-                  }}
-                >
-
-                  {faqs.map((item, index) => (
-
-                    <motion.div
-                      className="faq-item"
-                      key={item.id}
-                      initial={{
-                        opacity: 0,
-                        y: 15,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-=======
       <Header />
 
       <main className="upgrades">
@@ -194,79 +104,11 @@ export default function Upgrades() {
                       key={item.id}
                       initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
->>>>>>> 8590915 (intown)
                       transition={{
                         duration: 0.3,
                         delay: index * 0.04,
                       }}
                     >
-<<<<<<< HEAD
-
-                      <h3 className="faq-q">
-                        {item.q}
-                      </h3>
-
-                      <p className="faq-a">
-                        {item.a}
-                      </p>
-
-                    </motion.div>
-
-                  ))}
-
-                </motion.div>
-
-              )}
-
-            </AnimatePresence>
-
-          </div>
-
-        </section>
-
-        {/* =====================================================
-            SECTION 2 - IMAGE + QR
-        ===================================================== */}
-
-        <section className="upgrade-section upgrade-section-one">
-
-          <motion.div
-            className="scanner-content"
-            initial={{
-              opacity: 0,
-              x: 60,
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.25,
-            }}
-            transition={{
-              duration: 0.8,
-              delay: 0.15,
-            }}
-          >
-
-            <div className="scanner-box">
-
-              <motion.img
-                className="scanner-image"
-                src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://play.google.com/store/search?q=intown&c=apps&hl=en"
-                alt="Scan to download INtown"
-                whileHover={{
-                  scale: 1.04,
-                }}
-                transition={{
-                  duration: 0.25,
-                }}
-              />
-
-              <div className="scanner-text">
-
-=======
                       <h3 className="faq-q">{item.q}</h3>
 
                       <p className="faq-a">{item.a}</p>
@@ -312,80 +154,10 @@ export default function Upgrades() {
               </motion.div>
 
               <div className="scanner-text">
->>>>>>> 8590915 (intown)
                 <span className="scanner-small">
                   SCAN TO
                 </span>
 
-<<<<<<< HEAD
-                <h3>
-                  DOWNLOAD
-                  <br />
-                  INtown
-                </h3>
-
-              </div>
-
-            </div>
-
-
-            <motion.h1
-              className="credHeading"
-              initial={{
-                opacity: 0,
-                y: 30,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                duration: 0.7,
-                delay: 0.2,
-              }}
-            >
-              not everyone
-              <br />
-              gets it
-            </motion.h1>
-
-
-            <motion.p
-              className="credDesc"
-              initial={{
-                opacity: 0,
-                y: 25,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                duration: 0.7,
-                delay: 0.3,
-              }}
-            >
-              like all good things in life, earning membership is not easy;
-              but unlocking a greater future makes the effort worthwhile.
-            </motion.p>
-
-          </motion.div>
-
-        </section>
-
-
-       
-
-      </main>
-
-      {/* FOOTER */}
-=======
                 <h3 className="download-heading">
                   <span className="download-word">
                     DOWNLOAD
@@ -436,7 +208,6 @@ export default function Upgrades() {
 
       </main>
 
->>>>>>> 8590915 (intown)
       <Footer />
     </>
   );

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "./ForMerchants.css";
-
 import Header from "./Header";
 import Footer from "./Footer";
 import Modal from "./Modal";
@@ -58,22 +57,15 @@ const merchantFeatures = [
 ];
 
 const ForMerchants = () => {
-  const [isMerchantRegistrationOpen, setIsMerchantRegistrationOpen] = useState(false);
+  const [isMerchantRegistrationOpen, setIsMerchantRegistrationOpen] =
+    useState(false);
 
   return (
     <div className="for-merchants">
       <Header />
 
       <main>
-
-<<<<<<< HEAD
-        {/* =====================================================
-            HERO
-        ===================================================== */}
-=======
         {/* HERO */}
->>>>>>> 8590915 (intown)
-
         <section
           className="merchant-hero"
           style={{
@@ -90,7 +82,6 @@ const ForMerchants = () => {
           }}
         >
           <div className="merchant-hero-inner">
-
             <motion.div
               className="merchant-hero-content"
               initial={{
@@ -111,11 +102,8 @@ const ForMerchants = () => {
               </span>
 
               <h1>
-<<<<<<< HEAD
-                Get discovered by the customers around you.
-=======
-                Get discovered by the customers around you
->>>>>>> 8590915 (intown)
+                Get discovered by the customers around{" "}
+                <em>you.</em>
               </h1>
 
               <p>
@@ -139,21 +127,11 @@ const ForMerchants = () => {
                 <span>→</span>
               </motion.button>
             </motion.div>
-
           </div>
         </section>
 
-
-<<<<<<< HEAD
-        {/* =====================================================
-            GROWTH FUNNEL
-        ===================================================== */}
-=======
         {/* GROWTH FUNNEL */}
->>>>>>> 8590915 (intown)
-
         <section className="merchant-funnel">
-
           <motion.div
             className="merchant-section-heading"
             initial={{
@@ -172,7 +150,6 @@ const ForMerchants = () => {
               duration: 0.6,
             }}
           >
-
             <span className="merchant-section-label">
               MERCHANT GROWTH FUNNEL
             </span>
@@ -180,11 +157,7 @@ const ForMerchants = () => {
             <h2>
               Turn local discovery into
               <br />
-<<<<<<< HEAD
-              lasting growth.
-=======
-              lasting growth
->>>>>>> 8590915 (intown)
+              lasting <em>growth.</em>
             </h2>
 
             <div className="merchant-heading-line" />
@@ -193,19 +166,12 @@ const ForMerchants = () => {
               INtown helps move customers through every
               stage of their journey with your business.
             </p>
-
           </motion.div>
 
-
           <div className="merchant-funnel-list">
-
             {funnelSteps.map((step, index) => (
               <motion.div
-<<<<<<< HEAD
                 key={step.number}
-=======
-               
->>>>>>> 8590915 (intown)
                 className="merchant-funnel-item"
                 initial={{
                   opacity: 0,
@@ -227,25 +193,14 @@ const ForMerchants = () => {
                   y: -6,
                 }}
               >
-
-<<<<<<< HEAD
                 <div className="merchant-funnel-number">
                   {step.number}
                 </div>
-=======
-                
->>>>>>> 8590915 (intown)
 
                 <div className="merchant-funnel-text">
+                  <h3>{step.title}</h3>
 
-                  <h3>
-                    {step.title}
-                  </h3>
-
-                  <p>
-                    {step.desc}
-                  </p>
-
+                  <p>{step.desc}</p>
                 </div>
 
                 {index !== funnelSteps.length - 1 && (
@@ -253,25 +208,13 @@ const ForMerchants = () => {
                     →
                   </div>
                 )}
-
               </motion.div>
             ))}
-
           </div>
-
         </section>
 
-
-<<<<<<< HEAD
-        {/* =====================================================
-            FEATURES
-        ===================================================== */}
-=======
         {/* FEATURES */}
->>>>>>> 8590915 (intown)
-
         <section className="merchant-features">
-
           <motion.div
             className="merchant-section-heading"
             initial={{
@@ -290,7 +233,6 @@ const ForMerchants = () => {
               duration: 0.6,
             }}
           >
-
             <span className="merchant-section-label">
               MERCHANT FEATURES
             </span>
@@ -298,20 +240,13 @@ const ForMerchants = () => {
             <h2>
               Everything you need
               <br />
-<<<<<<< HEAD
-              to grow locally.
-=======
-              to grow locally
->>>>>>> 8590915 (intown)
+              to grow <em>locally.</em>
             </h2>
 
             <div className="merchant-heading-line" />
-
           </motion.div>
 
-
           <div className="merchant-feature-grid">
-
             {merchantFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -336,40 +271,23 @@ const ForMerchants = () => {
                   y: -7,
                 }}
               >
-
                 <div className="merchant-feature-icon">
                   {feature.icon}
                 </div>
 
-                <h3>
-                  {feature.title}
-                </h3>
+                <h3>{feature.title}</h3>
 
-                <p>
-                  {feature.desc}
-                </p>
-
+                <p>{feature.desc}</p>
               </motion.div>
             ))}
-
           </div>
-
         </section>
 
-
-<<<<<<< HEAD
-        {/* =====================================================
-            FINAL CTA
-        ===================================================== */}
-=======
-        {/* FINAL CTA*/}
->>>>>>> 8590915 (intown)
-
+        {/* FINAL CTA */}
         <section
           className="merchant-final"
           id="join-intown"
         >
-
           <motion.div
             className="merchant-final-card"
             initial={{
@@ -388,23 +306,15 @@ const ForMerchants = () => {
               duration: 0.7,
             }}
           >
-
             <div className="merchant-final-content">
-
               <span className="merchant-section-label">
                 GROW WITH INTOWN
               </span>
 
               <h2>
-<<<<<<< HEAD
-                Your business is local.
+                Your business is <em>local.</em>
                 <br />
                 Your growth should be too.
-=======
-                Your business is local
-                <br />
-                Your growth should be too
->>>>>>> 8590915 (intown)
               </h2>
 
               <div className="merchant-heading-line" />
@@ -428,13 +338,9 @@ const ForMerchants = () => {
                 Register Your Business
                 <span>→</span>
               </motion.button>
-
             </div>
-
           </motion.div>
-
         </section>
-
       </main>
 
       <Modal
