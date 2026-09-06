@@ -304,214 +304,219 @@
 
 // export default LocationPicker;
 
+
+
 import React, { useEffect, useRef, useState } from "react";
 import "./LocationPicker.css";
-
-const DEFAULT_LOCATION = {
-  lat: 17.385044,
-  lng: 78.486671,
-};
 
 const LocationPicker = ({
   isOpen,
   onClose,
   onLocationSelect,
-  currentLocation,
-  currentCoordinates,
+  currentLocation = "",
+  currentCoordinates = null,
 }) => {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
   const markerInstance = useRef(null);
   const autocompleteRef = useRef(null);
+  const autocompleteListenerRef = useRef(null);
 
-  const [searchValue, setSearchValue] = useState(
-    currentLocation || ""
-  );
-
-  const [selectedLocation, setSelectedLocation] =
-    useState(currentLocation || "");
-
-  const [coordinates, setCoordinates] = useState(
-    currentCoordinates || DEFAULT_LOCATION
-  );
-
+  const [searchValue, setSearchValue] = useState(currentLocation);
+  const [selectedLocation, setSelectedLocation] = useState(currentLocation);
+  const [coordinates, setCoordinates] = useState(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
+  const [mapLoading, setMapLoading] = useState(false);
+  const [locationError, setLocationError] = useState("");
 
-  /* =========================================
-     UPDATE VALUES WHEN MODAL OPENS
-  ========================================= */
+  const hasValidCoordinates = (coords) => {
+    return (
+      coords &&
+      Number.isFinite(Number(coords.lat)) &&
+      Number.isFinite(Number(coords.lng))
+    );
+  };
 
-  useEffect(() => {
-    if (!isOpen) return;
+  const getAddressFromCoordinates = async (lat, lng) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
 
-    if (currentLocation) {
-      setSearchValue(currentLocation);
-      setSelectedLocation(currentLocation);
-    }
-
-    if (
-      currentCoordinates &&
-      Number.isFinite(Number(currentCoordinates.lat)) &&
-      Number.isFinite(Number(currentCoordinates.lng))
-    ) {
-      setCoordinates({
-        lat: Number(currentCoordinates.lat),
-        lng: Number(currentCoordinates.lng),
-      });
-    }
-  }, [
-    isOpen,
-    currentLocation,
-    currentCoordinates,
-  ]);
-
-  /* =========================================
-     INITIALIZE GOOGLE MAP
-  ========================================= */
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const initializeMap = () => {
-      if (
-        !window.google ||
-        !window.google.maps ||
-        !mapRef.current
-      ) {
-        return;
+      if (!response.ok) {
+        throw new Error("Unable to fetch address");
       }
 
-      const initialPosition = {
-        lat: Number(coordinates.lat),
-        lng: Number(coordinates.lng),
-      };
+      const data = await response.json();
 
-      mapInstance.current =
-        new window.google.maps.Map(
-          mapRef.current,
-          {
-            center: initialPosition,
-            zoom: 15,
+      return data.display_name || "Selected location";
+    } catch (error) {
+      console.error("Reverse geocoding error:", error);
+      return "Selected location";
+    }
+  };
 
-            mapTypeControl: false,
-            streetViewControl: false,
-            fullscreenControl: true,
+  const createMarker = (position) => {
+    if (!mapInstance.current || !window.google?.maps) {
+      return;
+    }
 
-            gestureHandling: "greedy",
-          }
-        );
+    if (markerInstance.current) {
+      markerInstance.current.setMap(null);
+      markerInstance.current = null;
+    }
 
-      markerInstance.current =
-        new window.google.maps.Marker({
-          position: initialPosition,
-          map: mapInstance.current,
+    const marker = new window.google.maps.Marker({
+      position,
+      map: mapInstance.current,
+      draggable: true,
+      title: "Selected location",
+      animation: window.google.maps.Animation.DROP,
+    });
 
-          draggable: true,
+    marker.addListener("dragend", async (event) => {
+      if (!event.latLng) return;
 
-          title: "Selected Location",
-        });
+      const lat = event.latLng.lat();
+      const lng = event.latLng.lng();
 
-      /* MAP CLICK */
+      await selectCoordinates(lat, lng);
+    });
 
-      mapInstance.current.addListener(
-        "click",
-        (event) => {
-          if (
-            !event.latLng ||
-            !markerInstance.current
-          ) {
-            return;
-          }
+    markerInstance.current = marker;
+  };
 
-          const lat =
-            event.latLng.lat();
-
-          const lng =
-            event.latLng.lng();
-
-          updateMarkerPosition(
-            lat,
-            lng,
-            `Location: ${lat.toFixed(
-              6
-            )}, ${lng.toFixed(6)}`
-          );
-        }
-      );
-
-      /* MARKER DRAG */
-
-      markerInstance.current.addListener(
-        "dragend",
-        (event) => {
-          if (!event.latLng) return;
-
-          const lat =
-            event.latLng.lat();
-
-          const lng =
-            event.latLng.lng();
-
-          updateMarkerPosition(
-            lat,
-            lng,
-            `Location: ${lat.toFixed(
-              6
-            )}, ${lng.toFixed(6)}`
-          );
-        }
-      );
-
-      setMapLoaded(true);
-
-      initializeAutocomplete();
+  const selectCoordinates = async (lat, lng, address = "") => {
+    const nextCoordinates = {
+      lat: Number(lat),
+      lng: Number(lng),
     };
 
-    const initializeAutocomplete = () => {
-      if (
-        !window.google ||
-        !window.google.maps ||
-        !window.google.maps.places
-      ) {
-        console.warn(
-          "Google Places library is not loaded."
-        );
+    if (
+      !Number.isFinite(nextCoordinates.lat) ||
+      !Number.isFinite(nextCoordinates.lng)
+    ) {
+      return;
+    }
 
-        return;
+    setLocationError("");
+    setCoordinates(nextCoordinates);
+
+    let finalAddress = address;
+
+    if (!finalAddress) {
+      finalAddress = await getAddressFromCoordinates(
+        nextCoordinates.lat,
+        nextCoordinates.lng
+      );
+    }
+
+    setSelectedLocation(finalAddress);
+    setSearchValue(finalAddress);
+
+    if (mapInstance.current) {
+      mapInstance.current.panTo(nextCoordinates);
+      mapInstance.current.setZoom(17);
+    }
+
+    createMarker(nextCoordinates);
+  };
+
+  const getCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationError(
+        "Your browser does not support location services."
+      );
+      return;
+    }
+
+    setLocationLoading(true);
+    setLocationError("");
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+
+          await selectCoordinates(lat, lng);
+        } catch (error) {
+          console.error("Current location error:", error);
+          setLocationError(
+            "Unable to read your current location."
+          );
+        } finally {
+          setLocationLoading(false);
+        }
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+
+        setLocationLoading(false);
+
+        if (error.code === error.PERMISSION_DENIED) {
+          setLocationError(
+            "Please allow location permission in your browser."
+          );
+        } else if (error.code === error.POSITION_UNAVAILABLE) {
+          setLocationError(
+            "Your current location is unavailable."
+          );
+        } else if (error.code === error.TIMEOUT) {
+          setLocationError(
+            "Location request timed out. Please try again."
+          );
+        } else {
+          setLocationError(
+            "Unable to get your current location."
+          );
+        }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0,
       }
+    );
+  };
 
-      const input =
-        document.getElementById(
-          "customer-location-search"
-        );
+  const initializeAutocomplete = () => {
+    if (
+      !window.google?.maps?.places ||
+      autocompleteRef.current
+    ) {
+      return;
+    }
 
-      if (!input) return;
+    const input = document.getElementById(
+      "customer-location-search"
+    );
 
-      if (autocompleteRef.current) {
-        return;
-      }
+    if (!input) return;
 
-      autocompleteRef.current =
-        new window.google.maps.places.Autocomplete(
-          input,
-          {
-            componentRestrictions: {
-              country: "in",
-            },
+    autocompleteRef.current =
+      new window.google.maps.places.Autocomplete(input, {
+        componentRestrictions: {
+          country: "in",
+        },
+        fields: [
+          "formatted_address",
+          "geometry",
+          "name",
+        ],
+        types: ["geocode"],
+      });
 
-            fields: [
-              "formatted_address",
-              "geometry",
-              "name",
-            ],
-
-            types: ["geocode"],
-          }
-        );
-
+    autocompleteListenerRef.current =
       autocompleteRef.current.addListener(
         "place_changed",
-        () => {
+        async () => {
           const place =
             autocompleteRef.current.getPlace();
 
@@ -532,270 +537,244 @@ const LocationPicker = ({
           const address =
             place.formatted_address ||
             place.name ||
-            `${lat.toFixed(
-              6
-            )}, ${lng.toFixed(6)}`;
+            "Selected location";
 
-          updateMarkerPosition(
+          await selectCoordinates(
             lat,
             lng,
             address
           );
         }
       );
+  };
+
+  const initializeMap = (initialCoordinates) => {
+    if (
+      !mapRef.current ||
+      !window.google?.maps ||
+      !initialCoordinates ||
+      mapInstance.current
+    ) {
+      return false;
+    }
+
+    const position = {
+      lat: Number(initialCoordinates.lat),
+      lng: Number(initialCoordinates.lng),
     };
-
-    const updateMarkerPosition = (
-      lat,
-      lng,
-      address
-    ) => {
-      const newCoordinates = {
-        lat: Number(lat),
-        lng: Number(lng),
-      };
-
-      setCoordinates(newCoordinates);
-
-      setSelectedLocation(address);
-
-      setSearchValue(address);
-
-      if (markerInstance.current) {
-        markerInstance.current.setPosition(
-          newCoordinates
-        );
-      }
-
-      if (mapInstance.current) {
-        mapInstance.current.panTo(
-          newCoordinates
-        );
-
-        mapInstance.current.setZoom(16);
-      }
-    };
-
-    /* Google script already loaded */
 
     if (
-      window.google &&
-      window.google.maps
+      !Number.isFinite(position.lat) ||
+      !Number.isFinite(position.lng)
     ) {
-      setTimeout(() => {
-        initializeMap();
-      }, 100);
+      return false;
+    }
+
+    setMapLoading(true);
+
+    mapInstance.current =
+      new window.google.maps.Map(
+        mapRef.current,
+        {
+          center: position,
+          zoom: 17,
+          mapTypeControl: false,
+          streetViewControl: false,
+          fullscreenControl: true,
+          zoomControl: true,
+          clickableIcons: false,
+          gestureHandling: "greedy",
+          mapTypeId: "roadmap",
+        }
+      );
+
+    createMarker(position);
+
+    mapInstance.current.addListener(
+      "click",
+      async (event) => {
+        if (!event.latLng) return;
+
+        const lat = event.latLng.lat();
+        const lng = event.latLng.lng();
+
+        await selectCoordinates(lat, lng);
+      }
+    );
+
+    setMapLoaded(true);
+    setMapLoading(false);
+
+    setTimeout(() => {
+      initializeAutocomplete();
+    }, 200);
+
+    return true;
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setSearchValue(currentLocation || "");
+    setSelectedLocation(currentLocation || "");
+    setLocationError("");
+    setMapLoaded(false);
+    setMapLoading(false);
+
+    if (hasValidCoordinates(currentCoordinates)) {
+      const existingCoordinates = {
+        lat: Number(currentCoordinates.lat),
+        lng: Number(currentCoordinates.lng),
+      };
+
+      setCoordinates(existingCoordinates);
 
       return;
     }
 
-    /* Wait for Google script */
-
-    const interval = setInterval(() => {
-      if (
-        window.google &&
-        window.google.maps
-      ) {
-        clearInterval(interval);
-
-        initializeMap();
-      }
-    }, 300);
-
-    return () => {
-      clearInterval(interval);
-    };
+    setCoordinates(null);
+    getCurrentLocation();
   }, [isOpen]);
 
-  /* =========================================
-     CLEANUP WHEN CLOSED
-  ========================================= */
+  useEffect(() => {
+    if (!isOpen || !coordinates) return;
+
+    if (!mapRef.current) return;
+
+    let interval = null;
+
+    const tryInitialize = () => {
+      if (
+        window.google?.maps &&
+        coordinates &&
+        mapRef.current
+      ) {
+        initializeMap(coordinates);
+
+        if (interval) {
+          clearInterval(interval);
+          interval = null;
+        }
+
+        return true;
+      }
+
+      return false;
+    };
+
+    if (!tryInitialize()) {
+      interval = setInterval(() => {
+        tryInitialize();
+      }, 300);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isOpen, coordinates]);
+
+  useEffect(() => {
+    if (
+      coordinates &&
+      mapInstance.current &&
+      markerInstance.current
+    ) {
+      const position = {
+        lat: Number(coordinates.lat),
+        lng: Number(coordinates.lng),
+      };
+
+      markerInstance.current.setPosition(position);
+      mapInstance.current.panTo(position);
+    }
+  }, [coordinates]);
 
   useEffect(() => {
     if (!isOpen) {
+      if (autocompleteListenerRef.current) {
+        window.google?.maps?.event?.removeListener(
+          autocompleteListenerRef.current
+        );
+      }
+
+      if (markerInstance.current) {
+        markerInstance.current.setMap(null);
+      }
+
       mapInstance.current = null;
       markerInstance.current = null;
       autocompleteRef.current = null;
+      autocompleteListenerRef.current = null;
+
+      setCoordinates(null);
       setMapLoaded(false);
+      setMapLoading(false);
+      setLocationLoading(false);
+      setLocationError("");
     }
   }, [isOpen]);
 
-  /* =========================================
-     CURRENT LOCATION
-  ========================================= */
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
 
-  const handleCurrentLocation = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleClear = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-    if (!navigator.geolocation) {
-      alert(
-        "Location is not supported by your browser."
+    setSearchValue("");
+    setSelectedLocation("");
+    setLocationError("");
+  };
+
+  const handleConfirm = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!coordinates) {
+      setLocationError(
+        "Please select your location first."
       );
-
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat =
-          position.coords.latitude;
-
-        const lng =
-          position.coords.longitude;
-
-        const newCoordinates = {
-          lat,
-          lng,
-        };
-
-        setCoordinates(newCoordinates);
-
-        setSelectedLocation(
-          `Current Location (${lat.toFixed(
-            6
-          )}, ${lng.toFixed(6)})`
-        );
-
-        setSearchValue(
-          `Current Location (${lat.toFixed(
-            6
-          )}, ${lng.toFixed(6)})`
-        );
-
-        if (markerInstance.current) {
-          markerInstance.current.setPosition(
-            newCoordinates
-          );
-        }
-
-        if (mapInstance.current) {
-          mapInstance.current.panTo(
-            newCoordinates
-          );
-
-          mapInstance.current.setZoom(17);
-        }
-      },
-
-      (error) => {
-        console.error(
-          "Geolocation error:",
-          error
-        );
-
-        if (
-          error.code ===
-          error.PERMISSION_DENIED
-        ) {
-          alert(
-            "Please allow location permission in your browser."
-          );
-        } else {
-          alert(
-            "Unable to get your current location."
-          );
-        }
-      },
-
-      {
-        enableHighAccuracy: true,
-
-        timeout: 10000,
-
-        maximumAge: 0,
-      }
-    );
-  };
-
-  /* =========================================
-     SEARCH INPUT
-  ========================================= */
-
-  const handleSearchChange = (e) => {
-    setSearchValue(e.target.value);
-  };
-
-  /* =========================================
-     CONFIRM LOCATION
-  ========================================= */
-
-  const handleConfirm = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const lat = Number(
-      coordinates.lat
-    );
-
-    const lng = Number(
-      coordinates.lng
-    );
+    const lat = Number(coordinates.lat);
+    const lng = Number(coordinates.lng);
 
     if (
       !Number.isFinite(lat) ||
       !Number.isFinite(lng)
     ) {
-      alert(
+      setLocationError(
         "Please select a valid location."
       );
-
       return;
     }
 
     const address =
       selectedLocation ||
       searchValue ||
-      `Location: ${lat.toFixed(
-        6
-      )}, ${lng.toFixed(6)}`;
-
-    console.log(
-      "FINAL LOCATION:",
-      {
-        address,
-        lat,
-        lng,
-      }
-    );
+      "Selected location";
 
     onLocationSelect({
-      address: address,
-
+      address,
       displayText: address,
-
-      lat: lat,
-
-      lng: lng,
+      lat,
+      lng,
     });
 
     onClose();
   };
 
-  /* =========================================
-     CLOSE
-  ========================================= */
-
-  const handleClose = (e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
+  const handleClose = (event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
     }
 
     onClose();
-  };
-
-  /* =========================================
-     CLEAR
-  ========================================= */
-
-  const handleClear = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    setSearchValue("");
-
-    setSelectedLocation("");
   };
 
   if (!isOpen) {
@@ -809,25 +788,21 @@ const LocationPicker = ({
     >
       <div
         className="location-picker-modal"
-        onClick={(e) =>
-          e.stopPropagation()
+        onClick={(event) =>
+          event.stopPropagation()
         }
       >
-        {/* HEADER */}
-
         <div className="location-picker-header">
-          <div>
+          <div className="location-header-content">
             <span className="location-picker-label">
-              INTOWN
+              LOCATION
             </span>
 
-            <h2>
-              Select Your Location
-            </h2>
+            <h2>Select Your Location</h2>
 
             <p>
-              Search your location or select
-              a point on the map.
+              Search your location or use your
+              current location.
             </p>
           </div>
 
@@ -835,17 +810,26 @@ const LocationPicker = ({
             type="button"
             className="location-close-btn"
             onClick={handleClose}
+            aria-label="Close location picker"
           >
             ×
           </button>
         </div>
 
-        {/* SEARCH */}
-
         <div className="location-search-area">
           <div className="location-search-box">
             <span className="location-search-icon">
-              🔍
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="7"
+                />
+                <path d="M16.5 16.5L21 21" />
+              </svg>
             </span>
 
             <input
@@ -853,9 +837,6 @@ const LocationPicker = ({
               type="text"
               value={searchValue}
               onChange={handleSearchChange}
-              onClick={(e) =>
-                e.stopPropagation()
-              }
               placeholder="Search your location"
               autoComplete="off"
             />
@@ -865,6 +846,7 @@ const LocationPicker = ({
                 type="button"
                 className="location-clear-btn"
                 onClick={handleClear}
+                aria-label="Clear location"
               >
                 ×
               </button>
@@ -874,16 +856,44 @@ const LocationPicker = ({
           <button
             type="button"
             className="current-location-btn"
-            onClick={
-              handleCurrentLocation
-            }
+            onClick={getCurrentLocation}
+            disabled={locationLoading}
           >
-            <span>📍</span>
-            Use Current Location
+            <span className="current-location-icon">
+              {locationLoading ? (
+                <span className="location-spinner" />
+              ) : (
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="3"
+                  />
+                  <path d="M12 2v3" />
+                  <path d="M12 19v3" />
+                  <path d="M2 12h3" />
+                  <path d="M19 12h3" />
+                </svg>
+              )}
+            </span>
+
+            <span>
+              {locationLoading
+                ? "Getting Location..."
+                : "Use Current Location"}
+            </span>
           </button>
         </div>
 
-        {/* MAP */}
+        {locationError && (
+          <div className="location-error">
+            <span className="error-icon">!</span>
+            <span>{locationError}</span>
+          </div>
+        )}
 
         <div className="location-map-wrapper">
           <div
@@ -891,50 +901,62 @@ const LocationPicker = ({
             className="location-map"
           />
 
-          {!mapLoaded && (
+          {(!coordinates ||
+            !mapLoaded ||
+            mapLoading) && (
             <div className="map-loading">
-              Loading map...
+              <div className="map-loading-spinner" />
+
+              <span>
+                {locationLoading
+                  ? "Getting your real location..."
+                  : "Loading map..."}
+              </span>
             </div>
           )}
 
-          <div className="map-instruction">
-            Click on the map or drag the marker
-            to select your location.
-          </div>
+          {coordinates && mapLoaded && (
+            <div className="map-instruction">
+              <span>⌖</span>
+              Move the marker or tap on the map
+            </div>
+          )}
         </div>
-
-        {/* SELECTED LOCATION */}
 
         <div className="selected-location-box">
           <div className="selected-location-icon">
-            📍
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" />
+              <circle
+                cx="12"
+                cy="9"
+                r="2.5"
+              />
+            </svg>
           </div>
 
           <div className="selected-location-content">
-            <strong>
+            <span className="selected-location-title">
               Selected Location
-            </strong>
+            </span>
 
             <p>
               {selectedLocation ||
                 searchValue ||
                 "Select a location on the map"}
             </p>
-
-            <div className="selected-coordinates">
-              Latitude:{" "}
-              {Number(coordinates.lat).toFixed(
-                6
-              )}{" "}
-              | Longitude:{" "}
-              {Number(coordinates.lng).toFixed(
-                6
-              )}
-            </div>
           </div>
-        </div>
 
-        {/* FOOTER */}
+          {coordinates && (
+            <div className="location-status">
+              <span />
+              Ready
+            </div>
+          )}
+        </div>
 
         <div className="location-picker-footer">
           <button
@@ -949,8 +971,17 @@ const LocationPicker = ({
             type="button"
             className="location-confirm-btn"
             onClick={handleConfirm}
+            disabled={!coordinates}
           >
-            Confirm Location
+            <span>Confirm Location</span>
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M5 12h13" />
+              <path d="M13 6l6 6-6 6" />
+            </svg>
           </button>
         </div>
       </div>
@@ -959,3 +990,7 @@ const LocationPicker = ({
 };
 
 export default LocationPicker;
+
+
+
+
