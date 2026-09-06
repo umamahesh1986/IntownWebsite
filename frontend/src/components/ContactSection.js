@@ -3,11 +3,10 @@ import { motion } from "framer-motion";
 import "./ContactSection.css";
 import Footer from "./Footer";
 import Header from "./Header";
-
 const ContactSection = () => {
   const [role, setRole] = useState("Partners");
   const mapRef = useRef(null);
-  const mapInstanceRef = useRef(null);
+  
 
   const roles = [
     {
@@ -32,134 +31,86 @@ const ContactSection = () => {
     },
   ];
 
-  /* GOOGLE MAP */
-
+  // Initialize Google Map
   useEffect(() => {
-    let cancelled = false;
-    let interval = null;
-
-    const initializeMap = async () => {
-      try {
-        if (cancelled || !mapRef.current) {
-          return;
-        }
-
-        if (!window.google || !window.google.maps) {
-          return;
-        }
-
-        if (mapInstanceRef.current) {
-          return;
-        }
-
-        /*
-         * Load Google Maps "maps" library
-         */
-
-        const mapsLibrary =
-          await window.google.maps.importLibrary("maps");
-
-        if (cancelled || !mapRef.current) {
-          return;
-        }
-
-        const MapClass = mapsLibrary.Map;
-
-        if (!MapClass) {
-          console.error(
-            "Google Maps Map library could not be loaded."
-          );
-          return;
-        }
-
-        const location = {
-          lat: 17.385,
-          lng: 78.4867,
-        };
-
-        /*
-         * Create Map
-         */
-
-        const map = new MapClass(mapRef.current, {
-          center: location,
+    const initializeMap = () => {
+      if (window.google && window.google.maps && window.google.maps.Map && mapRef.current) {
+        const map = new window.google.maps.Map(mapRef.current, {
+          center: { lat: 17.3850, lng: 78.4867 }, // Hyderabad, India
           zoom: 15,
-          mapTypeControl: false,
-          streetViewControl: false,
-          fullscreenControl: true,
-          zoomControl: true,
+          styles: [
+            {
+              featureType: 'all',
+              elementType: 'geometry.fill',
+              stylers: [{ color: '#f5f5f5' }]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry.fill',
+              stylers: [{ color: '#c9e2ff' }]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels',
+              stylers: [{ visibility: 'off' }]
+            }
+          ]
         });
 
-        mapInstanceRef.current = map;
+        const marker = new window.google.maps.Marker({
+          position: { lat: 17.3850, lng: 78.4867 },
+          map: map,
+          title: 'INtown Office',
+          icon: {
+            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+              <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="18" fill="#ff6b35" stroke="#ffffff" stroke-width="4"/>
+                <path d="M20 8 L28 16 L20 24 L12 16 Z" fill="#ffffff"/>
+              </svg>
+            `),
+            scaledSize: new window.google.maps.Size(40, 40)
+          }
+        });
 
-        /*
-         * Load marker library
-         */
+        const infoWindow = new window.google.maps.InfoWindow({
+          content: `
+            <div style="padding: 10px; max-width: 200px;">
+              <h4 style="margin: 0 0 5px 0; color: #ff6b35; font-size: 16px;">INtown Office</h4>
+              <p style="margin: 0; color: #666; font-size: 14px;">
+                123 Business District<br>
+                Hyderabad, Telangana 500001<br>
+                India
+              </p>
+            </div>
+          `
+        });
 
-        const markerLibrary =
-          await window.google.maps.importLibrary("marker");
-
-        if (cancelled) {
-          return;
-        }
-
-        /*
-         * Modern Advanced Marker
-         */
-
-        if (markerLibrary.AdvancedMarkerElement) {
-          new markerLibrary.AdvancedMarkerElement({
-            map,
-            position: location,
-            title: "INtown Office",
-          });
-        }
-      } catch (error) {
-        console.error(
-          "Google Maps initialization error:",
-          error
-        );
+        marker.addListener('click', () => {
+          infoWindow.open(map, marker);
+        });
       }
     };
 
-    /*
-     * Google Maps already loaded
-     */
-
-    if (
-      window.google &&
-      window.google.maps
-    ) {
+    // Check if Google Maps is loaded
+    if (window.google && window.google.maps && window.google.maps.Map) {
       initializeMap();
     } else {
-      /*
-       * Wait for Google Maps script
-       */
-
-      interval = setInterval(() => {
-        if (
-          window.google &&
-          window.google.maps
-        ) {
-          clearInterval(interval);
-          interval = null;
+      // Wait for Google Maps to load
+      const checkGoogleMaps = setInterval(() => {
+        if (window.google && window.google.maps && window.google.maps.Map) {
+          clearInterval(checkGoogleMaps);
           initializeMap();
         }
       }, 100);
+
+      // Cleanup interval after 10 seconds
+      setTimeout(() => clearInterval(checkGoogleMaps), 10000);
+      return () => clearInterval(checkGoogleMaps);
     }
-
-    return () => {
-      cancelled = true;
-
-      if (interval) {
-        clearInterval(interval);
-      }
-
-      mapInstanceRef.current = null;
-    };
   }, []);
 
-  /* FORM SUBMIT */
+
+  /*  FORM SUBMIT */
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -174,7 +125,6 @@ const ContactSection = () => {
   return (
     <div className="contact-page">
       <Header />
-
       <main>
 
         {/* SECTION 1 - HERO */}
@@ -303,14 +253,16 @@ const ContactSection = () => {
                     setRole(e.target.value)
                   }
                 >
-                  {roles.map((item, index) => (
-                    <option
-                      key={index}
-                      value={item.title}
-                    >
-                      {item.title}
-                    </option>
-                  ))}
+                  {roles.map(
+                    (item, index) => (
+                      <option
+                        key={index}
+                        value={item.title}
+                      >
+                        {item.title}
+                      </option>
+                    )
+                  )}
                 </select>
 
                 <input
@@ -341,125 +293,77 @@ const ContactSection = () => {
                 </button>
               </form>
             </motion.div>
-
           </div>
         </section>
 
         {/* SECTION 3 - GET IN TOUCH */}
 
-        <motion.section
-          id="contact"
-          className="contact-section"
-          initial={{
-            opacity: 0,
-            y: 30,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-        >
-          <div className="contact-content">
-
-            <div className="contact-header">
-              <h3 className="contact-title">
-                Get in Touch
-              </h3>
-
-              <p className="contact-subtitle">
-                Ready to join the INtown community?
-                We're here to help you get started.
-              </p>
+        <motion.section 
+      id="contact"
+      className="contact-section"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, amount: 0.2 }}
+    >
+      <div className="contact-content">
+        <div className="contact-header">
+          <h3 className="contact-title">Get in Touch</h3>
+          <p className="contact-subtitle">
+            Ready to join the INtown community? We're here to help you get started.
+          </p>
+        </div>
+        
+        <div className="contact-grid">
+          {/* Contact Information */}
+          <div className="contact-info">
+            <div className="contact-item">
+              <div className="contact-icon">
+                <span className="white-styled-icon">⌖</span>
+              </div>
+              <div className="contact-details">
+                <h4>Office</h4>
+                <p>T Hub,
+                Plot No 1/C, Sy No 83/1, Raidurgam, Knowledge City Rd, panmaktha, Hyderabad, Serilingampalle (M), Telangana 500032</p>
+              </div>
             </div>
-
-            <div className="contact-grid">
-
-              {/* CONTACT INFORMATION */}
-
-              <div className="contact-info">
-
-                <div className="contact-item">
-                  <div className="contact-icon">
-                    <span className="white-styled-icon">
-                      ⌖
-                    </span>
-                  </div>
-
-                  <div className="contact-details">
-                    <h4>Office</h4>
-
-                    <p>
-                      T Hub, Plot No 1/C,
-                      Sy No 83/1, Raidurgam,
-                      Knowledge City Rd,
-                      panmaktha, Hyderabad,
-                      Serilingampalle (M),
-                      Telangana 500032
-                    </p>
-                  </div>
-                </div>
-
-                <div className="contact-item">
-                  <div className="contact-icon">
-                    <span className="white-styled-icon">
-                      ✉
-                    </span>
-                  </div>
-
-                  <div className="contact-details">
-                    <h4>Email Us</h4>
-
-                    <p>
-                      support@intownlocal.com
-                    </p>
-                  </div>
-                </div>
-
-                <div className="contact-item">
-                  <div className="contact-icon">
-                    <span className="white-styled-icon">
-                      ☎
-                    </span>
-                  </div>
-
-                  <div className="contact-details">
-                    <h4>Call Us</h4>
-
-                    <p>
-                      +91 9052263555
-                    </p>
-                  </div>
-                </div>
-
+            
+            <div className="contact-item">
+              <div className="contact-icon">
+                <span className="white-styled-icon">✉</span>
               </div>
-
-              {/* GOOGLE MAP */}
-
-              <div className="contact-map">
-                <div className="map-container">
-                  <div
-                    ref={mapRef}
-                    className="google-map"
-                  />
-                </div>
+              <div className="contact-details">
+                <h4>Email Us</h4>
+                <p>support@intownlocal.com</p>
               </div>
-
+            </div>
+            
+            <div className="contact-item">
+              <div className="contact-icon">
+                <span className="white-styled-icon">☎</span>
+              </div>
+              <div className="contact-details">
+                <h4>Call Us</h4>
+                <p>+91 9052263555</p>
+              </div>
             </div>
           </div>
-        </motion.section>
+          
+          {/* Google Map */}
+          <div className="contact-map">
+            <div className="map-container">
+              <div ref={mapRef} className="google-map"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.section>
 
+    <Footer />
       </main>
-
-      <Footer />
     </div>
   );
 };
 
 export default ContactSection;
+

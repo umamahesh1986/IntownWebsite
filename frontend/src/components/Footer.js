@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
-/* FOOTER SECTION */
 const FooterSection = ({ title, links }) => {
   const [open, setOpen] = useState(false);
 
@@ -23,7 +22,7 @@ const FooterSection = ({ title, links }) => {
         <span>{title}</span>
 
         <span className="section-icon">
-          {open ? "−" : "+"}
+          {open ? "×" : "+"}
         </span>
       </div>
 
@@ -43,7 +42,9 @@ const FooterSection = ({ title, links }) => {
   );
 };
 
-/* FOOTER */
+
+
+
 const Footer = () => {
   const sections = [
     {
@@ -90,7 +91,7 @@ const Footer = () => {
           path: "/ForMerchants",
         },
         {
-          name: "For D2C Brands",
+          name: "For DC2 Brands",
           path: "/ForBrands",
         },
       ],
@@ -106,10 +107,6 @@ const Footer = () => {
         {
           name: "Contact Us",
           path: "/ContactSection",
-        },
-        {
-          name: "Modal",
-          path: "/ModalCustomer",
         },
       ],
     },
@@ -135,13 +132,16 @@ const Footer = () => {
         },
         {
           name: "Delete Account",
-          path: "/Delete-Account",
+          path: "/DeleteAccount",
         },
+       
       ],
     },
   ];
 
-  /* COMMON LINK CLICK */
+
+  
+
   const handleFooterLinkClick = () => {
     window.scrollTo({
       top: 0,
@@ -150,15 +150,19 @@ const Footer = () => {
     });
   };
 
+
   return (
     <footer className="footer">
       <div className="footer-container">
 
-        {/* TOP */}
+        {/*TOP */}
+
         <div className="footer-top">
 
-          {/* LEFT */}
+          {/*LEFT */}
+
           <div className="footer-left">
+
             <p className="footer-tagline">
               Shop Local, Save Instantly! Connecting Communities
               Through Personal Bond.
@@ -170,8 +174,11 @@ const Footer = () => {
             </p>
           </div>
 
+
           {/* RIGHT */}
+
           <div className="footer-right">
+
             {sections.map((sec, i) => (
               <FooterSection
                 key={i}
@@ -179,19 +186,27 @@ const Footer = () => {
                 links={sec.links}
               />
             ))}
+
           </div>
+
         </div>
 
-        {/* BOTTOM */}
+
+        {/*BOTTOM*/}
+
         <div className="footer-bottom">
 
           {/* COPYRIGHT */}
+
           <p className="copyright">
             © 2026 Yagnavihar Lifestyle Pvt. Ltd.
           </p>
 
+
           {/* BADGES */}
+
           <div className="footer-badges">
+
             <img
               src="/images/t-hub.png"
               alt="T-Hub"
@@ -201,10 +216,14 @@ const Footer = () => {
               src="/images/StartupIndia.png"
               alt="Startup India"
             />
+
           </div>
 
+
           {/* LEGAL LINKS */}
+
           <div className="footer-legal">
+
             <Link
               to="/privacy"
               onClick={handleFooterLinkClick}
@@ -227,14 +246,16 @@ const Footer = () => {
             </Link>
 
             <Link
-              to="/Delete-Account"
+              to="/DeleteAccount"
               onClick={handleFooterLinkClick}
             >
               Delete
             </Link>
+
           </div>
 
         </div>
+
       </div>
     </footer>
   );
