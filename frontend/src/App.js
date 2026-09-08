@@ -21,7 +21,7 @@ import Ecosystem from './components/Ecosystem';
 import Home from './components/Home';
 import MerchantTerms from './components/MerchantTerms';
 import Download from './components/Download';
-
+import CustomerModal from './components/CustomerModal';
 import './App.css';
 
 function HomePage() {
@@ -58,11 +58,14 @@ function App() {
            <Route path="/forbrands" element={<ForBrands />} />
            <Route path="/ecosystem" element={<Ecosystem />} />
            <Route path="/home" element={<Home />} />
+            <Route path="/CustomerModal" element={<CustomerModal />} />
+
           
           
          
             <Route path="/merchantTerms" element={<MerchantTerms />} />
               <Route path="/download" element={<Download />} />
+               <Route path="/deleteAccount" element={<DeleteAccount />} />
              
         </Routes>
       </div>

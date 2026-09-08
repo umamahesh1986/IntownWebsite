@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "./ForCustomers.css";
+
 import Header from "./Header";
 import Footer from "./Footer";
-import Modal from "./Modal";
+import CustomerModal from "./CustomerModal";
 
 const features = [
   {
@@ -37,8 +38,19 @@ const ForCustomers = () => {
   const [isCustomerRegistrationOpen, setIsCustomerRegistrationOpen] =
     useState(false);
 
+  // OPEN MODAL
+  const openCustomerRegistration = () => {
+    setIsCustomerRegistrationOpen(true);
+  };
+
+  // CLOSE MODAL
+  const closeCustomerRegistration = () => {
+    setIsCustomerRegistrationOpen(false);
+  };
+
   return (
     <div className="for-customers">
+
       <Header />
 
       {/* HERO SECTION */}
@@ -53,6 +65,7 @@ const ForCustomers = () => {
         transition={{ duration: 0.7 }}
       >
         <div className="customers-hero-inner">
+
           {/* LEFT CONTENT */}
           <motion.div
             className="customers-hero-content"
@@ -69,29 +82,32 @@ const ForCustomers = () => {
               ease: "easeOut",
             }}
           >
+
             <div className="customers-eyebrow">
               For Customers
             </div>
 
             <h1>
-              Discover <em>more.</em>
+              Discover more
               <br />
-              <span>Spend smarter.</span>
+              <span>Spend smarter</span>
             </h1>
 
             <p className="customers-hero-description">
-              Your neighborhood is full of possibilities. INtown
-              helps you find them.
+              Your neighborhood is full of possibilities.
+              INtown helps you find them.
             </p>
 
+            {/* OPEN MODAL */}
             <button
               type="button"
               className="customers-download-btn"
-              onClick={() => setIsCustomerRegistrationOpen(true)}
+              onClick={openCustomerRegistration}
             >
               Register as Customer
               <span>↗</span>
             </button>
+
           </motion.div>
         </div>
       </motion.section>
@@ -99,6 +115,7 @@ const ForCustomers = () => {
       {/* WHAT YOU GET */}
       <section className="customers-benefits">
         <div className="customers-benefits-inner">
+
           <motion.div
             className="customers-section-heading"
             initial={{
@@ -125,12 +142,13 @@ const ForCustomers = () => {
             </h2>
 
             <p>
-              From everyday essentials to new discoveries, INtown
-              surfaces what is relevant and nearby.
+              From everyday essentials to new discoveries,
+              INtown surfaces what is relevant and nearby.
             </p>
           </motion.div>
 
           <div className="customers-benefits-grid">
+
             {features.map((feature, index) => (
               <motion.div
                 className="customer-benefit-card"
@@ -154,21 +172,29 @@ const ForCustomers = () => {
                   y: -8,
                 }}
               >
+
                 <div className="customer-benefit-icon">
                   {feature.icon}
                 </div>
 
-                <h3>{feature.title}</h3>
+                <h3>
+                  {feature.title}
+                </h3>
 
-                <p>{feature.desc}</p>
+                <p>
+                  {feature.desc}
+                </p>
+
               </motion.div>
             ))}
+
           </div>
         </div>
       </section>
 
       {/* FINAL CTA */}
       <section className="customers-final-cta">
+
         <motion.div
           className="customers-final-cta-inner"
           initial={{
@@ -186,7 +212,9 @@ const ForCustomers = () => {
             duration: 0.7,
           }}
         >
+
           <div className="customers-final-cta-content">
+
             <span className="customers-section-label">
               Start discovering
             </span>
@@ -208,18 +236,20 @@ const ForCustomers = () => {
               Download the INtown App
               <span>↗</span>
             </a>
+
           </div>
         </motion.div>
       </section>
 
       {/* CUSTOMER REGISTRATION MODAL */}
-      <Modal
+      <CustomerModal
         isOpen={isCustomerRegistrationOpen}
-        onClose={() => setIsCustomerRegistrationOpen(false)}
+        onClose={closeCustomerRegistration}
         type="customer"
       />
 
       <Footer />
+
     </div>
   );
 };

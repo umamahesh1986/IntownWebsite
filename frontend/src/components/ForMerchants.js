@@ -103,7 +103,7 @@ const ForMerchants = () => {
 
               <h1>
                 Get discovered by the customers around{" "}
-                <em>you.</em>
+                 you
               </h1>
 
               <p>
@@ -157,7 +157,7 @@ const ForMerchants = () => {
             <h2>
               Turn local discovery into
               <br />
-              lasting <em>growth.</em>
+              lasting  growth
             </h2>
 
             <div className="merchant-heading-line" />
@@ -240,7 +240,7 @@ const ForMerchants = () => {
             <h2>
               Everything you need
               <br />
-              to grow <em>locally.</em>
+              to grow locally
             </h2>
 
             <div className="merchant-heading-line" />
@@ -312,9 +312,9 @@ const ForMerchants = () => {
               </span>
 
               <h2>
-                Your business is <em>local.</em>
+                Your business is local
                 <br />
-                Your growth should be too.
+                Your growth should be too
               </h2>
 
               <div className="merchant-heading-line" />
