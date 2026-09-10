@@ -33,3 +33,11 @@ API base URLs are hardcoded in `src` (no `.env` needed for data).
 - P1: Manual real-money smoke test of pay → verify → register on staging or with a test key.
 - P2: Show selected plan + payment id on the success modal.
 - P2: Handle backend `subscriptionPlan` enum mapping if backend later requires it for joining fee.
+
+## 2026-06 — Location Picker map fix
+- Bug: Google Map in the merchant "Select Business Location" picker not loading.
+- Root cause: `BillingNotEnabledMapError` — hardcoded Maps API key had no billing.
+- Fix: key moved to `REACT_APP_GOOGLE_MAPS_API_KEY` (frontend/.env), referenced via
+  `%REACT_APP_GOOGLE_MAPS_API_KEY%` in public/index.html; new billing-enabled key supplied by user.
+- Verified by testing_agent (iteration_1.json): map + tiles render, marker/confirm work, no map errors. 100% pass.
+- Optional follow-ups: show formatted address (not lat/lng) on confirm; migrate deprecated Marker/SearchBox; add HTTP-referrer restrictions to the key.

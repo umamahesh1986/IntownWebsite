@@ -1,0 +1,28 @@
+{
+  "summary": "Verified Google Maps loading fix on /formerchants LocationPicker. Map tiles render, marker placement/reverse-geocoding works, Confirm Location returns coordinates to the merchant form. No BillingNotEnabledMapError, no 'For development purposes only' watermark, no map error dialog.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "LocationPicker", "issues": ["Business location field is populated with raw coordinates '28.614371, 77.209000' after Confirm rather than the formatted address shown in the picker. Consider passing the reverse-geocoded address string for better UX."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional: On Confirm, populate businessLocation with the human-readable address (already computed as 'Selected Location:' text) instead of only lat/lng.",
+    "Optional deprecations: google.maps.Marker deprecated -> AdvancedMarkerElement; google.maps.places.SearchBox unavailable to new customers -> migrate to PlaceAutocompleteElement."
+  ],
+  "critical_code_review_comments": [
+    "API key is exposed publicly in frontend build (unavoidable for Maps JS) — ensure HTTP referrer restrictions + API restrictions are configured on the Google Cloud key to prevent quota abuse.",
+    "LocationPicker uses polling for window.google.maps; consider using the official callback (already set as initMap in index.html) or @googlemaps/js-api-loader for cleaner load handling."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "test_credentials": "None required",
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Google Maps billing issue is resolved. REACT_APP_GOOGLE_MAPS_API_KEY loads correctly. Map renders in LocationPicker with tiles; click-to-place marker works; Confirm fills businessLocation with coordinates. Only console warnings observed are Google's deprecation notices for Marker and places.SearchBox (informational, non-blocking) and expected 'Geolocation error' (headless, denied permission — falls back to Delhi default as designed).",
+  "rca of the issue": "Original bug: BillingNotEnabledMapError due to hardcoded API key without billing. Fix: env var REACT_APP_GOOGLE_MAPS_API_KEY with billing-enabled key injected via %REACT_APP_GOOGLE_MAPS_API_KEY% in public/index.html. Verified: no billing/key errors in console; map + tiles render successfully."
+}
