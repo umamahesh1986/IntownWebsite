@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Download.css";
 import Footer from "./Footer";
 import Header from "./Header";
 
 const PLAY_STORE_URL =
   "https://play.google.com/store/search?q=intown&c=apps&hl=en_IN";
+const APP_STORE_URL =
+  "https://apps.apple.com/in/app/intownlocal/id6766092424";
+
+const getMobileStoreUrl = () => {
+  if (typeof navigator === "undefined") return null;
+  const ua = navigator.userAgent || navigator.vendor || window.opera || "";
+  if (/iPad|iPhone|iPod/i.test(ua) && !window.MSStream) return APP_STORE_URL;
+  if (/android/i.test(ua)) return PLAY_STORE_URL;
+  return null;
+};
 
 const Download = () => {
+  // Auto-redirect mobile visitors (e.g. from the QR code) to their app store.
+  useEffect(() => {
+    const storeUrl = getMobileStoreUrl();
+    if (storeUrl) window.location.replace(storeUrl);
+  }, []);
+
   return (
     <div className="download-page">
 
@@ -36,9 +52,12 @@ const Download = () => {
             <div className="download-buttons">
 
               <a
-                href="/Home"
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="download-store-btn"
                 aria-label="Download on the App Store"
+                data-testid="app-store-btn"
               >
                 <span className="download-store-icon">
                   
@@ -53,9 +72,10 @@ const Download = () => {
               <a
                 href={PLAY_STORE_URL}
                 target="_blank"
-                rel="noopener,noreferrer"
+                rel="noopener noreferrer"
                 className="download-store-btn"
                 aria-label="Get it on Google Play"
+                data-testid="play-store-btn"
               >
                 <span className="download-store-icon play-icon">
                   ▶
@@ -276,8 +296,16 @@ const Download = () => {
               <a
                 href={PLAY_STORE_URL}
                 target="_blank"
-                rel="noopener,noreferrer"
+                rel="noopener noreferrer"
                 className="download-cta-button"
+                data-testid="cta-download-btn"
+                onClick={(e) => {
+                  const storeUrl = getMobileStoreUrl();
+                  if (storeUrl) {
+                    e.preventDefault();
+                    window.location.href = storeUrl;
+                  }
+                }}
               >
                 Download App
 

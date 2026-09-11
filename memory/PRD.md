@@ -41,3 +41,12 @@ API base URLs are hardcoded in `src` (no `.env` needed for data).
   `%REACT_APP_GOOGLE_MAPS_API_KEY%` in public/index.html; new billing-enabled key supplied by user.
 - Verified by testing_agent (iteration_1.json): map + tiles render, marker/confirm work, no map errors. 100% pass.
 - Optional follow-ups: show formatted address (not lat/lng) on confirm; migrate deprecated Marker/SearchBox; add HTTP-referrer restrictions to the key.
+
+## 2026-06 — /download store redirect (QR target)
+- QR code points to www.intownlocal.com/download.
+- Download.js: added APP_STORE_URL; getMobileStoreUrl() detects iOS/Android from userAgent;
+  useEffect auto-redirects mobile visitors (window.location.replace) — iOS->App Store, Android->Play.
+- Fixed App Store button (was href="/Home") -> App Store URL; fixed Play Store rel typo; CTA is device-aware.
+- Store URLs: App Store https://apps.apple.com/in/app/intownlocal/id6766092424 ; Play https://play.google.com/store/search?q=intown&c=apps&hl=en_IN
+- Verified by testing_agent iteration_2.json: 100% (desktop no-redirect + correct hrefs; iOS/Android emulated redirects). 
+- NOTE: QR uses the PRODUCTION domain, so this must be deployed/committed to production for the QR to use the new behavior.
