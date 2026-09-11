@@ -50,3 +50,12 @@ API base URLs are hardcoded in `src` (no `.env` needed for data).
 - Store URLs: App Store https://apps.apple.com/in/app/intownlocal/id6766092424 ; Play https://play.google.com/store/search?q=intown&c=apps&hl=en_IN
 - Verified by testing_agent iteration_2.json: 100% (desktop no-redirect + correct hrefs; iOS/Android emulated redirects). 
 - NOTE: QR uses the PRODUCTION domain, so this must be deployed/committed to production for the QR to use the new behavior.
+
+## 2026-06 — Location map broke on local (regression) — fixed
+- Cause: Maps key was read from %REACT_APP_GOOGLE_MAPS_API_KEY% (frontend/.env). .env is NOT committed to git,
+  so on the user's local `git clone` + npm start the key was empty -> "Oops! This page didn't load Google Maps correctly".
+- Fix: hardcoded the billing-enabled key (AIzaSyBTPqSDYbyIbJZetJ8Shd_DOqywUJN55AA) directly in public/index.html
+  so it works on any clone with no .env.
+- Verified by testing_agent iteration_3.json: 100% — map loads in BOTH merchant (/formerchants) and customer (/forcustomers) pickers.
+- Follow-up (recommended): add HTTP-referrer restrictions to the key in Google Cloud (allow localhost:3000 + www.intownlocal.com);
+  migrate deprecated SearchBox/Marker to PlaceAutocompleteElement/AdvancedMarkerElement.
