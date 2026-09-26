@@ -76,6 +76,10 @@ const Footer = () => {
           name: "Download",
           path: "/Download",
         },
+         {
+          name: "Categories",
+          path: "/Categories",
+        },
       ],
     },
 

@@ -22,7 +22,10 @@ import Home from './components/Home';
 import MerchantTerms from './components/MerchantTerms';
 import Download from './components/Download';
 import CustomerModal from './components/CustomerModal';
+
 import './App.css';
+import Categories from './components/Categories';
+
 
 function HomePage() {
   return (
@@ -66,6 +69,7 @@ function App() {
             <Route path="/merchantTerms" element={<MerchantTerms />} />
               <Route path="/download" element={<Download />} />
                <Route path="/deleteAccount" element={<DeleteAccount />} />
+               <Route path="/Categories" element={<Categories />} />
              
         </Routes>
       </div>
