@@ -159,6 +159,34 @@ export default function Header() {
   const [hoverExpand, setHoverExpand] =
     useState(false);
 
+  /* =========================================================
+     SCROLL HEADER STATE
+  ========================================================= */
+
+  const [isScrolled, setIsScrolled] =
+    useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      { passive: true }
+    );
+
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+    };
+  }, []);
+
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -219,7 +247,8 @@ export default function Header() {
         "intown-scroll-top"
       );
 
-      window.history.scrollRestoration = "manual";
+      window.history.scrollRestoration =
+        "manual";
 
       requestAnimationFrame(() => {
         window.scrollTo({
@@ -357,7 +386,13 @@ export default function Header() {
       };
 
   return (
-    <div className="header-wrapper">
+    <div
+      className={`header-wrapper ${
+        isScrolled
+          ? "header-scrolled"
+          : ""
+      }`}
+    >
       <header className="header">
         <div className="logo-box">
           <a
@@ -421,6 +456,18 @@ export default function Header() {
                 }
               >
                 Merchants
+              </a>
+
+<a
+                href="/Categories"
+                onClick={(e) =>
+                  handleNavigation(
+                    e,
+                    "/Categories"
+                  )
+                }
+              >
+                Categories
               </a>
 
               <a
@@ -818,3 +865,4 @@ export default function Header() {
     </div>
   );
 }
+

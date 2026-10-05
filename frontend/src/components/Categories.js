@@ -1,923 +1,172 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+
+import Header from "./Header";
+import Footer from "./Footer";
+import AllCategories from "./AllCategories";
+import CategoryDetails from "./CategoryDetails";
+
 import "./Categories.css";
 
-const CATEGORIES_API =
+const API_URL =
   "https://devapi.intownlocal.com/IN/categories/?forRegistration=true";
 
 const QUICK_CATEGORIES = [
   "All",
-  "Food",
-  "Groceries",
-  "Dairy Products",
-  "Pharmacy",
-  "Bakery",
-  "Meat",
-  "Restaurants",
-  "Beauty",
+  "Fresh & Daily Essentials",
+  "Food & Dining",
+  "Fashion & Lifestyle",
+  "Beauty & Wellness",
+  "Health & Medical",
+  "Home & Services",
+  "Electronics",
 ];
 
-const SECTIONS = [
+const CATEGORY_SECTIONS = [
   {
     title: "Fresh & Daily Essentials",
-    categories: [
-      "Groceries",
-      "Fruits",
-      "Vegetables",
-      "Dairy Products",
-      "Bakery",
-      "Meat",
+    keywords: [
+      "grocery",
+      "supermarket",
+      "vegetable",
+      "fruit",
+      "meat",
+      "chicken",
+      "fish",
+      "dairy",
+      "bakery",
+      "daily",
+      "fresh",
     ],
   },
   {
     title: "Food & Dining",
-    categories: [
-      "Restaurants",
-      "Cafes",
-      "Juice Shops",
-      "Ice Cream Shops",
-      "Food",
+    keywords: [
+      "food",
+      "restaurant",
+      "hotel",
+      "cafe",
+      "sweet",
+      "biryani",
+      "tiffin",
+      "dining",
+      "juice",
     ],
   },
   {
-    title: "Fashion & Accessories",
-    categories: [
-      "Boutique",
-      "Women's Wear",
-      "Men's Wear",
-      "Kids Wear",
-      "Footwear",
-      "Bags & Accessories",
-      "Jewellery",
-      "Imitation Jewellery",
-      "Fancy Store",
-      "Eyewear",
+    title: "Fashion & Lifestyle",
+    keywords: [
+      "fashion",
+      "clothing",
+      "dress",
+      "textile",
+      "tailor",
+      "footwear",
+      "shoe",
+      "jewellery",
+      "jewelry",
+      "accessories",
+      "lifestyle",
     ],
   },
   {
     title: "Beauty & Wellness",
-    categories: [
-      "Beauty Parlors",
-      "Men's Salons",
-      "Wellness Centers",
-      "Gyms",
-      "Yoga",
-      "Ayurvedic",
+    keywords: [
+      "beauty",
+      "salon",
+      "spa",
+      "parlour",
+      "parlor",
+      "cosmetic",
+      "wellness",
+      "hair",
+      "makeup",
     ],
   },
   {
     title: "Health & Medical",
-    categories: [
-      "Pharmacy",
-      "Dental Clinics",
-      "Eye Clinics",
-      "Diagnostic Labs",
-      "Physiotherapy",
+    keywords: [
+      "health",
+      "medical",
+      "hospital",
+      "clinic",
+      "pharmacy",
+      "doctor",
+      "dental",
+      "diagnostic",
+      "medicine",
     ],
   },
   {
-    title: "Home & Living",
-    categories: [
-      "Furniture",
-      "Home Interior",
-      "Electrical",
-      "Hardware",
-      "Paint",
-      "Plumbers",
-      "Home Services",
-      "Pest Control",
+    title: "Home & Services",
+    keywords: [
+      "home",
+      "service",
+      "repair",
+      "cleaning",
+      "plumber",
+      "electrician",
+      "carpenter",
+      "painting",
+      "laundry",
+      "furniture",
     ],
   },
   {
-    title: "Electronics & Mobile",
-    categories: [
-      "Electronics & Home Appliances",
-      "Mobile Stores",
-      "Mobile Repairs",
-      "Computer Hardware",
-      "Xerox Shops",
+    title: "Electronics",
+    keywords: [
+      "electronic",
+      "mobile",
+      "phone",
+      "computer",
+      "laptop",
+      "tv",
+      "television",
+      "appliance",
+      "camera",
+      "gadget",
     ],
-  },
-  {
-    title: "Automotive",
-    categories: ["Car Wash", "Mechanic"],
-  },
-  {
-    title: "Everyday Services",
-    categories: [
-      "Laundry",
-      "Tailoring",
-      "Photo Studios",
-      "Others",
-    ],
-  },
-  {
-    title: "Education & Learning",
-    categories: ["Art Classes", "Stationery"],
-  },
-  {
-    title: "Pets & More",
-    categories: ["Pet"],
   },
 ];
-
-const CATEGORY_ALIASES = {
-  Food: [
-    "Food",
-    "Restaurants",
-    "Restaurant",
-    "Cafes",
-    "Cafe",
-    "Juice Shops",
-    "Juice Shop",
-    "Ice Cream Shops",
-    "Ice Cream",
-  ],
-
-  Beauty: [
-    "Beauty",
-    "Beauty Parlors",
-    "Beauty Parlor",
-    "Men's Salons",
-    "Men's Salon",
-    "Wellness Centers",
-    "Wellness Center",
-    "Gyms",
-    "Gym",
-    "Yoga",
-    "Ayurvedic",
-  ],
-
-  Groceries: [
-    "Groceries",
-    "Grocery",
-    "Vegetables",
-    "Fruits",
-  ],
-
-  "Dairy Products": [
-    "Dairy Products",
-    "Dairy",
-    "Milk",
-    "Curd",
-    "Ghee",
-  ],
-
-  Pharmacy: ["Pharmacy"],
-
-  Bakery: ["Bakery"],
-
-  Meat: [
-    "Meat",
-    "Chicken",
-    "Mutton",
-    "Fish",
-  ],
-
-  Restaurants: [
-    "Restaurants",
-    "Restaurant",
-  ],
-};
-
-const CATEGORY_EMOJIS = {
-  Groceries: "🛒",
-  Fruits: "🍎",
-  Vegetables: "🥦",
-  "Dairy Products": "🥛",
-  Bakery: "🥐",
-  Meat: "🥩",
-  Restaurants: "🍽️",
-  Cafes: "☕",
-  "Juice Shops": "🥤",
-  "Ice Cream Shops": "🍦",
-  Food: "🍕",
-  Boutique: "👗",
-  "Women's Wear": "👚",
-  "Men's Wear": "👔",
-  "Kids Wear": "🧒",
-  Footwear: "👟",
-  "Bags & Accessories": "👜",
-  Jewellery: "💎",
-  "Imitation Jewellery": "💍",
-  "Fancy Store": "✨",
-  Eyewear: "👓",
-  "Beauty Parlors": "💇‍♀️",
-  "Men's Salons": "💈",
-  "Wellness Centers": "🧘",
-  Gyms: "🏋️",
-  Yoga: "🧘‍♀️",
-  Ayurvedic: "🌿",
-  Pharmacy: "💊",
-  "Dental Clinics": "🦷",
-  "Eye Clinics": "👁️",
-  "Diagnostic Labs": "🔬",
-  Physiotherapy: "🩺",
-  Furniture: "🛋️",
-  "Home Interior": "🏠",
-  Electrical: "💡",
-  Hardware: "🔧",
-  Paint: "🎨",
-  Plumbers: "🚰",
-  "Home Services": "🏡",
-  "Pest Control": "🐜",
-  "Electronics & Home Appliances": "📺",
-  "Mobile Stores": "📱",
-  "Mobile Repairs": "🛠️",
-  "Computer Hardware": "💻",
-  "Xerox Shops": "🖨️",
-  "Car Wash": "🚗",
-  Mechanic: "🔩",
-  Laundry: "🧺",
-  Tailoring: "🧵",
-  "Photo Studios": "📸",
-  Others: "📦",
-  "Art Classes": "🎨",
-  Stationery: "✏️",
-  Pet: "🐶",
-};
 
 const normalize = (value) =>
   String(value || "")
     .trim()
-    .toLowerCase()
-    .replace(/\s+/g, " ");
+    .toLowerCase();
 
-const getCategoryName = (category) => {
-  if (typeof category === "string") {
-    return category;
-  }
+const getCategoryName = (category) =>
+  category?.name ||
+  category?.categoryName ||
+  category?.title ||
+  category?.serviceName ||
+  "Category";
 
-  return (
-    category?.name ||
-    category?.categoryName ||
-    category?.title ||
-    category?.category ||
-    ""
+const getCategoryImage = (category) =>
+  category?.imageUrl ||
+  category?.s3ImageUrl ||
+  category?.image ||
+  category?.imageURL ||
+  "";
+
+const getCategoryId = (category, index) =>
+  category?.id ||
+  category?.categoryId ||
+  category?._id ||
+  `category-${index}`;
+
+const matchesSection = (category, section) => {
+  const name = normalize(getCategoryName(category));
+
+  return section.keywords.some((keyword) =>
+    name.includes(normalize(keyword))
   );
 };
 
-const getCategoryImage = (category) => {
-  if (typeof category === "string") {
-    return "";
-  }
-
-  return (
-    category?.imageUrl ||
-    category?.image ||
-    category?.image_url ||
-    category?.icon ||
-    ""
-  );
-};
-
-const getApiCategories = (data) => {
-  if (Array.isArray(data)) {
-    return data;
-  }
-
-  if (Array.isArray(data?.data)) {
-    return data.data;
-  }
-
-  if (Array.isArray(data?.results)) {
-    return data.results;
-  }
-
-  if (Array.isArray(data?.categories)) {
-    return data.categories;
-  }
-
-  return [];
-};
-
-const createFallbackCategory = (name) => ({
-  id: `local-${normalize(name).replace(/[^a-z0-9]+/g, "-")}`,
-  name,
-  imageUrl: "",
-});
-
-function isRelatedCategory(categoryName, selectedName) {
-  if (selectedName === "All") {
-    return true;
-  }
-
-  const aliases =
-    CATEGORY_ALIASES[selectedName] || [selectedName];
-
-  const category = normalize(categoryName);
-
-  return aliases.some((alias) => {
-    const normalizedAlias = normalize(alias);
-
-    return (
-      category === normalizedAlias ||
-      category.includes(normalizedAlias) ||
-      normalizedAlias.includes(category)
-    );
-  });
-}
-
-export default function Categories() {
-  const [apiCategories, setApiCategories] = useState([]);
-  const [search, setSearch] = useState("");
-  const [selectedQuickCategory, setSelectedQuickCategory] =
-    useState("All");
-
-  const [showAllCategories, setShowAllCategories] =
-    useState(false);
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  const fetchCategories = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError("");
-
-      const response = await fetch(CATEGORIES_API);
-
-      if (!response.ok) {
-        throw new Error("Categories API failed");
-      }
-
-      const data = await response.json();
-
-      const categories = getApiCategories(data);
-
-      setApiCategories(categories);
-    } catch (err) {
-      console.error(err);
-      setError("Unable to load categories.");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
-
-  const apiMap = useMemo(() => {
-    const map = new Map();
-
-    apiCategories.forEach((item) => {
-      const name = getCategoryName(item);
-
-      if (name) {
-        map.set(normalize(name), item);
-      }
-    });
-
-    return map;
-  }, [apiCategories]);
-
-  const getCategoryData = useCallback(
-    (name) => {
-      const existing = apiMap.get(normalize(name));
-
-      if (existing) {
-        return {
-          ...existing,
-          name: getCategoryName(existing) || name,
-        };
-      }
-
-      return createFallbackCategory(name);
-    },
-    [apiMap]
-  );
-
-  
-  const filteredSections = useMemo(() => {
-    if (showAllCategories) {
-      return [];
-    }
-
-    return SECTIONS.map((section) => {
-      const categories = section.categories
-        .map(getCategoryData)
-        .filter((category) => {
-          const name = getCategoryName(category);
-
-          const quickMatch = isRelatedCategory(
-            name,
-            selectedQuickCategory
-          );
-
-          const searchMatch =
-            !search.trim() ||
-            normalize(name).includes(normalize(search));
-
-          return quickMatch && searchMatch;
-        });
-
-      return {
-        ...section,
-        categories,
-      };
-    }).filter((section) => section.categories.length > 0);
-  }, [
-    getCategoryData,
-    search,
-    selectedQuickCategory,
-    showAllCategories,
-  ]);
-
- 
-  const allApiCategories = useMemo(() => {
-    if (!showAllCategories) {
-      return [];
-    }
-
-    const searchValue = normalize(search);
-
-    return apiCategories
-      .filter((category) => {
-        const name = getCategoryName(category);
-
-        if (!searchValue) {
-          return true;
-        }
-
-        return normalize(name).includes(searchValue);
-      })
-      .map((category) => ({
-        ...category,
-        name: getCategoryName(category),
-      }))
-      .filter((category) => category.name);
-  }, [apiCategories, search, showAllCategories]);
-
-  /*
-   * QUICK CATEGORY BUTTON CLICK
-   */
-  const handleQuickClick = (name) => {
-    setSelectedQuickCategory(name);
-
-    /*
-     * Clicking a quick category goes back to
-     * normal section mode.
-     */
-    setShowAllCategories(false);
-
-    window.setTimeout(() => {
-      document
-        .querySelector(".categories-content")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-    }, 50);
-  };
-
-  
-  const handleSeeAllCategories = () => {
-    setShowAllCategories(true);
-    setSelectedQuickCategory("All");
-    setSearch("");
-
-    window.setTimeout(() => {
-      document
-        .querySelector(".categories-content")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-    }, 50);
-  };
-
- 
-  const handleCategoryClick = (category) => {
-    const name = getCategoryName(category);
-
-    setSelectedQuickCategory(name);
-    setShowAllCategories(false);
-
-    window.setTimeout(() => {
-      document
-        .querySelector(".categories-content")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-    }, 50);
-  };
-
-  
-  const handleBackToCategories = () => {
-    setShowAllCategories(false);
-    setSelectedQuickCategory("All");
-    setSearch("");
-
-    window.setTimeout(() => {
-      document
-        .querySelector(".categories-content")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-    }, 50);
-  };
-
-  return (
-    <div className="categories-page">
-
-      {/* =========================
-          CATEGORY PAGE HEADER
-          ========================= */}
-
-      <header className="categories-header">
-        <div className="header-inner">
-
-          <div className="header-brand">
-            <div className="brand-logo">
-              IN
-            </div>
-
-            <div className="brand-content">
-              <h1>INtown</h1>
-
-              <p>
-                Discover Everything Near You
-              </p>
-            </div>
-          </div>
-
-          <div className="header-location">
-            <span>📍</span>
-
-            <span>
-              Explore Local Categories
-            </span>
-          </div>
-
-        </div>
-      </header>
-
-      {/* =========================
-          HERO
-          ========================= */}
-
-      {!showAllCategories && (
-        <section className="categories-hero">
-
-          <motion.div
-            className="hero-content"
-            initial={{
-              opacity: 0,
-              y: 25,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.55,
-            }}
-          >
-
-            <span className="hero-small-text">
-              EXPLORE LOCAL
-            </span>
-
-            <h2>
-              Discover Categories
-              <br />
-              <span>Near You</span>
-            </h2>
-
-            <div className="small-orange-line" />
-
-            <p>
-              Find local shops, services, food,
-              healthcare and everything you need
-              in one place.
-            </p>
-
-          </motion.div>
-
-        </section>
-      )}
-
-      {/* =========================
-          SEARCH
-          ========================= */}
-
-      <section className="search-section">
-        <div className="search-wrapper">
-
-          <span className="search-icon">
-            ⌕
-          </span>
-
-          <input
-            type="text"
-            value={search}
-            onChange={(e) =>
-              setSearch(e.target.value)
-            }
-            placeholder={
-              showAllCategories
-                ? "Search all categories..."
-                : "Search categories..."
-            }
-          />
-
-          {search && (
-            <button
-              type="button"
-              className="clear-search"
-              onClick={() => setSearch("")}
-            >
-              ×
-            </button>
-          )}
-
-        </div>
-      </section>
-
-      {/* =========================
-          QUICK CATEGORIES
-          ========================= */}
-
-      {!showAllCategories && (
-        <section className="quick-section">
-
-          <div className="section-heading centered-heading">
-            <h3>
-              Popular Categories
-            </h3>
-
-            <div className="small-orange-line" />
-          </div>
-
-          <div className="quick-buttons">
-
-            {QUICK_CATEGORIES.map((category) => (
-              <motion.button
-                key={category}
-                type="button"
-                className={`quick-button ${
-                  selectedQuickCategory === category
-                    ? "active"
-                    : ""
-                }`}
-                whileHover={{
-                  y: -3,
-                }}
-                whileTap={{
-                  scale: 0.96,
-                }}
-                onClick={() =>
-                  handleQuickClick(category)
-                }
-              >
-
-                {CATEGORY_EMOJIS[category] && (
-                  <span>
-                    {CATEGORY_EMOJIS[category]}
-                  </span>
-                )}
-
-                {category}
-
-              </motion.button>
-            ))}
-
-          </div>
-
-        </section>
-      )}
-
-      {/* =========================
-          MAIN CATEGORY CONTENT
-          ========================= */}
-
-      <main className="categories-content">
-
-        {/* LOADING */}
-
-        {loading && (
-          <div className="status-box">
-
-            <div className="loader" />
-
-            <p>
-              Loading categories...
-            </p>
-
-          </div>
-        )}
-
-        {/* ERROR */}
-
-        {!loading && error && (
-          <div className="status-box">
-
-            <p>
-              {error}
-            </p>
-
-            <button
-              type="button"
-              className="retry-button"
-              onClick={fetchCategories}
-            >
-              Try Again
-            </button>
-
-          </div>
-        )}
-
-        {/* =========================
-            SEE ALL API CATEGORIES
-            ========================= */}
-
-        {!loading &&
-          !error &&
-          showAllCategories && (
-            <section className="all-api-categories">
-
-              <div className="all-categories-top">
-
-                <div>
-                  <span className="hero-small-text">
-                    INtown
-                  </span>
-
-                  <h2>
-                    All Categories
-                  </h2>
-                </div>
-
-                <button
-                  type="button"
-                  className="back-categories-button"
-                  onClick={handleBackToCategories}
-                >
-                  ← Back
-                </button>
-
-              </div>
-
-              {allApiCategories.length > 0 ? (
-                <div className="category-grid">
-
-                  {allApiCategories.map(
-                    (category, index) => (
-                      <CategoryCard
-                        key={`api-${category.id || category.name}-${index}`}
-                        category={category}
-                        index={index}
-                        onClick={handleCategoryClick}
-                      />
-                    )
-                  )}
-
-                </div>
-              ) : (
-                <div className="empty-search">
-
-                  <div className="empty-icon">
-                    🔎
-                  </div>
-
-                  <h4>
-                    No categories found
-                  </h4>
-
-                  <p>
-                    Try another category name.
-                  </p>
-
-                </div>
-              )}
-
-            </section>
-          )}
-
-        {/* =========================
-            NORMAL SECTION MODE
-            ========================= */}
-
-        {!loading &&
-          !error &&
-          !showAllCategories &&
-          filteredSections.length > 0 && (
-            filteredSections.map((section) => (
-              <section
-                className="category-section"
-                key={section.title}
-              >
-
-                <div className="section-heading centered-heading">
-
-                  <h3>
-                    {section.title}
-                  </h3>
-
-                  <div className="small-orange-line" />
-
-                </div>
-
-                <div className="category-grid">
-
-                  {section.categories.map(
-                    (category, index) => (
-                      <CategoryCard
-                        key={`${section.title}-${category.name}`}
-                        category={category}
-                        index={index}
-                        onClick={handleCategoryClick}
-                      />
-                    )
-                  )}
-
-                </div>
-
-              </section>
-            ))
-          )}
-
-        {/* NORMAL MODE EMPTY */}
-
-        {!loading &&
-          !error &&
-          !showAllCategories &&
-          filteredSections.length === 0 && (
-            <div className="empty-search">
-
-              <div className="empty-icon">
-                🔎
-              </div>
-
-              <h4>
-                No categories found
-              </h4>
-
-              <p>
-                Try another category name.
-              </p>
-
-            </div>
-          )}
-
-      </main>
-
-      {/* =========================
-          SEE ALL FOOTER
-          ========================= */}
-
-      {!showAllCategories && (
-        <section className="see-all-footer">
-
-          <div className="see-all-content">
-
-            <h3>
-              See All Categories
-            </h3>
-
-            <div className="small-orange-line" />
-
-            <p>
-              Explore all local categories
-              available on INtown.
-            </p>
-
-            <motion.button
-              type="button"
-              className="see-all-button"
-              whileHover={{
-                y: -3,
-              }}
-              whileTap={{
-                scale: 0.97,
-              }}
-              onClick={handleSeeAllCategories}
-            >
-              See All Categories
-              <span>→</span>
-            </motion.button>
-
-          </div>
-
-        </section>
-      )}
-
-    </div>
-  );
-}
-
-/* =========================================
+/* =========================================================
    CATEGORY CARD
-   ========================================= */
+========================================================= */
 
-function CategoryCard({
-  category,
-  index,
-  onClick,
-}) {
+const CategoryCard = ({ category, index, onClick }) => {
   const name = getCategoryName(category);
   const image = getCategoryImage(category);
 
@@ -925,81 +174,989 @@ function CategoryCard({
     <motion.button
       type="button"
       className="category-card"
-
+      onClick={() => onClick(category)}
       initial={{
         opacity: 0,
         y: 18,
       }}
-
       whileInView={{
         opacity: 1,
         y: 0,
       }}
-
       viewport={{
         once: true,
         amount: 0.1,
       }}
-
       transition={{
-        duration: 0.35,
-        delay: Math.min(index * 0.03, 0.2),
+        duration: 0.4,
+        delay: index * 0.035,
       }}
-
       whileHover={{
-        y: -6,
+        y: -7,
       }}
-
       whileTap={{
         scale: 0.97,
       }}
-
-      onClick={() =>
-        onClick(category)
-      }
     >
-
-      <div className="category-image">
-
+      <div className="category-card-image-wrap">
         {image ? (
           <img
             src={image}
             alt={name}
-            onError={(e) => {
-              e.currentTarget.style.display =
-                "none";
+            className="category-image"
+            loading="lazy"
+            onError={(event) => {
+              event.currentTarget.style.display = "none";
 
-              e.currentTarget.parentElement
-                .querySelector(
-                  ".image-fallback"
-                )
-                ?.classList.add("show");
+              const placeholder =
+                event.currentTarget.parentElement.querySelector(
+                  ".category-placeholder"
+                );
+
+              if (placeholder) {
+                placeholder.style.display = "flex";
+              }
             }}
           />
         ) : null}
 
-        <span
-          className={`image-fallback ${
-            image ? "" : "show"
-          }`}
+        <div
+          className="category-placeholder"
+          style={{
+            display: image ? "none" : "flex",
+          }}
         >
-          {CATEGORY_EMOJIS[name] || "📂"}
-        </span>
-
+          <span>{name.charAt(0).toUpperCase()}</span>
+        </div>
       </div>
 
-      <div className="category-card-bottom">
+      <div className="category-name">{name}</div>
 
-        <h4>
-          {name}
-        </h4>
-
-        <span className="category-arrow">
-          →
-        </span>
-
-      </div>
-
+      <span className="category-card-arrow">→</span>
     </motion.button>
   );
-}
+};
+
+/* =========================================================
+   CATEGORY GRID
+========================================================= */
+
+const CategoryGrid = ({ categories, onCategoryClick }) => {
+  if (!categories.length) {
+    return (
+      <div className="empty-categories">
+        <div className="empty-icon">⌕</div>
+        <p>No categories found.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="categories-grid">
+      {categories.map((category, index) => (
+        <CategoryCard
+          key={getCategoryId(category, index)}
+          category={category}
+          index={index}
+          onClick={onCategoryClick}
+        />
+      ))}
+    </div>
+  );
+};
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+const Categories = ({ homeOnly = false }) => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [search, setSearch] = useState("");
+
+  const [currentPage, setCurrentPage] = useState("main");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  /* =========================================================
+     FETCH CATEGORIES
+  ========================================================= */
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+
+        const data = await response.json();
+
+        const list = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.data)
+          ? data.data
+          : Array.isArray(data?.categories)
+          ? data.categories
+          : Array.isArray(data?.content)
+          ? data.content
+          : [];
+
+        if (mounted) {
+          setCategories(list);
+        }
+      } catch (err) {
+        if (mounted) {
+          setError(
+            "Unable to load categories. Please try again."
+          );
+        }
+      } finally {
+        if (mounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchCategories();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  /* =========================================================
+     READ HOME NAVIGATION STATE
+     
+     Home:
+     See All -> sessionStorage openAllCategories
+     Card    -> sessionStorage selectedCategory
+  ========================================================= */
+
+  useEffect(() => {
+    if (homeOnly) {
+      return;
+    }
+
+    const openAllCategories =
+      sessionStorage.getItem("openAllCategories");
+
+    const savedCategory =
+      sessionStorage.getItem("selectedCategory");
+
+    /* =======================================================
+       HOME -> ALL CATEGORIES
+    ======================================================= */
+
+    if (openAllCategories === "true") {
+      setCurrentPage("all");
+      setSelectedCategory(null);
+
+      sessionStorage.removeItem("openAllCategories");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
+    /* =======================================================
+       HOME -> CATEGORY DETAILS
+    ======================================================= */
+
+    if (savedCategory) {
+      try {
+        const category = JSON.parse(savedCategory);
+
+        setSelectedCategory(category);
+        setCurrentPage("details");
+
+        sessionStorage.removeItem("selectedCategory");
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      } catch (error) {
+        sessionStorage.removeItem("selectedCategory");
+      }
+    }
+  }, [homeOnly]);
+
+  /* =========================================================
+     FILTERED CATEGORIES
+  ========================================================= */
+
+  const filteredCategories = useMemo(() => {
+    let result = categories;
+
+    if (activeCategory !== "All") {
+      const section = CATEGORY_SECTIONS.find(
+        (item) => item.title === activeCategory
+      );
+
+      if (section) {
+        result = result.filter((category) =>
+          matchesSection(category, section)
+        );
+      }
+    }
+
+    const searchValue = normalize(search);
+
+    if (searchValue) {
+      result = result.filter((category) =>
+        normalize(getCategoryName(category)).includes(searchValue)
+      );
+    }
+
+    return result;
+  }, [categories, activeCategory, search]);
+
+  /* =========================================================
+     QUICK CATEGORY
+  ========================================================= */
+
+  const handleQuickCategory = (category) => {
+    setActiveCategory(category);
+    setSearch("");
+    setCurrentPage("main");
+    setSelectedCategory(null);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  /* =========================================================
+     SEE ALL
+     
+     Works from:
+     1. Home
+     2. Main Categories
+     3. Category Details
+  ========================================================= */
+
+  const handleSeeAll = () => {
+    /* =======================================================
+       HOME PAGE
+    ======================================================= */
+
+    if (homeOnly) {
+      sessionStorage.setItem(
+        "openAllCategories",
+        "true"
+      );
+
+      window.location.href = "/categories";
+
+      return;
+    }
+
+    /* =======================================================
+       CATEGORIES PAGE
+    ======================================================= */
+
+    setCurrentPage("all");
+    setSelectedCategory(null);
+    setSearch("");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  /* =========================================================
+     CATEGORY CLICK
+     
+     Works from:
+     1. Home category card
+     2. Main Categories card
+     3. AllCategories card
+  ========================================================= */
+
+  const handleCategoryClick = (category) => {
+    /* =======================================================
+       HOME CATEGORY CARD
+    ======================================================= */
+
+    if (homeOnly) {
+      sessionStorage.setItem(
+        "selectedCategory",
+        JSON.stringify(category)
+      );
+
+      window.location.href = "/categories";
+
+      return;
+    }
+
+    /* =======================================================
+       CATEGORIES PAGE
+    ======================================================= */
+
+    setSelectedCategory(category);
+    setCurrentPage("details");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  /* =========================================================
+     BACK TO MAIN
+  ========================================================= */
+
+  const handleBackToMain = () => {
+    setCurrentPage("main");
+    setSelectedCategory(null);
+    setActiveCategory("All");
+    setSearch("");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  /* =========================================================
+     BACK TO ALL
+  ========================================================= */
+
+  const handleBackToAll = () => {
+    setCurrentPage("all");
+    setSelectedCategory(null);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  /* =========================================================
+     HOME ONLY LOADING
+  ========================================================= */
+
+  if (homeOnly && loading) {
+    return (
+      <section className="home-category-preview">
+        <div className="home-category-preview-inner">
+          <div className="status-box">
+            <div className="loader"></div>
+            <p>Loading categories...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* =========================================================
+     HOME ONLY ERROR
+  ========================================================= */
+
+  if (homeOnly && error) {
+    return (
+      <section className="home-category-preview">
+        <div className="home-category-preview-inner">
+          <div className="status-box error">
+            <p>{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* =========================================================
+     HOME ONLY VIEW
+  ========================================================= */
+
+  if (homeOnly) {
+    const homeSections = CATEGORY_SECTIONS.slice(0, 2);
+
+    return (
+      <section className="home-category-preview">
+        <div className="home-category-preview-inner">
+
+          {/* =================================================
+              HOME HEADING
+          ================================================= */}
+
+          <div className="home-category-heading">
+
+            <div className="home-category-eyebrow">
+              EXPLORE INTOWN
+            </div>
+
+            <h2>
+              Everything you need
+              <span>close to home</span>
+            </h2>
+
+            <p>
+              Discover local shops, products and everyday
+              services in one place.
+            </p>
+
+          </div>
+
+          {/* =================================================
+              SEARCH
+          ================================================= */}
+
+          <div className="home-category-search">
+
+            <div className="category-search">
+
+              <span className="search-icon">
+                ⌕
+              </span>
+
+              <input
+                type="text"
+                value={search}
+                onChange={(event) =>
+                  setSearch(event.target.value)
+                }
+                placeholder="Search categories..."
+              />
+
+              {search && (
+                <button
+                  type="button"
+                  className="search-clear"
+                  onClick={() => setSearch("")}
+                >
+                  ×
+                </button>
+              )}
+
+            </div>
+
+          </div>
+
+          {/* =================================================
+              SEARCH RESULTS
+          ================================================= */}
+
+          {search ? (
+            <motion.div
+              className="home-category-row"
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.45,
+              }}
+            >
+
+              <h2 className="section-heading">
+                Search Results
+              </h2>
+
+              <CategoryGrid
+                categories={filteredCategories}
+                onCategoryClick={handleCategoryClick}
+              />
+
+            </motion.div>
+          ) : (
+
+            /* =================================================
+               HOME SECTIONS
+            ================================================= */
+
+            homeSections.map((section) => {
+
+              const sectionCategories = categories
+                .filter((category) =>
+                  matchesSection(category, section)
+                )
+                .slice(0, 8);
+
+              if (!sectionCategories.length) {
+                return null;
+              }
+
+              return (
+                <motion.div
+                  className="home-category-row"
+                  key={section.title}
+                  initial={{
+                    opacity: 0,
+                    y: 20,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    amount: 0.1,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                  }}
+                >
+
+                  <h2 className="section-heading">
+                    {section.title}
+                  </h2>
+
+                  <CategoryGrid
+                    categories={sectionCategories}
+                    onCategoryClick={handleCategoryClick}
+                  />
+
+                </motion.div>
+              );
+            })
+          )}
+
+          {/* =================================================
+              HOME SEE ALL BUTTON
+          ================================================= */}
+
+          <div className="see-all-wrapper">
+
+            <motion.button
+              type="button"
+              className="see-all-button"
+              onClick={handleSeeAll}
+              whileHover={{
+                y: -3,
+              }}
+              whileTap={{
+                scale: 0.97,
+              }}
+            >
+
+              <span>
+                See All Categories
+              </span>
+
+              <span className="see-all-arrow">
+                →
+              </span>
+
+            </motion.button>
+
+          </div>
+
+        </div>
+      </section>
+    );
+  }
+
+  /* =========================================================
+     NORMAL FULL CATEGORIES PAGE
+  ========================================================= */
+
+  return (
+    <div className="categories-page">
+
+      <header className="categories-header">
+        <Header />
+      </header>
+
+      <main className="categories-main">
+
+        <div className="categories-main-content">
+
+          {/* =================================================
+              LOADING
+          ================================================= */}
+
+          {loading ? (
+
+            <div className="status-box">
+              <div className="loader"></div>
+              <p>Loading categories...</p>
+            </div>
+
+          ) : error ? (
+
+            /* =================================================
+               ERROR
+            ================================================= */
+
+            <div className="status-box error">
+              <p>{error}</p>
+            </div>
+
+          ) : currentPage === "all" ? (
+
+            /* =================================================
+               ALL CATEGORIES PAGE
+            ================================================= */
+
+            <motion.div
+              key="all-page"
+              initial={{
+                opacity: 0,
+                x: 30,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
+              transition={{
+                duration: 0.45,
+              }}
+            >
+
+              <AllCategories
+                categories={categories}
+                search={search}
+                setSearch={setSearch}
+                onBack={handleBackToMain}
+                onCategoryClick={handleCategoryClick}
+              />
+
+            </motion.div>
+
+          ) : currentPage === "details" ? (
+
+            /* =================================================
+               CATEGORY DETAILS PAGE
+            ================================================= */
+
+            <motion.div
+              key="details-page"
+              initial={{
+                opacity: 0,
+                x: 30,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
+              transition={{
+                duration: 0.45,
+              }}
+            >
+
+              <CategoryDetails
+                category={selectedCategory}
+                onBack={handleBackToAll}
+                onSeeAll={handleSeeAll}
+              />
+
+            </motion.div>
+
+          ) : (
+
+            /* =================================================
+               MAIN CATEGORIES PAGE
+            ================================================= */
+
+            <>
+
+              {/* =================================================
+                  HERO
+              ================================================= */}
+
+              <section className="categories-hero">
+
+                <div className="content-container">
+
+                  <motion.div
+                    className="hero-inner"
+                    initial={{
+                      opacity: 0,
+                      y: 25,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    transition={{
+                      duration: 0.6,
+                    }}
+                  >
+
+                    <div className="hero-copy">
+
+                      <div className="heading-eyebrow">
+                        INTOWN
+                      </div>
+
+                      <h1>
+                        Everything you need,
+                        <span>
+                          close to home
+                        </span>
+                      </h1>
+
+                      <p>
+                        Discover local shops, products and
+                        everyday services in one place.
+                      </p>
+
+                      <motion.div
+                        className="shopping-badge"
+                        initial={{
+                          opacity: 0,
+                          y: 12,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        transition={{
+                          delay: 0.25,
+                          duration: 0.45,
+                        }}
+                      >
+
+                        <span>LOCAL</span>
+
+                        <i></i>
+
+                        <span>SHOPPING</span>
+
+                      </motion.div>
+
+                    </div>
+
+                  </motion.div>
+
+                </div>
+
+              </section>
+
+              {/* =================================================
+                  CONTROLS
+              ================================================= */}
+
+              <section className="main-section">
+
+                <div className="content-container">
+
+                  <div className="controls">
+
+                    <div className="search-area">
+
+                      <div className="category-search">
+
+                        <span className="search-icon">
+                          ⌕
+                        </span>
+
+                        <input
+                          type="text"
+                          value={search}
+                          onChange={(event) =>
+                            setSearch(event.target.value)
+                          }
+                          placeholder="Search categories..."
+                        />
+
+                        {search && (
+                          <button
+                            type="button"
+                            className="search-clear"
+                            onClick={() => setSearch("")}
+                          >
+                            ×
+                          </button>
+                        )}
+
+                      </div>
+
+                    </div>
+
+                    <div className="buttons-area">
+
+                      <div className="quick-buttons">
+
+                        {QUICK_CATEGORIES.map(
+                          (category) => (
+
+                            <button
+                              type="button"
+                              key={category}
+                              className={`quick-button ${
+                                activeCategory === category
+                                  ? "active"
+                                  : ""
+                              }`}
+                              onClick={() =>
+                                handleQuickCategory(category)
+                              }
+                            >
+                              {category}
+                            </button>
+
+                          )
+                        )}
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </section>
+
+              {/* =================================================
+                  CATEGORY SECTIONS
+              ================================================= */}
+
+              <section className="main-section">
+
+                <div className="content-container">
+
+                  {activeCategory === "All" && !search ? (
+
+                    CATEGORY_SECTIONS.map((section) => {
+
+                      const sectionCategories =
+                        categories.filter((category) =>
+                          matchesSection(
+                            category,
+                            section
+                          )
+                        );
+
+                      if (!sectionCategories.length) {
+                        return null;
+                      }
+
+                      return (
+                        <motion.div
+                          className="category-section"
+                          key={section.title}
+                          initial={{
+                            opacity: 0,
+                            y: 20,
+                          }}
+                          whileInView={{
+                            opacity: 1,
+                            y: 0,
+                          }}
+                          viewport={{
+                            once: true,
+                            amount: 0.1,
+                          }}
+                          transition={{
+                            duration: 0.5,
+                          }}
+                        >
+
+                          <h2 className="section-heading">
+                            {section.title}
+                          </h2>
+
+                          <CategoryGrid
+                            categories={sectionCategories}
+                            onCategoryClick={
+                              handleCategoryClick
+                            }
+                          />
+
+                        </motion.div>
+                      );
+                    })
+
+                  ) : (
+
+                    <motion.div
+                      className="category-section"
+                      initial={{
+                        opacity: 0,
+                        y: 20,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                    >
+
+                      <h2 className="section-heading">
+
+                        {activeCategory === "All"
+                          ? "Search Results"
+                          : activeCategory}
+
+                      </h2>
+
+                      <CategoryGrid
+                        categories={filteredCategories}
+                        onCategoryClick={
+                          handleCategoryClick
+                        }
+                      />
+
+                    </motion.div>
+
+                  )}
+
+                  {/* =================================================
+                      SEE ALL
+                  ================================================= */}
+
+                  <div className="see-all-wrapper">
+
+                    <motion.button
+                      type="button"
+                      className="see-all-button"
+                      onClick={handleSeeAll}
+                      whileHover={{
+                        y: -3,
+                      }}
+                      whileTap={{
+                        scale: 0.97,
+                      }}
+                    >
+
+                      <span>
+                        See All Categories
+                      </span>
+
+                      <span className="see-all-arrow">
+                        →
+                      </span>
+
+                    </motion.button>
+
+                  </div>
+
+                </div>
+
+              </section>
+
+            </>
+
+          )}
+
+        </div>
+
+      </main>
+
+      <Footer />
+
+    </div>
+  );
+};
+
+export default Categories;

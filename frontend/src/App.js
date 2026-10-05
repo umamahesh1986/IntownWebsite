@@ -25,6 +25,8 @@ import CustomerModal from './components/CustomerModal';
 
 import './App.css';
 import Categories from './components/Categories';
+import AllCategories from './components/AllCategories';
+import CategoryDetails from './components/CategoryDetails';
 
 
 function HomePage() {
@@ -70,6 +72,8 @@ function App() {
               <Route path="/download" element={<Download />} />
                <Route path="/deleteAccount" element={<DeleteAccount />} />
                <Route path="/Categories" element={<Categories />} />
+               <Route path="/AllCategories" element={<AllCategories />} />
+            <Route path="/CategoryDetails/:id" element={<CategoryDetails />} />
              
         </Routes>
       </div>

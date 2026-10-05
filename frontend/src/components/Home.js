@@ -1,5 +1,6 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef,useEffect,useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Categories from "./Categories";
 import "./Home.css";
 
 import Header from "./Header";
@@ -387,8 +388,15 @@ const Home = () => {
         </div>
 
       </section>
+   
 
 
+
+
+<section className="home-categories-section">
+  <Categories homeOnly={true} />
+</section>
+      
       {/* 
           SECTION 3 - DISCOVER LOCAL COMMERCE
       */}
