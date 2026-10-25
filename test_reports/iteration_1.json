@@ -1,0 +1,40 @@
+{
+  "summary": "Frontend-only verification of the Merchant Registration / Growth Pack mixed-content fix. Code check: Modal.js lines 805-806 (merchant/customer registration) and line 715 (S3 upload) all use https:// now, and no http:// URLs are left in Modal.js. In the browser on /formerchants: the modal opens, the Growth Pack shows START (499) and LAUNCH (999, marked recommended), and the plan cards switch the Pay button text. The Pay button is disabled until Business Name, Contact Name and a Category are filled, then it becomes enabled. Clicking Pay with fields missing shows a 'Please fill: ...' message listing them. Picking a location on the map fills in lat/lng. Create-order was mocked to fail (500) and the error showed in the UI correctly. The Terms checkbox stays disabled and terms-lock-hint is visible until payment completes. REGISTER MERCHANT is disabled without payment. Mixed-content check run from inside the HTTPS page: POST https://api.intownlocal.com/IN/merchant/ (empty payload) got a real 409 response. CORS allowed it (ACAO: *) and there was no Mixed Content error. The old http:// URL from the same page is BLOCKED by Chrome with 'Mixed Content: ... requested an insecure resource http://api.intownlocal.com/IN/merchant/. This request has been blocked'. With curl, http:// returns 301 to https. So the main agent's root cause is confirmed and the fix works. Not tested: a real Razorpay payment or a real registration (live gateway and production database).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "https://in-town-dev.eba-czzrpn3v.eu-north-1.elasticbeanstalk.com/in-town/v1/s3/upload (external)", "issue": "The hostname does not resolve (curl DNS error exit 6, browser net::ERR_NAME_NOT_RESOLVED). Image upload after registration will always fail. The code catches this and shows 'Registration successful but image upload failed', so registration is not blocked, but store images are never uploaded. A dev Elastic Beanstalk host is also being used from production code."},
+      {"endpoint": "POST https://api.intownlocal.com/IN/merchant/ (external)", "issue": "The live API does not validate input: POST {} returns 409 'Merchant with phone number null already exists', which means a merchant record with a null phone already exists in production."},
+      {"endpoint": "GET https://api.intownlocal.com/IN/products/?categoryId=100023 (external)", "issue": "Data issue: the 'Art Classes' category returns grocery products (Sunflower Oil, Ghee, ...)."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Pay joining fee button", "issue": "The lock icon still shows when the button is enabled, which makes it look disabled.", "selector": "[data-testid='pay-joining-fee-btn']", "priority": "LOW"}
+    ],
+    "integration_issues": [
+      {"flow": "Pay -> Register", "issue": "The app takes payment BEFORE checking whether the phone number is already registered. If it is, the user pays and then the registration POST returns 409, so they have paid but are not registered. The phone/duplicate check should run before opening Razorpay.", "affected_selectors": ["[data-testid='pay-joining-fee-btn']"]},
+      {"flow": "Registration 409 handling", "issue": "The CONFLICT/409 check only runs inside `if (response.ok)`, so it never runs for a real HTTP 409. A 409 falls into the generic 'Registration failed: <message>' alert instead. It still works, but that branch is dead code.", "affected_selectors": []}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Replace or fix the S3 upload host in Modal.js uploadImages(): in-town-dev.eba-czzrpn3v.eu-north-1.elasticbeanstalk.com does not resolve. Use a working production upload endpoint over https, e.g. under api.intownlocal.com.",
+    "Add a check for an already-registered phone number before handlePayJoiningFee opens Razorpay, so users cannot pay and then hit a 409 on registration.",
+    "Optional: hide the lock icon on the Pay button when it is enabled; move the 409 handling outside the response.ok branch."
+  ],
+  "critical_code_review_comments": [
+    "Modal.js is about 1695 lines; it should be split (payment/growth-pack, merchant form, customer form, upload helpers).",
+    "The registration and upload URLs are hardcoded rather than built from INTOWN_API_BASE or env vars. Registration should use `${INTOWN_API_BASE}/merchant/` to avoid this kind of protocol drift.",
+    "Lots of console.log calls print the full registration payload, including PII and Razorpay ids, in production."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (frontend only)", "frontend": "100% of the requested checks passed (mixed-content fix verified); 1 external upload host broken"},
+  "test_credentials": "None needed; /app/memory/test_credentials.md not used (no auth flows).",
+  "seed_data_creation": "None. Only an empty-payload POST to /IN/merchant/ was sent; it returned 409 and created no record. create-order was mocked with Playwright route.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "To open the modal: /formerchants -> 'Register Your Business'. Choosing a category opens a 'Select Products' popup; click OK. The location input opens a Google map: click .gm-style, then CONFIRM LOCATION. Mock **/IN/payment/create-order to avoid live Razorpay orders. Only the growth-pack elements have data-testids; form inputs use name attributes.",
+  "rca of the issue": "Root cause: registration was sent to http://api.intownlocal.com/IN/merchant/ from an HTTPS page, and Chrome blocks that as Mixed Content (reproduced from the page). As a result the fetch threw 'Failed to fetch' right after a successful payment. The fix switches to https://, which is reachable from the browser with CORS ACAO:* (verified 409 from a browser-context POST)."
+}

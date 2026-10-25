@@ -819,15 +819,28 @@ const Modal = ({ isOpen, onClose, type }) => {
       console.log("Registration API Status:", response.status);
       console.log("Registration API Response:", result);
 
+      // Handle duplicate phone (409) regardless of whether it arrives as an
+      // HTTP 409 status or inside the response body.
+      const isConflict = (
+        response.status === 409 ||
+        result.statusCode === "CONFLICT" ||
+        result.statusCodeValue === 409
+      );
+      if (isConflict) {
+        alert(
+          (typeof result.body === 'string' && result.body) ||
+          result.message ||
+          'This phone number is already registered.'
+        );
+        return;
+      }
+
       if (response.ok) {
         // Extract ID from response
         const responseId = result.id || result.body?.id || null;
         console.log('Registration ID:', responseId);
         
-        if (result.statusCode === "CONFLICT" || result.statusCodeValue === 409) {
-          alert(result.body || 'Phone number already exists.');
-          return;
-        } else if (responseId) {
+        if (responseId) {
           // Registration successful with ID
           setRegistrationId(responseId);
           
