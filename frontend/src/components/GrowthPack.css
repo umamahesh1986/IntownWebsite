@@ -1,0 +1,281 @@
+.growth-pack {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.growth-pack-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.growth-pack-rocket {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.growth-pack-header h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.growth-pack-subtitle {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: #6b6b6b;
+  line-height: 1.4;
+}
+
+.growth-plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.plan-card {
+  position: relative;
+  text-align: left;
+  background: #ffffff;
+  border: 1.5px solid #e6e6e6;
+  border-radius: 16px;
+  padding: 18px 16px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-card:hover:not(.plan-card-disabled) {
+  border-color: #ff8c42;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.12);
+}
+
+.plan-card-selected {
+  border-color: #ff6b35;
+  background: #fff7f2;
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.15);
+}
+
+.plan-card-disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.plan-recommended-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #0c8a4a;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.plan-header-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.plan-radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ff6b35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.plan-radio-inner {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff6b35;
+}
+
+.plan-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: 0.5px;
+}
+
+.plan-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.plan-currency {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ff6b35;
+}
+
+.plan-price {
+  font-size: 34px;
+  font-weight: 800;
+  color: #ff6b35;
+  line-height: 1;
+}
+
+.plan-price-suffix {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7a7a7a;
+  margin-left: 4px;
+}
+
+.plan-price-final {
+  font-size: 12px;
+  color: #8a8a8a;
+  margin-top: 4px;
+}
+
+.plan-divider {
+  height: 1px;
+  background: #eee;
+  margin: 14px 0;
+}
+
+.plan-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.plan-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #2a2a2a;
+}
+
+.plan-feature-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.plan-feature.included .plan-feature-icon {
+  background: #0c8a4a;
+  color: #fff;
+}
+
+.plan-feature.excluded {
+  color: #b5b5b5;
+}
+
+.plan-feature.excluded .plan-feature-label {
+  text-decoration: line-through;
+}
+
+.plan-feature.excluded .plan-feature-icon {
+  background: #e0e0e0;
+  color: #fff;
+}
+
+.plan-selected-tag {
+  display: block;
+  margin-top: 14px;
+  background: #ff6b35;
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.joining-fee-card {
+  margin-top: 18px;
+}
+
+.pay-fee-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 6px 18px rgba(255, 107, 53, 0.28);
+}
+
+.pay-fee-btn:hover:not(.pay-fee-btn-disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(255, 107, 53, 0.36);
+}
+
+.pay-fee-btn-disabled {
+  background: #d5d5d5;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.payment-received-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e8f7ee;
+  border: 1px solid #b6e6c9;
+  color: #0c8a4a;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 14px 16px;
+  border-radius: 12px;
+}
+
+.payment-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fdeaea;
+  border: 1px solid #f5c2c2;
+  color: #d32f2f;
+  font-size: 13px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.checkbox-group-locked {
+  opacity: 0.85;
+}
+
+.terms-lock-hint {
+  display: block;
+  font-size: 12px;
+  color: #ff6b35;
+  margin-top: 6px;
+}

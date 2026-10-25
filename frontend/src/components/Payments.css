@@ -1,0 +1,405 @@
+.payments {
+  padding: 120px 0;
+  background: #ffffff;
+  position: relative;
+  display: none;
+}
+
+.payments::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.payments-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Policy Sections */
+.policy-section {
+  margin-bottom: 0px;
+}
+
+.policy-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.policy-title {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.policy-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.policy-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 107, 53, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.policy-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.02), rgba(255, 140, 66, 0.02));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.policy-card:hover::before {
+  opacity: 1;
+}
+
+.policy-card:hover {
+  border-color: rgba(255, 107, 53, 0.3);
+  box-shadow: 0 15px 50px rgba(255, 107, 53, 0.15);
+  transform: translateY(-8px);
+}
+
+.policy-image-container {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+
+.policy-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.policy-card:hover .policy-image {
+  transform: scale(1.05);
+}
+
+.policy-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.policy-content {
+  padding: 1.5rem;
+}
+
+.policy-card-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+
+.policy-card-description {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Validity Section Specific Styling */
+.validity-section .policy-title {
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.validity-section .policy-card:hover {
+  border-color: rgba(255, 107, 53, 0.4);
+  box-shadow: 0 15px 50px rgba(255, 107, 53, 0.2);
+}
+
+/* Refund Section Specific Styling */
+.refund-section {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.02), rgba(243, 156, 18, 0.02));
+  padding: 60px 0;
+  border-radius: 30px;
+  margin: 40px 0;
+  display: none;
+}
+
+.refund-section .policy-title {
+  background: linear-gradient(135deg, #e74c3c, #f39c12);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.refund-section .policy-card:hover {
+  border-color: rgba(231, 76, 60, 0.3);
+  box-shadow: 0 15px 50px rgba(231, 76, 60, 0.15);
+}
+
+/* Refund Boxes Styling */
+.refund-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.refund-box {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid rgba(231, 76, 60, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.refund-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.02), rgba(243, 156, 18, 0.02));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.refund-box:hover::before {
+  opacity: 1;
+}
+
+.refund-box:hover {
+  border-color: rgba(231, 76, 60, 0.3);
+  box-shadow: 0 8px 25px rgba(231, 76, 60, 0.15);
+  transform: translateY(-5px);
+}
+
+.refund-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin: 0 auto 1rem;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.refund-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+.refund-description {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.payments-cta {
+  text-align: center;
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  padding: 4rem 2rem;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 107, 53, 0.1);
+  display: none;
+}
+
+.cta-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.cta-subtitle {
+  font-size: 1.1rem;
+  color: #1a1a1a;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.ratings {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  align-items: center;
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating-score {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.rating-platform {
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .payments {
+    padding: 80px 0;
+  }
+  
+  .payments-container {
+    padding: 0 1rem;
+  }
+  
+  /* Policy Sections Mobile */
+  .policy-section {
+    margin-bottom: 0px;
+  }
+  
+  .policy-header {
+    margin-bottom: 40px;
+  }
+  
+  .policy-title {
+    font-size: 2.2rem;
+  }
+  
+  .policy-subtitle {
+    font-size: 1rem;
+  }
+  
+  .policy-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .policy-image-container {
+    height: 160px;
+  }
+  
+  .policy-content {
+    padding: 1.2rem;
+  }
+  
+  .policy-card-title {
+    font-size: 1.1rem;
+  }
+  
+  .policy-card-description {
+    font-size: 0.9rem;
+  }
+  
+  .policy-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  
+  .refund-section {
+    padding: 40px 0;
+    margin: 20px 0;
+  }
+  
+  .refund-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .refund-box {
+    padding: 1.2rem;
+  }
+  
+  .refund-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .refund-title {
+    font-size: 1rem;
+  }
+  
+  .refund-description {
+    font-size: 0.85rem;
+  }
+  
+  /* CTA Section Mobile */
+  .cta-title {
+    font-size: 2rem;
+  }
+  
+  .payments-cta {
+    padding: 3rem 1.5rem;
+  }
+  
+  .ratings {
+    gap: 2rem;
+  }
+  
+  .rating-score {
+    font-size: 1.5rem;
+  }
+}

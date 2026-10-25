@@ -1,0 +1,87 @@
+/* MAIN CONTAINER */
+.torchContainerX {
+
+  width: 100%;
+  background: #000000;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  cursor: none;
+  text-align: center;
+ padding: 20px;
+}
+
+.torchIconX img {
+  width: 10vw;
+  height: 10vh;
+  object-fit: contain;
+  margin-bottom: 10px;
+  background-color: #fff;
+  
+  
+    
+  
+}
+
+/* HEADING */
+.torchHeadingX {
+  color: #d7cfcf;
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+/* WRAPPER */
+.torchWrapperX {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  height: 300px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TEXT */
+.torchTextX {
+  font-size: 38px;
+  line-height: 1.6;
+  text-align: center;
+  
+}
+
+/* DIM TEXT */
+.torchDimX {
+  color: #6e6c6c40;
+}
+
+/* TORCH TEXT */
+.torchRevealX {
+  position: absolute;
+  color: #fff;
+  pointer-events: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .torchHeadingX {
+    font-size: 24px;
+  }
+
+  .torchTextX {
+    font-size: 20px;
+  }
+
+  .torchIconX {
+    font-size: 30px;
+  }
+
+  .torchWrapperX {
+    height: 200px;
+  }
+}
+
+
