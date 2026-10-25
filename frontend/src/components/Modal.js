@@ -712,7 +712,7 @@ const Modal = ({ isOpen, onClose, type }) => {
       formData.append('file', file);
 
       const response = await fetch(
-        `http://in-town-dev.eba-czzrpn3v.eu-north-1.elasticbeanstalk.com/in-town/v1/s3/upload?userType=${userType}&inTownId=${currentInTownId}`,
+        `https://in-town-dev.eba-czzrpn3v.eu-north-1.elasticbeanstalk.com/in-town/v1/s3/upload?userType=${userType}&inTownId=${currentInTownId}`,
         {
           method: 'POST',
           body: formData,
@@ -802,8 +802,8 @@ const Modal = ({ isOpen, onClose, type }) => {
 
       // Determine the API endpoint based on type
       const apiEndpoint = type === 'merchant' 
-        ? 'http://api.intownlocal.com/IN/merchant/'
-        : 'http://api.intownlocal.com/IN/customer/';
+        ? 'https://api.intownlocal.com/IN/merchant/'
+        : 'https://api.intownlocal.com/IN/customer/';
 
       // Call the registration API
       const response = await fetch(
