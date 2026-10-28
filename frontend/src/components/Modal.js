@@ -5,6 +5,7 @@ import './GrowthPack.css';
 import LocationPicker from './LocationPicker';
 
 const INTOWN_API_BASE = 'https://api.intownlocal.com/IN';
+// const INTOWN_API_BASE = 'https://devapi.intownlocal.com/IN';
 const RAZORPAY_KEY_ID = 'rzp_live_RrNfvARmKIkZ7C';
 const GST_RATE = 1.18;
 
@@ -768,27 +769,44 @@ const Modal = ({ isOpen, onClose, type }) => {
         acceptedTerms: formData.agreeTerms ? 'ACCEPTED' : 'NOT_ACCEPTED',
         longitude: parseFloat(formData.businessLng) || 0,
         latitude: parseFloat(formData.businessLat) || 0,
-        // Growth Pack joining-fee payment
-        growthPack: selectedPlan.name,
-        joiningFee: joiningFeeAmount,
-        joiningFeePaid: true,
-        razorpayPaymentId: paymentDetails?.razorpayPaymentId,
-        razorpayOrderId: paymentDetails?.razorpayOrderId,
-        razorpaySignature: paymentDetails?.razorpaySignature
-      } : {
-        // Customer registration payload - only required fields
-        contactName: formData.contactName,
-        phoneNumber: formData.phone.replace(/\D/g, ''),
-        email: formData.email,
-        pincode: formData.pincode,
-        address: formData.address,
-        introducedBy: formData.introducedBy,
-        acceptedTerms: formData.agreeTerms ? 'ACCEPTED' : 'NOT_ACCEPTED',
-        longitude: parseFloat(formData.customerLng) || 0,
-        latitude: parseFloat(formData.customerLat) || 0,
-        storeImages: [], // Start with empty array, will be updated after successful registration
-        userType: 'CUSTOMER'
-      };
+        // // Growth Pack joining-fee payment
+        // growthPack: selectedPlan.name,
+        // joiningFee: joiningFeeAmount,
+        // joiningFeePaid: true,
+        // razorpayPaymentId: paymentDetails?.razorpayPaymentId,
+        // razorpayOrderId: paymentDetails?.razorpayOrderId,
+        // razorpaySignature: paymentDetails?.razorpaySignature
+        
+      // } : {
+      //   // Customer registration payload - only required fields
+      //   contactName: formData.contactName,
+      //   phoneNumber: formData.phone.replace(/\D/g, ''),
+      //   email: formData.email,
+      //   pincode: formData.pincode,
+      //   address: formData.address,
+      //   introducedBy: formData.introducedBy,
+      //   acceptedTerms: formData.agreeTerms ? 'ACCEPTED' : 'NOT_ACCEPTED',
+      //   longitude: parseFloat(formData.customerLng) || 0,
+      //   latitude: parseFloat(formData.customerLat) || 0,
+      //   storeImages: [], // Start with empty array, will be updated after successful registration
+      //   userType: 'CUSTOMER'
+      // };
+
+      }:
+{
+  contactName: formData.contactName.trim(),
+  address: formData.address.trim(),
+  phoneNumber: formData.phone.replace(/\D/g, ''),
+  email: formData.email.trim(),
+  pincode: Number(formData.pincode),
+  userType: 'IN_CUSTOMER',
+  longitude: Number(formData.customerLng),
+  latitude: Number(formData.customerLat),
+  referredBy: formData.introducedBy?.trim() || '',
+  isPrivileged: false,
+  // deviceId: 'web_browser'
+}
+
 
       // Log payload for debugging
       console.log('Registration payload:', payload);
@@ -802,8 +820,8 @@ const Modal = ({ isOpen, onClose, type }) => {
 
       // Determine the API endpoint based on type
       const apiEndpoint = type === 'merchant' 
-        ? 'http://api.intownlocal.com/IN/merchant/'
-        : 'http://api.intownlocal.com/IN/customer/';
+        ? 'https://api.intownlocal.com/IN/merchant/'
+        : 'https://api.intownlocal.com/IN/customer/';
 
       // Call the registration API
       const response = await fetch(
@@ -818,8 +836,30 @@ const Modal = ({ isOpen, onClose, type }) => {
       const result = await response.json();
       console.log("Registration API Status:", response.status);
       console.log("Registration API Response:", result);
+      
+      // Handle already registered customer
+if (
+  type === 'customer' &&
+  response.status === 409 &&
+  /customer with phone number .* already exists/i.test(
+    result.message || ''
+  )
+) {
+  const choice = window.confirm(
+    'This phone number is already registered.\n\n' +
+    'OK = Continue with Old Number\n' +
+    'Cancel = Register with New Number'
+  );
 
-      if (response.ok) {
+  if (choice) {
+    handleClose();
+  } else {
+    handleClose();
+  }
+
+  return;
+}
+  if (response.ok) {
         // Extract ID from response
         const responseId = result.id || result.body?.id || null;
         console.log('Registration ID:', responseId);
@@ -827,6 +867,7 @@ const Modal = ({ isOpen, onClose, type }) => {
         if (result.statusCode === "CONFLICT" || result.statusCodeValue === 409) {
           alert(result.body || 'Phone number already exists.');
           return;
+
         } else if (responseId) {
           // Registration successful with ID
           setRegistrationId(responseId);
