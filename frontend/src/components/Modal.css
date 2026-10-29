@@ -961,4 +961,62 @@
   .checkbox-label {
     font-size: 13px;
   }
+
+  .duplicate-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+}
+
+.duplicate-modal {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.duplicate-modal h3 {
+  margin: 0 0 12px;
+  color: #222;
+  font-size: 22px;
+}
+
+.duplicate-modal p {
+  margin: 0 0 24px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.duplicate-modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.duplicate-modal-actions button {
+  flex: 1;
+  padding: 12px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.duplicate-new-number {
+  background: #fff;
+  color: #f58220;
+  border: 1px solid #f58220;
+}
+
+.duplicate-continue {
+  background: #f58220;
+  color: #fff;
+  border: 1px solid #f58220;
+}
 }

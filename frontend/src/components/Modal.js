@@ -129,6 +129,7 @@ const Modal = ({ isOpen, onClose, type }) => {
   const [categoryLoadError, setCategoryLoadError] = useState('');
   const [hasOtherProducts, setHasOtherProducts] = useState(false);
   const [otherProducts, setOtherProducts] = useState('');
+  const [showDuplicateModal, setShowDuplicateModal] = useState(false);
 
   // Merchant Growth Pack / joining-fee payment state
   const [selectedPlanId, setSelectedPlanId] = useState('LAUNCH');
@@ -792,8 +793,9 @@ const Modal = ({ isOpen, onClose, type }) => {
       //   userType: 'CUSTOMER'
       // };
 
-      }:
-{
+      //  Customer registration payload - only required fields
+
+      }:{
   contactName: formData.contactName.trim(),
   address: formData.address.trim(),
   phoneNumber: formData.phone.replace(/\D/g, ''),
@@ -836,29 +838,15 @@ const Modal = ({ isOpen, onClose, type }) => {
       const result = await response.json();
       console.log("Registration API Status:", response.status);
       console.log("Registration API Response:", result);
-      
-      // Handle already registered customer
-if (
-  type === 'customer' &&
-  response.status === 409 &&
-  /customer with phone number .* already exists/i.test(
-    result.message || ''
-  )
+      if (
+  response.status === 409 ||
+  result.statusCode === "CONFLICT" ||
+  result.statusCodeValue === 409
 ) {
-  const choice = window.confirm(
-    'This phone number is already registered.\n\n' +
-    'OK = Continue with Old Number\n' +
-    'Cancel = Register with New Number'
-  );
-
-  if (choice) {
-    handleClose();
-  } else {
-    handleClose();
-  }
-
+  setShowDuplicateModal(true);
   return;
 }
+      
   if (response.ok) {
         // Extract ID from response
         const responseId = result.id || result.body?.id || null;
@@ -1618,6 +1606,46 @@ if (
             </div>
           </form>
         </motion.div>
+
+        {showDuplicateModal && (
+  <div className="duplicate-modal-overlay">
+    <div
+      className="duplicate-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
+      
+
+      <p>
+        This phone number is already registered.
+        Please login  new register.
+      </p>
+
+      <div className="duplicate-modal-actions">
+        <button
+        type="button"
+         className="duplicate-new-number"
+          onClick={() => {
+          setShowDuplicateModal(false);
+         handleClose();
+        }}
+       >
+        New 
+        </button>
+
+        <button
+          type="button"
+          className="duplicate-continue"
+          onClick={() => {
+            setShowDuplicateModal(false);
+            handleClose();
+          }}
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
         {isProductsOpen && type === 'merchant' && (
           <div className="product-picker-overlay" onClick={() => setIsProductsOpen(false)}>
