@@ -962,7 +962,10 @@
     font-size: 13px;
   }
 
-  .duplicate-modal-overlay {
+  
+/* Duplicate Number Modal - All Devices */
+
+.duplicate-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
@@ -971,6 +974,7 @@
   justify-content: center;
   z-index: 99999;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .duplicate-modal {
@@ -981,31 +985,31 @@
   padding: 28px 24px;
   text-align: center;
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
-}
-
-.duplicate-modal h3 {
-  margin: 0 0 12px;
-  color: #222;
-  font-size: 22px;
+  box-sizing: border-box;
 }
 
 .duplicate-modal p {
   margin: 0 0 24px;
   color: #666;
+  font-size: 16px;
   line-height: 1.6;
 }
 
 .duplicate-modal-actions {
   display: flex;
   gap: 12px;
+  width: 100%;
 }
 
 .duplicate-modal-actions button {
   flex: 1;
+  min-width: 0;
   padding: 12px 10px;
   border-radius: 8px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .duplicate-new-number {
@@ -1014,9 +1018,47 @@
   border: 1px solid #f58220;
 }
 
+.duplicate-new-number:hover {
+  background: #fff4e9;
+}
+
 .duplicate-continue {
   background: #f58220;
   color: #fff;
   border: 1px solid #f58220;
 }
+
+.duplicate-continue:hover {
+  background: #e87512;
+}
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .duplicate-modal {
+    max-width: 420px;
+    padding: 30px 26px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .duplicate-modal-overlay {
+    padding: 16px;
+  }
+
+  .duplicate-modal {
+    max-width: 100%;
+    padding: 24px 18px;
+  }
+
+  .duplicate-modal p {
+    font-size: 14px;
+  }
+
+  .duplicate-modal-actions button {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+}
+
 }

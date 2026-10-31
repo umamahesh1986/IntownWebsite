@@ -5,83 +5,83 @@ import './GrowthPack.css';
 import LocationPicker from './LocationPicker';
 
 const INTOWN_API_BASE = 'https://api.intownlocal.com/IN';
-// const INTOWN_API_BASE = 'https://devapi.intownlocal.com/IN';
-const RAZORPAY_KEY_ID = 'rzp_live_RrNfvARmKIkZ7C';
-const GST_RATE = 1.18;
 
-const GROWTH_PACK_PLANS = [
-  {
-    id: 'START',
-    name: 'START',
-    basePrice: 499,
-    features: [
-      { label: 'Lifetime INtown access', included: true },
-      { label: 'Store profile', included: true },
-      { label: 'Products / services', included: true },
-      { label: 'Create offers', included: true },
-      { label: 'Basic analytics', included: true },
-      { label: 'Pick @ store', included: true },
-      { label: 'Slot Booking', included: true },
-      { label: 'Circle', included: true },
-      { label: 'Featured visibility', included: false },
-      { label: 'Promotional campaign', included: false },
-      { label: 'Promotional creative', included: false },
-      { label: 'Social Media promotion', included: false },
-      { label: 'Campaign report', included: false },
-    ],
-  },
-  {
-    id: 'LAUNCH',
-    name: 'LAUNCH',
-    basePrice: 999,
-    recommended: true,
-    features: [
-      { label: 'Lifetime INtown access', included: true },
-      { label: 'Store profile', included: true },
-      { label: 'Products / services', included: true },
-      { label: 'Create offers', included: true },
-      { label: 'Basic analytics', included: true },
-      { label: 'Pick @ store', included: true },
-      { label: 'Slot Booking', included: true },
-      { label: 'Circle', included: true },
-      { label: 'Featured visibility', included: true },
-      { label: 'Promotional campaign', included: true },
-      { label: 'Promotional creative', included: true },
-      { label: 'Social Media promotion', included: true },
-      { label: 'Campaign report', included: true },
-    ],
-  },
-];
+// const RAZORPAY_KEY_ID = 'rzp_live_RrNfvARmKIkZ7C';
+// const GST_RATE = 1.18;
 
-const loadRazorpayWebScript = () => new Promise((resolve) => {
-  if (typeof document === 'undefined') return resolve(false);
-  if (window.Razorpay) return resolve(true);
-  const script = document.createElement('script');
-  script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-  script.async = true;
-  script.onload = () => resolve(true);
-  script.onerror = () => resolve(false);
-  document.body.appendChild(script);
-});
+// const GROWTH_PACK_PLANS = [
+//   {
+//     id: 'START',
+//     name: 'START',
+//     basePrice: 499,
+//     features: [
+//       { label: 'Lifetime INtown access', included: true },
+//       { label: 'Store profile', included: true },
+//       { label: 'Products / services', included: true },
+//       { label: 'Create offers', included: true },
+//       { label: 'Basic analytics', included: true },
+//       { label: 'Pick @ store', included: true },
+//       { label: 'Slot Booking', included: true },
+//       { label: 'Circle', included: true },
+//       { label: 'Featured visibility', included: false },
+//       { label: 'Promotional campaign', included: false },
+//       { label: 'Promotional creative', included: false },
+//       { label: 'Social Media promotion', included: false },
+//       { label: 'Campaign report', included: false },
+//     ],
+//   },
+//   {
+//     id: 'LAUNCH',
+//     name: 'LAUNCH',
+//     basePrice: 999,
+//     recommended: true,
+//     features: [
+//       { label: 'Lifetime INtown access', included: true },
+//       { label: 'Store profile', included: true },
+//       { label: 'Products / services', included: true },
+//       { label: 'Create offers', included: true },
+//       { label: 'Basic analytics', included: true },
+//       { label: 'Pick @ store', included: true },
+//       { label: 'Slot Booking', included: true },
+//       { label: 'Circle', included: true },
+//       { label: 'Featured visibility', included: true },
+//       { label: 'Promotional campaign', included: true },
+//       { label: 'Promotional creative', included: true },
+//       { label: 'Social Media promotion', included: true },
+//       { label: 'Campaign report', included: true },
+//     ],
+//   },
+// ];
 
-const openRazorpayWeb = (options) => new Promise((resolve, reject) => {
-  const RazorpayCtor = window.Razorpay;
-  if (!RazorpayCtor) {
-    reject(new Error('Razorpay SDK not available'));
-    return;
-  }
-  const rzp = new RazorpayCtor({
-    ...options,
-    handler: (response) => resolve(response),
-    modal: {
-      ondismiss: () => reject({ code: 'PAYMENT_CANCELLED', description: 'User cancelled payment' }),
-    },
-  });
-  rzp.on('payment.failed', (resp) => {
-    reject(resp?.error || new Error('Payment failed'));
-  });
-  rzp.open();
-});
+// const loadRazorpayWebScript = () => new Promise((resolve) => {
+//   if (typeof document === 'undefined') return resolve(false);
+//   if (window.Razorpay) return resolve(true);
+//   const script = document.createElement('script');
+//   script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+//   script.async = true;
+//   script.onload = () => resolve(true);
+//   script.onerror = () => resolve(false);
+//   document.body.appendChild(script);
+// });
+
+// const openRazorpayWeb = (options) => new Promise((resolve, reject) => {
+//   const RazorpayCtor = window.Razorpay;
+//   if (!RazorpayCtor) {
+//     reject(new Error('Razorpay SDK not available'));
+//     return;
+//   }
+//   const rzp = new RazorpayCtor({
+//     ...options,
+//     handler: (response) => resolve(response),
+//     modal: {
+//       ondismiss: () => reject({ code: 'PAYMENT_CANCELLED', description: 'User cancelled payment' }),
+//     },
+//   });
+//   rzp.on('payment.failed', (resp) => {
+//     reject(resp?.error || new Error('Payment failed'));
+//   });
+//   rzp.open();
+// });
 
 const Modal = ({ isOpen, onClose, type }) => {
   const [formData, setFormData] = useState({
@@ -129,134 +129,134 @@ const Modal = ({ isOpen, onClose, type }) => {
   const [categoryLoadError, setCategoryLoadError] = useState('');
   const [hasOtherProducts, setHasOtherProducts] = useState(false);
   const [otherProducts, setOtherProducts] = useState('');
-  const [showDuplicateModal, setShowDuplicateModal] = useState(false);
 
-  // Merchant Growth Pack / joining-fee payment state
-  const [selectedPlanId, setSelectedPlanId] = useState('LAUNCH');
-  const [paymentCompleted, setPaymentCompleted] = useState(false);
-  const [isPaying, setIsPaying] = useState(false);
-  const [paymentError, setPaymentError] = useState('');
-  const [paymentDetails, setPaymentDetails] = useState(null);
 
-  const selectedPlan = GROWTH_PACK_PLANS.find(p => p.id === selectedPlanId) || GROWTH_PACK_PLANS[0];
-  const joiningFeeAmount = Math.round(selectedPlan.basePrice * GST_RATE * 100) / 100;
-  const canInitiatePayment = (
-    !paymentCompleted &&
-    !isPaying &&
-    formData.businessName.trim().length >= 2 &&
-    formData.contactName.trim().length >= 2 &&
-    selectedCategoryId !== null
-  );
+  // // Merchant Growth Pack / joining-fee payment state
+  // const [selectedPlanId, setSelectedPlanId] = useState('LAUNCH');
+  // const [paymentCompleted, setPaymentCompleted] = useState(false);
+  // const [isPaying, setIsPaying] = useState(false);
+  // const [paymentError, setPaymentError] = useState('');
+  // const [paymentDetails, setPaymentDetails] = useState(null);
 
-  const handlePayJoiningFee = async () => {
-    setPaymentError('');
+  // const selectedPlan = GROWTH_PACK_PLANS.find(p => p.id === selectedPlanId) || GROWTH_PACK_PLANS[0];
+  // const joiningFeeAmount = Math.round(selectedPlan.basePrice * GST_RATE * 100) / 100;
+  // const canInitiatePayment = (
+  //   !paymentCompleted &&
+  //   !isPaying &&
+  //   formData.businessName.trim().length >= 2 &&
+  //   formData.contactName.trim().length >= 2 &&
+  //   selectedCategoryId !== null
+  // );
 
-    const phoneDigits = formData.phone.replace(/\D/g, '');
-    const missing = [];
-    if (formData.businessName.trim().length < 2) missing.push('Business Name');
-    if (formData.contactName.trim().length < 2) missing.push('Contact Name');
-    if (!selectedCategoryId) missing.push('Business Category');
-    if (formData.businessDescription.trim().length < 2) missing.push('Description');
-    if (!formData.yearsInBusiness.trim()) missing.push('Years in Business');
-    if (!formData.branches.trim()) missing.push('Branches');
-    if (!/^\d{10}$/.test(phoneDigits)) missing.push('Valid 10-digit Phone Number');
-    if (!/^\d{6}$/.test(formData.pincode)) missing.push('Valid 6-digit Pincode');
-    if (!formData.businessLocation.trim()) missing.push('Business Location');
+  // const handlePayJoiningFee = async () => {
+  //   setPaymentError('');
 
-    if (missing.length > 0) {
-      setPaymentError('Please fill: ' + missing.join(', '));
-      return;
-    }
+  //   const phoneDigits = formData.phone.replace(/\D/g, '');
+  //   const missing = [];
+  //   if (formData.businessName.trim().length < 2) missing.push('Business Name');
+  //   if (formData.contactName.trim().length < 2) missing.push('Contact Name');
+  //   if (!selectedCategoryId) missing.push('Business Category');
+  //   if (formData.businessDescription.trim().length < 2) missing.push('Description');
+  //   if (!formData.yearsInBusiness.trim()) missing.push('Years in Business');
+  //   if (!formData.branches.trim()) missing.push('Branches');
+  //   if (!/^\d{10}$/.test(phoneDigits)) missing.push('Valid 10-digit Phone Number');
+  //   if (!/^\d{6}$/.test(formData.pincode)) missing.push('Valid 6-digit Pincode');
+  //   if (!formData.businessLocation.trim()) missing.push('Business Location');
 
-    setIsPaying(true);
-    try {
-      // Step 1: Create order via existing backend
-      const createOrderRes = await fetch(`${INTOWN_API_BASE}/payment/create-order`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          mobileNumber: phoneDigits,
-          amount: joiningFeeAmount,
-          description: 'INtown Merchant Joining Fee',
-          notes: {
-            type: 'MERCHANT_JOINING',
-            plan: selectedPlan.name,
-            phoneNumber: String(phoneDigits),
-            contactName: String(formData.contactName || ''),
-            businessName: String(formData.businessName || ''),
-            businessCategory: String(formData.businessCategory || ''),
-          },
-        }),
-      });
+  //   if (missing.length > 0) {
+  //     setPaymentError('Please fill: ' + missing.join(', '));
+  //     return;
+  //   }
 
-      if (!createOrderRes.ok) {
-        const errData = await createOrderRes.json().catch(() => ({}));
-        throw new Error(errData.message || errData.error || `Order creation failed (${createOrderRes.status})`);
-      }
+  //   setIsPaying(true);
+  //   try {
+  //     // Step 1: Create order via existing backend
+  //     const createOrderRes = await fetch(`${INTOWN_API_BASE}/payment/create-order`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+  //       body: JSON.stringify({
+  //         mobileNumber: phoneDigits,
+  //         amount: joiningFeeAmount,
+  //         description: 'INtown Merchant Joining Fee',
+  //         notes: {
+  //           type: 'MERCHANT_JOINING',
+  //           plan: selectedPlan.name,
+  //           phoneNumber: String(phoneDigits),
+  //           contactName: String(formData.contactName || ''),
+  //           businessName: String(formData.businessName || ''),
+  //           businessCategory: String(formData.businessCategory || ''),
+  //         },
+  //       }),
+  //     });
 
-      const orderData = await createOrderRes.json();
-      const amountRupees = Number(orderData.amount ?? joiningFeeAmount);
-      const amountPaise = Math.round(amountRupees * 100);
+  //     if (!createOrderRes.ok) {
+  //       const errData = await createOrderRes.json().catch(() => ({}));
+  //       throw new Error(errData.message || errData.error || `Order creation failed (${createOrderRes.status})`);
+  //     }
 
-      const razorpayOptions = {
-        description: 'INtown Merchant Joining Fee',
-        image: 'https://intown-prod.s3.ap-south-1.amazonaws.com/logo/intown-logo.png',
-        currency: orderData.currency || 'INR',
-        key: orderData.keyId || RAZORPAY_KEY_ID,
-        amount: String(amountPaise),
-        name: 'INtown',
-        order_id: orderData.razorpayOrderId,
-        prefill: {
-          contact: phoneDigits,
-          name: formData.contactName,
-          email: formData.email || '',
-        },
-        theme: { color: '#ff6b35' },
-      };
+  //     const orderData = await createOrderRes.json();
+  //     const amountRupees = Number(orderData.amount ?? joiningFeeAmount);
+  //     const amountPaise = Math.round(amountRupees * 100);
 
-      // Step 2: Open Razorpay web checkout
-      const ok = await loadRazorpayWebScript();
-      if (!ok) throw new Error('Unable to load Razorpay. Please check your internet connection.');
-      const paymentResponse = await openRazorpayWeb(razorpayOptions);
+  //     const razorpayOptions = {
+  //       description: 'INtown Merchant Joining Fee',
+  //       image: 'https://intown-prod.s3.ap-south-1.amazonaws.com/logo/intown-logo.png',
+  //       currency: orderData.currency || 'INR',
+  //       key: orderData.keyId || RAZORPAY_KEY_ID,
+  //       amount: String(amountPaise),
+  //       name: 'INtown',
+  //       order_id: orderData.razorpayOrderId,
+  //       prefill: {
+  //         contact: phoneDigits,
+  //         name: formData.contactName,
+  //         email: formData.email || '',
+  //       },
+  //       theme: { color: '#ff6b35' },
+  //     };
 
-      // Step 3: Verify payment via existing backend
-      const verifyRes = await fetch(`${INTOWN_API_BASE}/payment/verify`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          razorpayPaymentId: paymentResponse.razorpay_payment_id,
-          razorpayOrderId: paymentResponse.razorpay_order_id,
-          razorpaySignature: paymentResponse.razorpay_signature,
-          amount: amountPaise,
-          mobileNumber: phoneDigits,
-        }),
-      });
+  //     // Step 2: Open Razorpay web checkout
+  //     const ok = await loadRazorpayWebScript();
+  //     if (!ok) throw new Error('Unable to load Razorpay. Please check your internet connection.');
+  //     const paymentResponse = await openRazorpayWeb(razorpayOptions);
 
-      const verifyData = await verifyRes.json().catch(() => ({}));
-      if (!verifyRes.ok || verifyData?.status === 'FAILED') {
-        throw new Error(verifyData?.message || 'Payment verification failed');
-      }
+  //     // Step 3: Verify payment via existing backend
+  //     const verifyRes = await fetch(`${INTOWN_API_BASE}/payment/verify`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+  //       body: JSON.stringify({
+  //         razorpayPaymentId: paymentResponse.razorpay_payment_id,
+  //         razorpayOrderId: paymentResponse.razorpay_order_id,
+  //         razorpaySignature: paymentResponse.razorpay_signature,
+  //         amount: amountPaise,
+  //         mobileNumber: phoneDigits,
+  //       }),
+  //     });
 
-      setPaymentDetails({
-        razorpayPaymentId: paymentResponse.razorpay_payment_id,
-        razorpayOrderId: paymentResponse.razorpay_order_id,
-        razorpaySignature: paymentResponse.razorpay_signature,
-      });
-      setPaymentCompleted(true);
-      setPaymentError('');
-    } catch (err) {
-      console.error('Joining fee payment error:', err);
-      setPaymentCompleted(false);
-      setPaymentDetails(null);
-      setFormData(prev => ({ ...prev, agreeTerms: false }));
-      const cancelled = err?.code === 'PAYMENT_CANCELLED' || String(err?.description || '').toLowerCase().includes('cancel');
-      setPaymentError(cancelled
-        ? 'Payment was cancelled. Please retry to continue registration.'
-        : (err?.message || err?.description || 'Payment failed. Please retry to continue registration.'));
-    } finally {
-      setIsPaying(false);
-    }
-  };
+  //     const verifyData = await verifyRes.json().catch(() => ({}));
+  //     if (!verifyRes.ok || verifyData?.status === 'FAILED') {
+  //       throw new Error(verifyData?.message || 'Payment verification failed');
+  //     }
+
+  //     setPaymentDetails({
+  //       razorpayPaymentId: paymentResponse.razorpay_payment_id,
+  //       razorpayOrderId: paymentResponse.razorpay_order_id,
+  //       razorpaySignature: paymentResponse.razorpay_signature,
+  //     });
+  //     setPaymentCompleted(true);
+  //     setPaymentError('');
+  //   } catch (err) {
+  //     console.error('Joining fee payment error:', err);
+  //     setPaymentCompleted(false);
+  //     setPaymentDetails(null);
+  //     setFormData(prev => ({ ...prev, agreeTerms: false }));
+  //     const cancelled = err?.code === 'PAYMENT_CANCELLED' || String(err?.description || '').toLowerCase().includes('cancel');
+  //     setPaymentError(cancelled
+  //       ? 'Payment was cancelled. Please retry to continue registration.'
+  //       : (err?.message || err?.description || 'Payment failed. Please retry to continue registration.'));
+  //   } finally {
+  //     setIsPaying(false);
+  //   }
+  // };
 
   useEffect(() => {
     if (!isOpen || type !== 'merchant' || categories.length) return;
@@ -418,7 +418,7 @@ const Modal = ({ isOpen, onClose, type }) => {
         /^\d{10}$/.test(formData.phone.replace(/\D/g, '')) &&
         /^\d{6}$/.test(formData.pincode) &&
         formData.businessLocation.trim() !== '' &&
-        paymentCompleted &&
+        // paymentCompleted &&
         formData.agreeTerms
       );
     } else {
@@ -731,6 +731,8 @@ const Modal = ({ isOpen, onClose, type }) => {
     return Promise.all(uploadPromises);
   };
 
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -738,38 +740,37 @@ const Modal = ({ isOpen, onClose, type }) => {
       return;
     }
 
-    if (type === 'merchant' && (!paymentCompleted || !paymentDetails?.razorpayPaymentId)) {
-      setPaymentError('Please pay the joining fee before completing registration.');
-      return;
-    }
+    // if (type === 'merchant' && (!paymentCompleted || !paymentDetails?.razorpayPaymentId)) {
+    //   setPaymentError('Please pay the joining fee before completing registration.');
+    //   return;
+    // }
 
     setIsSubmitting(true);
 
     try {
-      // Prepare payload for registration (without ID as per requirement)
-      const payload = type === 'merchant' ? { 
-        storeImages: [], // Start with empty array, will be updated after successful registration
-        userType: 'MERCHANT',
-        // Map form data to API expected fields
-        businessName: formData.businessName,
-        contactName: formData.contactName,
-        address: formData.address,
-        shopName: formData.businessName, // Using businessName as shopName
-        phoneNumber: formData.phone.replace(/\D/g, ''),
-        email: formData.email,
-        pincode: formData.pincode,
-        businessCategory: formData.businessCategory,
-        categoryList: selectedCategoryId ? [selectedCategoryId] : [],
-        productIds: selectedProductIds.map(id => String(id)),
-        productNames: availableProducts
-          .filter(product => selectedProductIds.includes(product.id))
-          .map(product => product.name),
-        description: formData.businessDescription,
-        fromYears: formData.yearsInBusiness,
-        branchesOfBusiness: formData.branches,
-        acceptedTerms: formData.agreeTerms ? 'ACCEPTED' : 'NOT_ACCEPTED',
-        longitude: parseFloat(formData.businessLng) || 0,
-        latitude: parseFloat(formData.businessLat) || 0,
+      // // Prepare payload for registration (without ID as per requirement)
+      const payload = type === 'merchant'
+        ? {
+            businessName: formData.businessName.trim(),
+            contactName: formData.contactName.trim(),
+            address: formData.address.trim(),
+            shopName: formData.businessName.trim(),
+            phoneNumber: formData.phone.replace(/\D/g, ''),
+            email: formData.email.trim(),
+            pincode: Number(formData.pincode),
+            userType: 'IN_MERCHANT',
+            businessCategory: formData.businessCategory,
+            categoryList: selectedCategoryId ? [Number(selectedCategoryId)] : [],
+            productNames: availableProducts
+              .filter(product => selectedProductIds.includes(product.id))
+              .map(product => product.name),
+            s3ImageUrl: '',
+            description: formData.businessDescription.trim(),
+            fromYears: String(formData.yearsInBusiness),
+            branchesOfBusiness: String(formData.branches),
+            longitude: Number(formData.businessLng) || 0,
+            latitude: Number(formData.businessLat) || 0,
+
         // // Growth Pack joining-fee payment
         // growthPack: selectedPlan.name,
         // joiningFee: joiningFeeAmount,
@@ -778,20 +779,7 @@ const Modal = ({ isOpen, onClose, type }) => {
         // razorpayOrderId: paymentDetails?.razorpayOrderId,
         // razorpaySignature: paymentDetails?.razorpaySignature
         
-      // } : {
-      //   // Customer registration payload - only required fields
-      //   contactName: formData.contactName,
-      //   phoneNumber: formData.phone.replace(/\D/g, ''),
-      //   email: formData.email,
-      //   pincode: formData.pincode,
-      //   address: formData.address,
-      //   introducedBy: formData.introducedBy,
-      //   acceptedTerms: formData.agreeTerms ? 'ACCEPTED' : 'NOT_ACCEPTED',
-      //   longitude: parseFloat(formData.customerLng) || 0,
-      //   latitude: parseFloat(formData.customerLat) || 0,
-      //   storeImages: [], // Start with empty array, will be updated after successful registration
-      //   userType: 'CUSTOMER'
-      // };
+      
 
       //  Customer registration payload - only required fields
 
@@ -802,11 +790,14 @@ const Modal = ({ isOpen, onClose, type }) => {
   email: formData.email.trim(),
   pincode: Number(formData.pincode),
   userType: 'IN_CUSTOMER',
-  longitude: Number(formData.customerLng),
-  latitude: Number(formData.customerLat),
+  longitude: Number(formData.customerLng) || 0,
+  latitude: Number(formData.customerLat) || 0,
   referredBy: formData.introducedBy?.trim() || '',
+  acceptedTerms: formData.agreeTerms ? 'ACCEPTED' : 'NOT_ACCEPTED',
   isPrivileged: false,
-  // deviceId: 'web_browser'
+  storeImages: [], // Start with empty array, will be updated after successful registration
+  
+  
 }
 
 
@@ -838,16 +829,12 @@ const Modal = ({ isOpen, onClose, type }) => {
       const result = await response.json();
       console.log("Registration API Status:", response.status);
       console.log("Registration API Response:", result);
-      if (
-  response.status === 409 ||
-  result.statusCode === "CONFLICT" ||
-  result.statusCodeValue === 409
-) {
-  setShowDuplicateModal(true);
-  return;
-}
+      
+    
       
   if (response.ok) {
+   
+ 
         // Extract ID from response
         const responseId = result.id || result.body?.id || null;
         console.log('Registration ID:', responseId);
@@ -937,7 +924,9 @@ const Modal = ({ isOpen, onClose, type }) => {
     }
   };
 
-  const handleClose = () => {
+
+
+const handleClose = () => {
     setFormData({
       // Merchant fields
       businessName: '',
@@ -975,11 +964,11 @@ const Modal = ({ isOpen, onClose, type }) => {
     setHasOtherProducts(false);
     setOtherProducts('');
     setShowSuccessModal(false);
-    setSelectedPlanId('LAUNCH');
-    setPaymentCompleted(false);
-    setIsPaying(false);
-    setPaymentError('');
-    setPaymentDetails(null);
+    // setSelectedPlanId('LAUNCH');
+    // setPaymentCompleted(false);
+    // setIsPaying(false);
+    // setPaymentError('');
+    // setPaymentDetails(null);
     onClose();
   };
 
@@ -1461,7 +1450,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                   )}
                 </div>
 
-                <div className="growth-pack" data-testid="merchant-growth-pack">
+                {/* <div className="growth-pack" data-testid="merchant-growth-pack">
                   <div className="growth-pack-header">
                     <span className="growth-pack-rocket" aria-hidden="true">🚀</span>
                     <h3>Merchant Growth Pack</h3>
@@ -1549,29 +1538,30 @@ const Modal = ({ isOpen, onClose, type }) => {
                       </div>
                     )}
                   </div>
-                </div>
+                </div> */}
               </>
             )}
 
 
-            <div className={`form-group checkbox-group ${getFieldValidationClass('agreeTerms', formData.agreeTerms)} ${type === 'merchant' && !paymentCompleted ? 'checkbox-group-locked' : ''}`}>
+            {/* <div className={`form-group checkbox-group ${getFieldValidationClass('agreeTerms', formData.agreeTerms)} ${type === 'merchant' && !paymentCompleted ? 'checkbox-group-locked' : ''}`}> */}
+            <div className={`form-group checkbox-group ${getFieldValidationClass('agreeTerms', formData.agreeTerms)}`}>
               <label className="checkbox-label">
                 <input
                   type="checkbox"
                   name="agreeTerms"
                   checked={formData.agreeTerms}
                   onChange={handleInputChange}
-                  disabled={type === 'merchant' && !paymentCompleted}
+                  // disabled={type === 'merchant' && !paymentCompleted}
                   data-testid="agree-terms-checkbox"
                 />
                 <span className="checkmark"></span>
                 I agree to the Terms & Conditions below.
               </label>
-              {type === 'merchant' && !paymentCompleted && (
+              {/* {type === 'merchant' && !paymentCompleted && (
                 <span className="terms-lock-hint" data-testid="terms-lock-hint">
                   Complete the joining fee payment to enable this checkbox.
                 </span>
-              )}
+              )} */}
               {errors.agreeTerms && <span className="error-message">{errors.agreeTerms}</span>}
             </div>
 
@@ -1607,45 +1597,7 @@ const Modal = ({ isOpen, onClose, type }) => {
           </form>
         </motion.div>
 
-        {showDuplicateModal && (
-  <div className="duplicate-modal-overlay">
-    <div
-      className="duplicate-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
-      
-
-      <p>
-        This phone number is already registered.
-        Please login  new register.
-      </p>
-
-      <div className="duplicate-modal-actions">
-        <button
-        type="button"
-         className="duplicate-new-number"
-          onClick={() => {
-          setShowDuplicateModal(false);
-         handleClose();
-        }}
-       >
-        New 
-        </button>
-
-        <button
-          type="button"
-          className="duplicate-continue"
-          onClick={() => {
-            setShowDuplicateModal(false);
-            handleClose();
-          }}
-        >
-          Continue
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+  
 
         {isProductsOpen && type === 'merchant' && (
           <div className="product-picker-overlay" onClick={() => setIsProductsOpen(false)}>
