@@ -834,7 +834,12 @@ const Modal = ({ isOpen, onClose, type }) => {
       
   if (response.ok) {
    
- 
+ //     if (response.ok || response.status === 200 || (type === 'merchant' && response.status === 402)) {
+        
+  //       // Extract ID from response or generate dummy fallback ID
+  //       const responseId = result.id || result.body?.id || (generateUniqueInTownId ? generateUniqueInTownId() : 100001);
+  //       console.log('Registration ID:', responseId);
+
         // Extract ID from response
         const responseId = result.id || result.body?.id || null;
         console.log('Registration ID:', responseId);
