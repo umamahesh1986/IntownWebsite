@@ -796,6 +796,7 @@ const Modal = ({ isOpen, onClose, type }) => {
   acceptedTerms: formData.agreeTerms ? 'ACCEPTED' : 'NOT_ACCEPTED',
   isPrivileged: false,
   storeImages: [], // Start with empty array, will be updated after successful registration
+  // deviceId: "web_browser",
   
   
 }
@@ -832,17 +833,17 @@ const Modal = ({ isOpen, onClose, type }) => {
       
     
       
-  // if (response.ok) {
-     if (response.ok || response.status === 200 || (type === 'merchant' && response.status === 402)) {
+  if (response.ok) {
+    //  if (response.ok || response.status === 200 || (type === 'merchant' && response.status === 402)) {
         
-        // Extract ID from response or generate dummy fallback ID
-        const responseId = result.id || result.body?.id || (generateUniqueInTownId ? generateUniqueInTownId() : 100001);
-        console.log('Registration ID:', responseId);
+    //     // Extract ID from response or generate dummy fallback ID
+    //     const responseId = result.id || result.body?.id || (generateUniqueInTownId ? generateUniqueInTownId() : 100001);
+    //     console.log('Registration ID:', responseId);
 
  
-        // // Extract ID from response
-        // const responseId = result.id || result.body?.id || null;
-        // console.log('Registration ID:', responseId);
+        // Extract ID from response
+        const responseId = result.id || result.body?.id || null;
+        console.log('Registration ID:', responseId);
         
         if (result.statusCode === "CONFLICT" || result.statusCodeValue === 409) {
           alert(result.body || 'Phone number already exists.');
