@@ -239,7 +239,7 @@ const ForCustomers = () => {
             </p>
 
             <a
-              href="https://play.google.com/store/search?q=intown&c=apps&hl=en_IN"
+               href="/Download"
               target="_blank"
               rel="noopener noreferrer"
               className="customers-final-btn"

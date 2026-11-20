@@ -301,7 +301,7 @@ const Download = () => {
             <div className="download-cta-buttons">
 
               <a
-                href={PLAY_STORE_URL}
+                   href="/Download"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="download-cta-button"

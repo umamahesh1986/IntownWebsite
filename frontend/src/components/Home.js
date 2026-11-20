@@ -213,14 +213,12 @@ const Home = () => {
             >
 
               <a
-                href="https://play.google.com/store/search?q=intown&c=apps&hl=en_IN"
-                target="_blank"
-                rel="noopener,noreferrer"
-                className="home-hero-btn home-hero-btn-primary"
-              >
-                Download the INtown App
-                <span>↗</span>
-              </a>
+  href="/Download"
+  className="home-final-btn home-final-btn-primary"
+>
+  Download the INtown App
+  <span>↗</span>
+</a>
 
 
               <a
@@ -1211,16 +1209,12 @@ const Home = () => {
           <div className="home-local-cta">
 
             <a
-              href="https://play.google.com/store/search?q=intown&c=apps&hl=en_IN"
-              target="_blank"
-              rel="noopener,noreferrer"
-              className="home-local-btn"
-            >
-              Download the App
-              <span>
-                ↗
-              </span>
-            </a>
+  href="/Download"
+  className="home-local-btn"
+>
+  Download the App
+  <span>↗</span>
+</a>
 
           </div>
 
@@ -1825,16 +1819,12 @@ const Home = () => {
           <div className="home-final-buttons">
 
             <a
-              href="https://play.google.com/store/search?q=intown&c=apps&hl=en_IN"
-              target="_blank"
-              rel="noopener,noreferrer"
-              className="home-final-btn home-final-btn-primary"
-            >
-              Download the INtown App
-              <span>
-                ↗
-              </span>
-            </a>
+  href="/Download"
+  className="home-hero-btn home-hero-btn-primary"
+>
+  Download the INtown App
+  <span>↗</span>
+</a>
 
 
             <a
